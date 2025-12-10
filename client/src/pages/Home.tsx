@@ -258,8 +258,8 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
             <img 
-              src="/images/hero-stage.png" 
-              alt="Annual Student Concert" 
+              src="/images/king-concert.jpg" 
+              alt="Jenkins Kheejo performing at concert" 
               className="w-full h-auto rounded-2xl shadow-premium object-cover"
             />
             <div className="space-y-6">
@@ -572,8 +572,8 @@ export default function Home() {
               </div>
             </div>
             <img 
-              src="/images/hero-stage.png" 
-              alt="Concert Stage" 
+              src="/images/king-concert.jpg" 
+              alt="King performing at concert" 
               className="w-full h-auto rounded-2xl shadow-premium object-cover"
             />
           </div>

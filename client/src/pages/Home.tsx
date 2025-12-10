@@ -184,8 +184,8 @@ export default function Home() {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl"></div>
               <img 
-                src="/images/hero-founder.png" 
-                alt="Jenkins Kheejo - King" 
+                src="/images/hero-founder.jpg" 
+                alt="Jenkins Kheejo - King performing with band" 
                 className="w-full h-auto rounded-2xl shadow-premium object-cover"
               />
             </div>

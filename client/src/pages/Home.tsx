@@ -8,11 +8,13 @@ export default function Home() {
     name: '',
     email: '',
     phone: '',
-    instrument: '',
+    courseCategory: '',
+    courseName: '',
     message: ''
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [activeTab, setActiveTab] = useState('instruments');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -24,11 +26,10 @@ export default function Home() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real application, this would send data to a backend
     console.log('Enrollment data:', enrollmentData);
     setSubmitted(true);
     setTimeout(() => {
-      setEnrollmentData({ name: '', email: '', phone: '', instrument: '', message: '' });
+      setEnrollmentData({ name: '', email: '', phone: '', courseCategory: '', courseName: '', message: '' });
       setSubmitted(false);
     }, 3000);
   };
@@ -40,6 +41,70 @@ export default function Home() {
     { name: 'Bass Guitar', icon: '🎻', description: 'Feel the foundation of music' },
     { name: 'Vocal', icon: '🎤', description: 'Develop your voice and presence' }
   ];
+
+  const locations = [
+    { region: 'North', city: 'Goodlands' },
+    { region: 'East', city: 'Flacq' },
+    { region: 'Center', city: 'Quatre Bornes' }
+  ];
+
+  const courseCategories = {
+    instruments: {
+      title: 'Instrument Courses',
+      price: 'Rs 1,200/month',
+      duration: '12 Months',
+      description: 'Professional instrument training for all levels',
+      courses: instruments
+    },
+    media: {
+      title: 'Media Production Course',
+      price: 'Rs 1,500/month',
+      duration: '12 Months',
+      description: 'Master professional video production and streaming',
+      modules: [
+        'Camera Fundamentals',
+        'Lighting Setup & Techniques',
+        'Editing & Color Grading',
+        'Streaming in High Quality'
+      ]
+    },
+    audio: {
+      title: 'Audio Engineering Course',
+      price: 'Rs 1,500/month',
+      duration: '12 Months',
+      description: 'Professional audio production and live sound',
+      modules: [
+        'Professional Sound System Equipment',
+        'Live Mixing Techniques',
+        'Studio Recording, Mixing & Mastering',
+        'Audio Setup for Streaming'
+      ]
+    },
+    songwriting: {
+      title: 'Songwriting & Composition Course',
+      price: 'Rs 1,200/month',
+      duration: '12 Months',
+      description: 'Transform your inspiration into professional songs',
+      modules: [
+        'Song Concept & Inspiration',
+        'Lyric Writing',
+        'Melody & Harmony Development',
+        'Production & Publishing'
+      ]
+    },
+    worship: {
+      title: 'Worship Leadership Course',
+      price: 'Rs 1,000/month',
+      duration: '12 Months',
+      description: 'Lead worship with purpose and excellence',
+      modules: [
+        'How to Lead Worship in Church',
+        'Organizing & Running Rehearsals',
+        'Essentials of Praise & Worship',
+        'Purpose of Music in Church'
+      ]
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -220,78 +285,259 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Courses Section */}
+      {/* Locations Section */}
       <section className="py-20 md:py-28 bg-gray-50">
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
-              Instruments & Courses
+              Classes Across Mauritius
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Choose your instrument and start your 6-month journey to musical mastery. Beginner and Intermediate levels available.
+              King Music Academy is expanding across the island. Find a location near you!
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-16">
-            {instruments.map((instrument) => (
-              <Card key={instrument.name} className="p-6 hover:shadow-lg transition-shadow border-0">
-                <div className="text-5xl mb-4">{instrument.icon}</div>
-                <h3 className="text-xl font-bold text-primary mb-2">{instrument.name}</h3>
-                <p className="text-gray-600 text-sm">{instrument.description}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {locations.map((location) => (
+              <Card key={location.region} className="p-8 border-0 shadow-subtle hover:shadow-lg transition-shadow">
+                <div className="flex items-center gap-3 mb-4">
+                  <MapPin className="w-6 h-6 text-accent" />
+                  <h3 className="text-2xl font-bold text-primary">{location.region}</h3>
+                </div>
+                <p className="text-lg text-gray-700 font-semibold">{location.city}</p>
+                <p className="text-gray-600 mt-2">Professional music education in your region</p>
+                <Button 
+                  className="mt-6 w-full bg-primary hover:bg-blue-900 text-white"
+                  onClick={() => document.getElementById('enrollment')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  Enroll in {location.region}
+                </Button>
               </Card>
             ))}
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <Card className="p-8 border-0 shadow-subtle">
-              <h3 className="text-2xl font-bold text-primary mb-4">Beginner Level</h3>
-              <p className="text-gray-700 mb-4">
-                Perfect for those starting their musical journey. Learn fundamentals, basic techniques, and foundational music theory.
-              </p>
-              <ul className="space-y-2 text-gray-700 mb-6">
-                <li className="flex items-center gap-2">
-                  <span className="text-accent">✓</span> 6-month course (24 lessons)
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-accent">✓</span> 1 hour per lesson, 4 lessons per month
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-accent">✓</span> Basic techniques and music theory
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-accent">✓</span> Introduction to worship music
-                </li>
-              </ul>
-              <p className="text-2xl font-bold text-primary">Rs 1,200/month</p>
-            </Card>
-
-            <Card className="p-8 border-0 shadow-subtle bg-gradient-to-br from-primary/5 to-blue-50">
-              <h3 className="text-2xl font-bold text-primary mb-4">Intermediate Level</h3>
-              <p className="text-gray-700 mb-4">
-                For those ready to advance. Develop advanced techniques, performance skills, and leadership abilities.
-              </p>
-              <ul className="space-y-2 text-gray-700 mb-6">
-                <li className="flex items-center gap-2">
-                  <span className="text-accent">✓</span> 6-month course (24 lessons)
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-accent">✓</span> 1 hour per lesson, 4 lessons per month
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-accent">✓</span> Advanced techniques and improvisation
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-accent">✓</span> Performance and worship leadership
-                </li>
-              </ul>
-              <p className="text-2xl font-bold text-primary">Rs 1,200/month</p>
-            </Card>
           </div>
         </div>
       </section>
 
-      {/* Concert Section */}
+      {/* Courses Section */}
       <section className="py-20 md:py-28 bg-white">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
+              Our Comprehensive Course Offerings
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              From instrument mastery to professional production and worship leadership. All courses are 12 months long.
+            </p>
+          </div>
+
+          {/* Course Tabs */}
+          <div className="flex flex-wrap gap-2 mb-12 justify-center">
+            {[
+              { id: 'instruments', label: '🎸 Instruments' },
+              { id: 'media', label: '📹 Media Production' },
+              { id: 'audio', label: '🎧 Audio Engineering' },
+              { id: 'songwriting', label: '✍️ Songwriting' },
+              { id: 'worship', label: '🙏 Worship Leadership' }
+            ].map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                  activeTab === tab.id
+                    ? 'bg-primary text-white shadow-lg'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Instruments Tab */}
+          {activeTab === 'instruments' && (
+            <div className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
+                {instruments.map((instrument) => (
+                  <Card key={instrument.name} className="p-6 hover:shadow-lg transition-shadow border-0">
+                    <div className="text-5xl mb-4">{instrument.icon}</div>
+                    <h3 className="text-xl font-bold text-primary mb-2">{instrument.name}</h3>
+                    <p className="text-gray-600 text-sm">{instrument.description}</p>
+                  </Card>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <Card className="p-8 border-0 shadow-subtle">
+                  <h3 className="text-2xl font-bold text-primary mb-4">Beginner Level</h3>
+                  <p className="text-gray-700 mb-4">
+                    Perfect for those starting their musical journey. Learn fundamentals, basic techniques, and foundational music theory.
+                  </p>
+                  <ul className="space-y-2 text-gray-700 mb-6">
+                    <li className="flex items-center gap-2">
+                      <span className="text-accent">✓</span> 12-month course (48 lessons)
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-accent">✓</span> 1 hour per lesson, 4 lessons per month
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-accent">✓</span> Basic techniques and music theory
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-accent">✓</span> Introduction to worship music
+                    </li>
+                  </ul>
+                  <p className="text-2xl font-bold text-primary">Rs 1,200/month</p>
+                </Card>
+
+                <Card className="p-8 border-0 shadow-subtle bg-gradient-to-br from-primary/5 to-blue-50">
+                  <h3 className="text-2xl font-bold text-primary mb-4">Intermediate Level</h3>
+                  <p className="text-gray-700 mb-4">
+                    For those ready to advance. Develop advanced techniques, performance skills, and leadership abilities.
+                  </p>
+                  <ul className="space-y-2 text-gray-700 mb-6">
+                    <li className="flex items-center gap-2">
+                      <span className="text-accent">✓</span> 12-month course (48 lessons)
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-accent">✓</span> 1 hour per lesson, 4 lessons per month
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-accent">✓</span> Advanced techniques and improvisation
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-accent">✓</span> Performance and worship leadership
+                    </li>
+                  </ul>
+                  <p className="text-2xl font-bold text-primary">Rs 1,200/month</p>
+                </Card>
+              </div>
+            </div>
+          )}
+
+          {/* Media Production Tab */}
+          {activeTab === 'media' && (
+            <div className="space-y-8">
+              <Card className="p-8 border-0 shadow-subtle bg-gradient-to-br from-primary/5 to-blue-50">
+                <h3 className="text-3xl font-bold text-primary mb-2">Media Production Course</h3>
+                <p className="text-gray-700 mb-6">Master professional video production, cinematography, editing, and streaming.</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  {courseCategories.media.modules.map((module, idx) => (
+                    <div key={idx} className="bg-white p-6 rounded-lg border border-gray-200">
+                      <h4 className="font-bold text-primary mb-2">Module {idx + 1}</h4>
+                      <p className="text-gray-700">{module}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="text-gray-600">Duration: {courseCategories.media.duration}</p>
+                    <p className="text-3xl font-bold text-primary mt-2">{courseCategories.media.price}</p>
+                  </div>
+                  <Button 
+                    className="bg-primary hover:bg-blue-900 text-white"
+                    onClick={() => document.getElementById('enrollment')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
+                    Enroll Now
+                  </Button>
+                </div>
+              </Card>
+            </div>
+          )}
+
+          {/* Audio Engineering Tab */}
+          {activeTab === 'audio' && (
+            <div className="space-y-8">
+              <Card className="p-8 border-0 shadow-subtle bg-gradient-to-br from-primary/5 to-blue-50">
+                <h3 className="text-3xl font-bold text-primary mb-2">Audio Engineering Course</h3>
+                <p className="text-gray-700 mb-6">Professional audio production, live sound engineering, and streaming audio setup.</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  {courseCategories.audio.modules.map((module, idx) => (
+                    <div key={idx} className="bg-white p-6 rounded-lg border border-gray-200">
+                      <h4 className="font-bold text-primary mb-2">Module {idx + 1}</h4>
+                      <p className="text-gray-700">{module}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="text-gray-600">Duration: {courseCategories.audio.duration}</p>
+                    <p className="text-3xl font-bold text-primary mt-2">{courseCategories.audio.price}</p>
+                  </div>
+                  <Button 
+                    className="bg-primary hover:bg-blue-900 text-white"
+                    onClick={() => document.getElementById('enrollment')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
+                    Enroll Now
+                  </Button>
+                </div>
+              </Card>
+            </div>
+          )}
+
+          {/* Songwriting Tab */}
+          {activeTab === 'songwriting' && (
+            <div className="space-y-8">
+              <Card className="p-8 border-0 shadow-subtle bg-gradient-to-br from-primary/5 to-blue-50">
+                <h3 className="text-3xl font-bold text-primary mb-2">Songwriting & Composition Course</h3>
+                <p className="text-gray-700 mb-6">Transform your inspiration and lyrics into professional, publishable songs. Learn from a composer with 300+ songs.</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  {courseCategories.songwriting.modules.map((module, idx) => (
+                    <div key={idx} className="bg-white p-6 rounded-lg border border-gray-200">
+                      <h4 className="font-bold text-primary mb-2">Module {idx + 1}</h4>
+                      <p className="text-gray-700">{module}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="text-gray-600">Duration: {courseCategories.songwriting.duration}</p>
+                    <p className="text-3xl font-bold text-primary mt-2">{courseCategories.songwriting.price}</p>
+                  </div>
+                  <Button 
+                    className="bg-primary hover:bg-blue-900 text-white"
+                    onClick={() => document.getElementById('enrollment')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
+                    Enroll Now
+                  </Button>
+                </div>
+              </Card>
+            </div>
+          )}
+
+          {/* Worship Leadership Tab */}
+          {activeTab === 'worship' && (
+            <div className="space-y-8">
+              <Card className="p-8 border-0 shadow-subtle bg-gradient-to-br from-primary/5 to-blue-50">
+                <h3 className="text-3xl font-bold text-primary mb-2">Worship Leadership Course</h3>
+                <p className="text-gray-700 mb-6">Lead worship with excellence and purpose. Learn from a leading worshiper inspiring churches globally.</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  {courseCategories.worship.modules.map((module, idx) => (
+                    <div key={idx} className="bg-white p-6 rounded-lg border border-gray-200">
+                      <h4 className="font-bold text-primary mb-2">Module {idx + 1}</h4>
+                      <p className="text-gray-700">{module}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="text-gray-600">Duration: {courseCategories.worship.duration}</p>
+                    <p className="text-3xl font-bold text-primary mt-2">{courseCategories.worship.price}</p>
+                  </div>
+                  <Button 
+                    className="bg-primary hover:bg-blue-900 text-white"
+                    onClick={() => document.getElementById('enrollment')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
+                    Enroll Now
+                  </Button>
+                </div>
+              </Card>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Concert Section */}
+      <section className="py-20 md:py-28 bg-gray-50">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -398,20 +644,46 @@ export default function Home() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold mb-2">Choose Your Instrument *</label>
+                  <label className="block text-sm font-semibold mb-2">Choose Your Course Category *</label>
                   <select
-                    name="instrument"
-                    value={enrollmentData.instrument}
+                    name="courseCategory"
+                    value={enrollmentData.courseCategory}
                     onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white/50"
                   >
-                    <option value="" className="text-gray-800">Select an instrument...</option>
-                    <option value="drum" className="text-gray-800">Drum</option>
-                    <option value="keyboard" className="text-gray-800">Keyboard</option>
-                    <option value="guitar" className="text-gray-800">Guitar</option>
-                    <option value="bass" className="text-gray-800">Bass Guitar</option>
-                    <option value="vocal" className="text-gray-800">Vocal</option>
+                    <option value="" className="text-gray-800">Select a course category...</option>
+                    <option value="instruments" className="text-gray-800">Instrument Courses</option>
+                    <option value="media" className="text-gray-800">Media Production</option>
+                    <option value="audio" className="text-gray-800">Audio Engineering</option>
+                    <option value="songwriting" className="text-gray-800">Songwriting & Composition</option>
+                    <option value="worship" className="text-gray-800">Worship Leadership</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-2">Specific Course/Instrument *</label>
+                  <input
+                    type="text"
+                    name="courseName"
+                    value={enrollmentData.courseName}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    placeholder="e.g., Guitar, Media Production, Worship Leadership..."
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-2">Preferred Location *</label>
+                  <select
+                    name="location"
+                    className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white/50"
+                  >
+                    <option value="" className="text-gray-800">Select a location...</option>
+                    <option value="goodlands" className="text-gray-800">North - Goodlands</option>
+                    <option value="flacq" className="text-gray-800">East - Flacq</option>
+                    <option value="quatre-bornes" className="text-gray-800">Center - Quatre Bornes</option>
                   </select>
                 </div>
 
@@ -444,7 +716,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Location & Contact Section */}
+      {/* Contact Section */}
       <section className="py-20 md:py-28 bg-gray-50">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -454,8 +726,12 @@ export default function Home() {
                 <div className="flex gap-4">
                   <MapPin className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
                   <div>
-                    <h4 className="font-bold text-primary mb-1">Location</h4>
-                    <p className="text-gray-700">Goodlands, North Mauritius</p>
+                    <h4 className="font-bold text-primary mb-2">Our Locations</h4>
+                    <ul className="text-gray-700 space-y-1">
+                      <li>North: Goodlands</li>
+                      <li>East: Flacq</li>
+                      <li>Center: Quatre Bornes</li>
+                    </ul>
                   </div>
                 </div>
                 <div className="flex gap-4">
@@ -484,7 +760,11 @@ export default function Home() {
                 </li>
                 <li className="flex gap-3">
                   <span className="text-accent font-bold">✓</span>
-                  <span>Professional, structured 6-month courses</span>
+                  <span>Comprehensive courses: Instruments, Media, Audio, Songwriting, Worship</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-accent font-bold">✓</span>
+                  <span>12-month professional courses with structured curriculum</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-accent font-bold">✓</span>
@@ -492,15 +772,15 @@ export default function Home() {
                 </li>
                 <li className="flex gap-3">
                   <span className="text-accent font-bold">✓</span>
-                  <span>Affordable pricing: Rs 1,200/month</span>
+                  <span>Affordable pricing from Rs 1,000 - Rs 1,500/month</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-accent font-bold">✓</span>
+                  <span>Three locations across the island</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-accent font-bold">✓</span>
                   <span>Performance opportunity at the annual concert</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-accent font-bold">✓</span>
-                  <span>Music for everyone: beginner to intermediate levels</span>
                 </li>
               </ul>
             </div>
@@ -530,15 +810,15 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4">Instruments</h4>
+              <h4 className="font-bold mb-4">Courses</h4>
               <ul className="space-y-2 text-blue-100">
-                <li>Drum • Keyboard • Guitar</li>
-                <li>Bass Guitar • Vocal</li>
+                <li>Instruments • Media • Audio</li>
+                <li>Songwriting • Worship Leadership</li>
               </ul>
             </div>
           </div>
           <div className="border-t border-blue-700 pt-8 text-center text-blue-100">
-            <p>&copy; 2026 King Music Academy. All rights reserved. | Goodlands, Mauritius</p>
+            <p>&copy; 2026 King Music Academy. All rights reserved. | Mauritius</p>
           </div>
         </div>
       </footer>

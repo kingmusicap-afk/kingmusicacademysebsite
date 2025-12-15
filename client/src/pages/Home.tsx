@@ -251,7 +251,7 @@ export default function Home() {
               Learn from a Legend
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Jenkins Kheejo, known as "King," is a decorated musician, composer, and mentor with an extraordinary legacy.
+              Kheejoo Jenkins (King) is a decorated musician, composer, and mentor with an extraordinary legacy. President and Founder of Eglise en Adoration, CEO and Founder of Great Communications Ltd.
             </p>
           </div>
 
@@ -294,7 +294,14 @@ export default function Home() {
                   <Heart className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
                   <div>
                     <h4 className="font-bold text-lg text-primary">Spiritual Leadership</h4>
-                    <p className="text-gray-600">Founder of Eglise en Adoration, inspiring worship globally</p>
+                    <p className="text-gray-600">President and Founder of Eglise en Adoration, inspiring worship globally</p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <Music className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="font-bold text-lg text-primary">Business Leadership</h4>
+                    <p className="text-gray-600">CEO and Founder of Great Communications Ltd</p>
                   </div>
                 </div>
               </div>
@@ -308,8 +315,8 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
             <img 
-              src="/images/king-concert.jpg" 
-              alt="Jenkins Kheejo performing at concert" 
+              src="/images/king-mission.jpg" 
+              alt="Kheejoo Jenkins performing on drums" 
               className="w-full h-auto rounded-2xl shadow-premium object-cover"
             />
             <div className="space-y-6">
@@ -623,7 +630,7 @@ export default function Home() {
             </div>
             <img 
               src="/images/king-concert.jpg" 
-              alt="King performing at concert" 
+              alt="Students performing at annual concert" 
               className="w-full h-auto rounded-2xl shadow-premium object-cover"
             />
           </div>

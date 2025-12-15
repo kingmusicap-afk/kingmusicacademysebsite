@@ -2,36 +2,86 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Music, Award, Users, Sparkles, Heart, MapPin, Mail, Phone } from 'lucide-react';
+import { useRef } from 'react';
 
 export default function Home() {
-  const [enrollmentData, setEnrollmentData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    courseCategory: '',
-    courseName: '',
-    message: ''
-  });
-
   const [submitted, setSubmitted] = useState(false);
   const [activeTab, setActiveTab] = useState('instruments');
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setEnrollmentData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Enrollment data:', enrollmentData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setEnrollmentData({ name: '', email: '', phone: '', courseCategory: '', courseName: '', message: '' });
-      setSubmitted(false);
-    }, 3000);
+    
+    // Get form element and read values directly from DOM
+    const form = e.currentTarget as HTMLFormElement;
+    const formData = new FormData(form);
+    
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
+    const phone = formData.get('phone') as string;
+    const courseCategory = formData.get('courseCategory') as string;
+    const courseName = formData.get('courseName') as string;
+    const location = formData.get('location') as string;
+    const message = formData.get('message') as string;
+    
+    console.log('Form submitted with data:', { name, email, phone, courseCategory, courseName, location, message });
+    
+    // Validate required fields
+    if (!name || !email || !phone || !courseCategory || !courseName || !location) {
+      console.log('Validation failed. Missing fields:', {
+        name: !name,
+        email: !email,
+        phone: !phone,
+        courseCategory: !courseCategory,
+        courseName: !courseName,
+        location: !location
+      });
+      alert('Please fill in all required fields');
+      return;
+    }
+    
+    // Extract first and last name from the name field
+    const nameParts = name.trim().split(' ');
+    const firstName = nameParts[0];
+    const lastName = nameParts.slice(1).join(' ') || firstName;
+    
+    try {
+      const response = await fetch('/api/enrollments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          phone,
+          location,
+          courseType: courseCategory,
+          courseLevel: 'Beginner',
+          specificCourse: courseName,
+          startDate: new Date().toISOString().split('T')[0],
+          notes: message,
+        }),
+      });
+      
+      if (response.ok) {
+        console.log('Enrollment submitted successfully');
+        setSubmitted(true);
+        // Reset form
+        form.reset();
+        setTimeout(() => {
+          setSubmitted(false);
+        }, 3000);
+      } else {
+        console.error('Enrollment submission failed:', response.statusText);
+        const errorData = await response.json().catch(() => ({}));
+        alert('Failed to submit enrollment: ' + (errorData.message || response.statusText));
+      }
+    } catch (error) {
+      console.error('Error submitting enrollment:', error);
+      alert('An error occurred while submitting your enrollment. Please try again.');
+    }
   };
 
   const instruments = [
@@ -602,14 +652,12 @@ export default function Home() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-8 space-y-6">
+              <form ref={formRef} onSubmit={handleSubmit} className="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-8 space-y-6">
                 <div>
                   <label className="block text-sm font-semibold mb-2">Full Name *</label>
                   <input
                     type="text"
                     name="name"
-                    value={enrollmentData.name}
-                    onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
                     placeholder="Your name"
@@ -622,8 +670,6 @@ export default function Home() {
                     <input
                       type="email"
                       name="email"
-                      value={enrollmentData.email}
-                      onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
                       placeholder="your@email.com"
@@ -634,8 +680,6 @@ export default function Home() {
                     <input
                       type="tel"
                       name="phone"
-                      value={enrollmentData.phone}
-                      onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
                       placeholder="+230 XXXX XXXX"
@@ -647,8 +691,6 @@ export default function Home() {
                   <label className="block text-sm font-semibold mb-2">Choose Your Course Category *</label>
                   <select
                     name="courseCategory"
-                    value={enrollmentData.courseCategory}
-                    onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white/50"
                   >
@@ -666,8 +708,6 @@ export default function Home() {
                   <input
                     type="text"
                     name="courseName"
-                    value={enrollmentData.courseName}
-                    onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
                     placeholder="e.g., Guitar, Media Production, Worship Leadership..."
@@ -678,6 +718,7 @@ export default function Home() {
                   <label className="block text-sm font-semibold mb-2">Preferred Location *</label>
                   <select
                     name="location"
+                    required
                     className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white/50"
                   >
                     <option value="" className="text-gray-800">Select a location...</option>
@@ -691,8 +732,6 @@ export default function Home() {
                   <label className="block text-sm font-semibold mb-2">Message (Optional)</label>
                   <textarea
                     name="message"
-                    value={enrollmentData.message}
-                    onChange={handleInputChange}
                     rows={4}
                     className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
                     placeholder="Tell us about your musical background or any questions..."

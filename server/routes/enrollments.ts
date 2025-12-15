@@ -1,15 +1,42 @@
 import { Router } from "express";
 import { createEnrollment, getEnrollments, getEnrollmentById, updateEnrollmentStatus } from "../db.js";
-import sgMail from "@sendgrid/mail";
+import { ENV } from "../_core/env.js";
+import nodemailer from "nodemailer";
+import fs from "fs";
+import path from "path";
 
 const router = Router();
 
-// Initialize SendGrid
-sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
+// Initialize Gmail SMTP transporter
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "kingmusicltd@gmail.com",
+    pass: ENV.gmailPassword,
+  },
+});
+
+// Verify Gmail connection on startup
+console.log("[Gmail SMTP] Initializing...");
+if (!ENV.gmailPassword) {
+  console.warn("⚠️  WARNING: GMAIL_PASSWORD is not set. Email notifications will not be sent.");
+} else {
+  transporter.verify((error, success) => {
+    if (error) {
+      console.error("[Gmail SMTP] Verification failed:", error.message);
+    } else {
+      console.log("✓ Gmail SMTP initialized and verified");
+    }
+  });
+}
 
 // POST /api/enrollments - Create a new enrollment
 router.post("/", async (req, res) => {
   try {
+    console.log("[ENROLLMENT] POST request received");
+    console.log("[ENROLLMENT] Request body:", JSON.stringify(req.body, null, 2));
+    fs.writeFileSync('/tmp/enrollment-request.json', JSON.stringify({ body: req.body, timestamp: new Date() }, null, 2));
+    
     const {
       firstName,
       lastName,
@@ -80,15 +107,22 @@ router.post("/", async (req, res) => {
     `;
 
     try {
-      await sgMail.send({
+      console.log(`[Email] Sending student confirmation to ${email}`);
+      console.log(`[Email] From: kingmusicltd@gmail.com`);
+      const studentResult = await transporter.sendMail({
+        from: "kingmusicltd@gmail.com",
         to: email,
-        from: "noreply@kingmusicacademy.com",
         subject: "Welcome to King Music Academy - Enrollment Confirmation",
         html: studentEmailHtml,
       });
       console.log(`✓ Student confirmation email sent to ${email}`);
+      console.log(`[Email] Response:`, JSON.stringify(studentResult));
+      fs.writeFileSync('/tmp/gmail-student-response.json', JSON.stringify({ success: true, response: studentResult, timestamp: new Date() }, null, 2));
     } catch (emailError) {
       console.error("Failed to send student email:", emailError);
+      console.error("Error message:", (emailError as any)?.message);
+      console.error("Full error:", JSON.stringify(emailError, null, 2));
+      fs.writeFileSync('/tmp/gmail-student-error.json', JSON.stringify({ error: true, message: (emailError as any)?.message, timestamp: new Date() }, null, 2));
     }
 
     // Send notification email to academy
@@ -115,15 +149,21 @@ router.post("/", async (req, res) => {
     `;
 
     try {
-      await sgMail.send({
+      console.log(`[Email] Sending admin notification to kingmusicltd@gmail.com`);
+      const adminResult = await transporter.sendMail({
+        from: "kingmusicltd@gmail.com",
         to: "kingmusicltd@gmail.com",
-        from: "noreply@kingmusicacademy.com",
         subject: `New Enrollment: ${firstName} ${lastName} - ${specificCourse}`,
         html: academyEmailHtml,
       });
       console.log(`✓ Admin notification email sent`);
+      console.log(`[Email] Response:`, JSON.stringify(adminResult));
+      fs.writeFileSync('/tmp/gmail-admin-response.json', JSON.stringify({ success: true, response: adminResult, timestamp: new Date() }, null, 2));
     } catch (emailError) {
       console.error("Failed to send admin email:", emailError);
+      console.error("Error message:", (emailError as any)?.message);
+      console.error("Full error:", JSON.stringify(emailError, null, 2));
+      fs.writeFileSync('/tmp/gmail-admin-error.json', JSON.stringify({ error: true, message: (emailError as any)?.message, timestamp: new Date() }, null, 2));
     }
 
     res.json({
@@ -133,8 +173,11 @@ router.post("/", async (req, res) => {
     });
   } catch (error) {
     console.error("Enrollment error:", error);
+    console.error("Error stack:", (error as any)?.stack);
+    console.error("Error details:", JSON.stringify(error, null, 2));
     res.status(500).json({
       error: "Failed to process enrollment",
+      details: (error as any)?.message || "Unknown error"
     });
   }
 });

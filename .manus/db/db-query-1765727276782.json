@@ -1,0 +1,28 @@
+{
+  "query": "SELECT * FROM enrollments ORDER BY id DESC LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4XsCh7iWuU32dZo.root --database KgrdzpSFaXe4NZwja8oaAC --execute SELECT * FROM enrollments ORDER BY id DESC LIMIT 5;",
+  "rows": [
+    {
+      "id": "1",
+      "firstName": "Test",
+      "lastName": "User",
+      "email": "test@example.com",
+      "phone": "+230 1234 5678",
+      "location": "goodlands",
+      "courseType": "instruments",
+      "courseLevel": "Beginner",
+      "specificCourse": "Guitar",
+      "parentName": "NULL",
+      "parentPhone": "NULL",
+      "previousExperience": "NULL",
+      "startDate": "2026-02-01",
+      "enrollmentDate": "2025-12-14 15:45:33",
+      "status": "pending",
+      "notes": "Test enrollment"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tfirstName\tlastName\temail\tphone\tlocation\tcourseType\tcourseLevel\tspecificCourse\tparentName\tparentPhone\tpreviousExperience\tstartDate\tenrollmentDate\tstatus\tnotes\n1\tTest\tUser\ttest@example.com\t+230 1234 5678\tgoodlands\tinstruments\tBeginner\tGuitar\tNULL\tNULL\tNULL\t2026-02-01\t2025-12-14 15:45:33\tpending\tTest enrollment\n",
+  "stderr": "",
+  "execution_time_ms": 68
+}

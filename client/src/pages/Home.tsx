@@ -746,6 +746,24 @@ export default function Home() {
                   Submit Enrollment
                 </Button>
 
+                <div className="bg-white/10 border border-white/30 rounded-lg p-6 mt-6">
+                  <h3 className="text-lg font-bold text-white mb-3">Payment Instructions</h3>
+                  <div className="space-y-3 text-blue-100">
+                    <p><strong>Subscription Fee:</strong> Rs 1,200 per month (NON-REFUNDABLE)</p>
+                    <p><strong>Payment Method:</strong> Juice by MCB</p>
+                    <div className="bg-white/20 rounded p-4 border border-white/30">
+                      <p className="text-sm mb-2">Send Rs 1,200 to:</p>
+                      <p className="text-2xl font-bold text-white">57566278</p>
+                      <p className="text-sm mt-2 text-blue-50">Include your full name in the message</p>
+                    </div>
+                    <div className="bg-red-500/20 border border-red-400/50 rounded p-3 mt-3">
+                      <p className="text-sm font-semibold text-red-100">Important: Non-Refundable Fee</p>
+                      <p className="text-xs text-red-100 mt-1">Once payment is made, it cannot be refunded. Please ensure you are ready to commit to the course before making payment.</p>
+                    </div>
+                    <p className="text-sm italic">After submitting this form, you will receive a confirmation email. Please complete your payment via Juice by MCB within 24 hours.</p>
+                  </div>
+                </div>
+
                 <p className="text-sm text-blue-100 text-center">
                   * Required fields. Enrollment deadline: January 31, 2026
                 </p>

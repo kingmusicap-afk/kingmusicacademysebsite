@@ -101,7 +101,15 @@ router.post("/", async (req, res) => {
         <li>Preferred Start Date: ${startDate}</li>
         <li>Course Type: ${courseType}</li>
       </ul>
-      <p>We will contact you shortly to confirm your enrollment and discuss payment details.</p>
+      <p><strong>Payment Required:</strong></p>
+      <ul>
+        <li>Subscription Fee: Rs 1,200 per month</li>
+        <li>Payment Method: Juice by MCB (57566278)</li>
+        <li>Please include your full name in the payment message</li>
+        <li><strong style="color: red;">This is a NON-REFUNDABLE subscription fee</strong></li>
+      </ul>
+      <p>Please complete your payment within 24 hours to secure your enrollment.</p>
+      <p>We will contact you shortly to confirm your payment and discuss course details.</p>
       <p>For any questions, please reply to this email or contact us at kingmusicltd@gmail.com</p>
       <p>Best regards,<br/>King Music Academy Team</p>
     `;

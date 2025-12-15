@@ -749,12 +749,14 @@ export default function Home() {
                 <div className="bg-white/10 border border-white/30 rounded-lg p-6 mt-6">
                   <h3 className="text-lg font-bold text-white mb-3">Payment Instructions</h3>
                   <div className="space-y-3 text-blue-100">
-                    <p><strong>Subscription Fee:</strong> Rs 1,200 per month (NON-REFUNDABLE)</p>
+                    <p><strong>Monthly Subscription:</strong> Rs 1,200/month</p>
                     <p><strong>Payment Method:</strong> Juice by MCB</p>
                     <div className="bg-white/20 rounded p-4 border border-white/30">
-                      <p className="text-sm mb-2">Send Rs 1,200 to:</p>
+                      <p className="text-sm mb-2">Send your monthly payment to:</p>
                       <p className="text-2xl font-bold text-white">57566278</p>
                       <p className="text-sm mt-2 text-blue-50">Include your full name in the message</p>
+                      <p className="text-xs text-blue-100 mt-3"><strong>First Payment:</strong> Rs 1,200 (non-refundable deposit to secure your enrollment)</p>
+                      <p className="text-xs text-blue-100"><strong>Following Months:</strong> Rs 1,200/month</p>
                     </div>
                     <div className="bg-red-500/20 border border-red-400/50 rounded p-3 mt-3">
                       <p className="text-sm font-semibold text-red-100">Important: Non-Refundable Fee</p>

@@ -103,10 +103,12 @@ router.post("/", async (req, res) => {
       </ul>
       <p><strong>Payment Required:</strong></p>
       <ul>
-        <li>Subscription Fee: Rs 1,200 per month</li>
+        <li><strong>Monthly Subscription:</strong> Rs 1,200/month</li>
+        <li><strong>First Payment:</strong> Rs 1,200 (non-refundable deposit to secure your enrollment)</li>
+        <li><strong>Following Months:</strong> Rs 1,200/month (months 2-12)</li>
         <li>Payment Method: Juice by MCB (57566278)</li>
         <li>Please include your full name in the payment message</li>
-        <li><strong style="color: red;">This is a NON-REFUNDABLE subscription fee</strong></li>
+        <li><strong style="color: red;">The first payment is NON-REFUNDABLE and acts as a security deposit</strong></li>
       </ul>
       <p>Please complete your payment within 24 hours to secure your enrollment.</p>
       <p>We will contact you shortly to confirm your payment and discuss course details.</p>

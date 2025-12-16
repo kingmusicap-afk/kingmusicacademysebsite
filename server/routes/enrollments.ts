@@ -252,4 +252,41 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// PATCH /api/enrollments/:id - Update payment status
+router.patch("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { paymentStatus } = req.body;
+
+    if (!["pending", "paid", "overdue"].includes(paymentStatus)) {
+      return res.status(400).json({
+        error: "Invalid payment status",
+      });
+    }
+
+    const enrollments = await getEnrollments();
+    const enrollment = enrollments.find((e: any) => e.id === parseInt(id));
+
+    if (!enrollment) {
+      return res.status(404).json({
+        error: "Enrollment not found",
+      });
+    }
+
+    const newStatus = paymentStatus === "paid" ? "confirmed" : "pending";
+    await updateEnrollmentStatus(parseInt(id), newStatus);
+
+    res.json({
+      success: true,
+      message: "Payment status updated",
+      paymentStatus,
+    });
+  } catch (error) {
+    console.error("Update error:", error);
+    res.status(500).json({
+      error: "Failed to update payment status",
+    });
+  }
+});
+
 export default router;

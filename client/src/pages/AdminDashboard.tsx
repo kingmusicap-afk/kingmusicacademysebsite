@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { LogOut, Users, CheckCircle, Clock, XCircle } from 'lucide-react';
+import { LogOut, Users, CheckCircle, Clock, XCircle, Edit2, X } from 'lucide-react';
 
 interface Enrollment {
   id: number;
@@ -26,6 +26,9 @@ export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editingStatus, setEditingStatus] = useState<'pending' | 'paid' | 'overdue'>('pending');
+  const [updateLoading, setUpdateLoading] = useState(false);
 
   // Simple authentication
   const handleLogin = (e: React.FormEvent) => {
@@ -79,6 +82,43 @@ export default function AdminDashboard() {
       return 'pending';
     }
     return 'pending';
+  };
+
+  const handleEditClick = (enrollment: Enrollment) => {
+    setEditingId(enrollment.id);
+    setEditingStatus(enrollment.paymentStatus);
+  };
+
+  const handleUpdatePaymentStatus = async () => {
+    if (editingId === null) return;
+
+    try {
+      setUpdateLoading(true);
+      const response = await fetch(`/api/enrollments/${editingId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          paymentStatus: editingStatus,
+        }),
+      });
+
+      if (response.ok) {
+        const updatedEnrollments = enrollments.map(e =>
+          e.id === editingId ? { ...e, paymentStatus: editingStatus } : e
+        );
+        setEnrollments(updatedEnrollments);
+        setEditingId(null);
+      } else {
+        alert('Failed to update payment status');
+      }
+    } catch (error) {
+      console.error('Error updating payment status:', error);
+      alert('Error updating payment status');
+    } finally {
+      setUpdateLoading(false);
+    }
   };
 
   // Apply filters
@@ -284,6 +324,7 @@ export default function AdminDashboard() {
                     <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Location</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Payment</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Date</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
@@ -310,6 +351,17 @@ export default function AdminDashboard() {
                       <td className="px-6 py-4 text-sm text-gray-600">
                         {new Date(enrollment.createdAt).toLocaleDateString()}
                       </td>
+                      <td className="px-6 py-4 text-sm">
+                        <Button
+                          onClick={() => handleEditClick(enrollment)}
+                          variant="outline"
+                          size="sm"
+                          className="flex items-center gap-2"
+                        >
+                          <Edit2 className="w-4 h-4" />
+                          Edit
+                        </Button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -323,6 +375,58 @@ export default function AdminDashboard() {
           <p>Showing {filteredEnrollments.length} of {enrollments.length} enrollments</p>
         </div>
       </div>
+
+      {/* Edit Modal */}
+      {editingId !== null && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <Card className="w-full max-w-md p-6 border-0 shadow-2xl">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-primary">Update Payment Status</h2>
+              <button
+                onClick={() => setEditingId(null)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="mb-6">
+              <p className="text-sm text-gray-600 mb-4">
+                {enrollments.find(e => e.id === editingId)?.firstName} {enrollments.find(e => e.id === editingId)?.lastName}
+              </p>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Payment Status
+              </label>
+              <select
+                value={editingStatus}
+                onChange={(e) => setEditingStatus(e.target.value as 'pending' | 'paid' | 'overdue')}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <option value="pending">Pending</option>
+                <option value="paid">Paid</option>
+                <option value="overdue">Overdue</option>
+              </select>
+            </div>
+
+            <div className="flex gap-3">
+              <Button
+                onClick={() => setEditingId(null)}
+                variant="outline"
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleUpdatePaymentStatus}
+                disabled={updateLoading}
+                className="flex-1 bg-primary hover:bg-blue-900 text-white"
+              >
+                {updateLoading ? 'Updating...' : 'Update'}
+              </Button>
+            </div>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }

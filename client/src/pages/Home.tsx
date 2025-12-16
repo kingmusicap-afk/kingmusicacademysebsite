@@ -798,13 +798,9 @@ export default function Home() {
                 {/* Payment Instructions */}
                 <div className="bg-white/10 border border-white/20 rounded-lg p-6 mt-8">
                   <h3 className="text-xl font-bold mb-4">💳 Payment Instructions</h3>
-                  <button
-                    type="button"
-                    onClick={() => window.location.href = 'juice://pay?to=57566278'}
-                    className="flex items-center justify-center mb-6 hover:opacity-80 transition-opacity cursor-pointer w-full"
-                  >
+                  <div className="flex items-center justify-center mb-6">
                     <img src="/images/mcb-juice-logo.png" alt="MCB Juice" className="h-16 object-contain" />
-                  </button>
+                  </div>
                   <div className="space-y-3 text-sm">
                     <p><strong>Monthly Subscription:</strong> Rs 1,200/month</p>
                     <p><strong>Payment Method:</strong> Juice by MCB</p>

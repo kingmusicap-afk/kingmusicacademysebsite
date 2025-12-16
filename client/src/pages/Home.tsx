@@ -268,7 +268,7 @@ export default function Home() {
             {/* Right - Hero Image */}
             <div className="relative">
               <img 
-                src="/images/king-hero.jpg" 
+                src="/images/hero-founder.jpg" 
                 alt="Kheejoo Jenkins performing" 
                 className="w-full h-auto rounded-2xl shadow-2xl object-cover"
               />

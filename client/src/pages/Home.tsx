@@ -112,10 +112,62 @@ export default function Home() {
       duration: '12 Months',
       description: 'Master professional video production and streaming',
       modules: [
-        'Camera Fundamentals',
-        'Lighting Setup & Techniques',
-        'Editing & Color Grading',
-        'Streaming in High Quality'
+        {
+          title: 'Camera Fundamentals & Pre-Production',
+          topics: [
+            'Camera settings: ISO, aperture, shutter speed',
+            'Exposure triangle and perfect exposure techniques',
+            'Composition: rule of thirds, leading lines, framing',
+            'White balance and color temperature',
+            'Autofocus and manual focus techniques',
+            'Camera movement: pans, tilts, dolly shots',
+            'Pre-production: shot lists, storyboarding, location scouting',
+            'Audio recording basics and microphone types',
+            'Camera maintenance and troubleshooting'
+          ]
+        },
+        {
+          title: 'Lighting Setup & Techniques',
+          topics: [
+            'Three-point lighting: key, fill, and back light',
+            'Lighting setups for interviews and music performances',
+            'Natural light photography and available light',
+            'Artificial lighting: LED panels, softboxes, reflectors',
+            'Color temperature and matching across scenes',
+            'Advanced techniques: rim lighting and creative setups',
+            'Lighting for different skin tones',
+            'Budget-friendly lighting solutions',
+            'Safety and electrical considerations'
+          ]
+        },
+        {
+          title: 'Editing & Color Grading',
+          topics: [
+            'Professional editing software: DaVinci Resolve, Premiere Pro',
+            'Editing principles: pacing, rhythm, and storytelling',
+            'Different editing styles: narrative, documentary, music videos',
+            'Color correction: exposure, contrast, saturation',
+            'Advanced color grading: LUTs and creative looks',
+            'Audio editing and mixing: levels, EQ, compression',
+            'Motion graphics and text animation basics',
+            'Transitions and effects best practices',
+            'Exporting for YouTube, Instagram, TikTok, broadcast'
+          ]
+        },
+        {
+          title: 'Streaming & Professional Delivery',
+          topics: [
+            'Live streaming setup: OBS, Streamlabs, professional platforms',
+            'Streaming for music performances and worship services',
+            'Multi-camera streaming and switching techniques',
+            'Stream optimization: bitrate, resolution, encoding',
+            'Platform-specific requirements: YouTube, Facebook, Twitch',
+            'Professional delivery formats: broadcast, cinema, web',
+            'Compression and codec selection',
+            'Copyright and licensing for music in videos',
+            'Portfolio building and monetization strategies'
+          ]
+        }
       ]
     },
     audio: {
@@ -198,111 +250,103 @@ export default function Home() {
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Button 
-                  size="lg"
-                  className="bg-white text-primary hover:bg-gray-100 font-semibold"
                   onClick={() => document.getElementById('enrollment')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="bg-white text-primary hover:bg-blue-50 font-semibold px-8 py-6 text-lg"
                 >
                   Start Your Journey
                 </Button>
                 <Button 
-                  size="lg"
                   variant="outline"
-                  className="border-white text-white hover:bg-white/10"
-                  onClick={() => document.getElementById('founder')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() => document.querySelector('[href="#about"]')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="border-white text-white hover:bg-white/10 font-semibold px-8 py-6 text-lg"
                 >
                   Learn More
                 </Button>
               </div>
-
-              <div className="grid grid-cols-3 gap-4 pt-8 border-t border-white/20">
-                <div>
-                  <div className="text-3xl font-bold">30+</div>
-                  <p className="text-sm text-blue-100">Years Experience</p>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold">M.S.K.</div>
-                  <p className="text-sm text-blue-100">National Honor</p>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold">300+</div>
-                  <p className="text-sm text-blue-100">Songs Written</p>
-                </div>
-              </div>
             </div>
 
-            {/* Right Image */}
+            {/* Right - Hero Image */}
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl"></div>
               <img 
-                src="/images/hero-founder.png" 
-                alt="Jenkins Kheejo - King, professional portrait" 
-                className="w-full h-auto rounded-2xl shadow-premium object-cover"
+                src="/images/king-hero.jpg" 
+                alt="Kheejoo Jenkins performing" 
+                className="w-full h-auto rounded-2xl shadow-2xl object-cover"
               />
+            </div>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-8 mt-16 pt-12 border-t border-white/10">
+            <div className="text-center">
+              <div className="text-4xl font-bold mb-2">30+</div>
+              <div className="text-blue-100">Years Experience</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold mb-2">M.S.K.</div>
+              <div className="text-blue-100">National Honor</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold mb-2">300+</div>
+              <div className="text-blue-100">Songs Written</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Founder Profile Section */}
-      <section id="founder" className="py-20 md:py-28 bg-gray-50">
+      {/* About Founder Section */}
+      <section id="about" className="py-20 md:py-28 bg-white">
         <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
-              Learn from a Legend
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-8 text-center">Learn from a Legend</h2>
+            
+            <p className="text-lg text-gray-700 mb-6">
               Kheejoo Jenkins (King) is a decorated musician, composer, and mentor with an extraordinary legacy. President and Founder of Eglise en Adoration, CEO and Founder of Great Communications Ltd.
             </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
-            <div className="space-y-6">
-              <h3 className="text-3xl font-bold text-primary">The Master</h3>
-              <div className="space-y-4 text-gray-700">
-                <p>
-                  With 30 years of experience as a Gospel singer, composer, and music producer, Jenkins Kheejo has shaped the sound of Mauritian music. His journey spans continents, performances, and countless lives touched through music.
-                </p>
-                <p>
-                  In 2005, he won the prestigious "Song of the Year" award in Mauritius. In 2015, he was decorated by the President of Mauritius with the title M.S.K., recognizing his exceptional contributions to music and culture.
-                </p>
-              </div>
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl mb-8">
+              <h3 className="text-2xl font-bold text-primary mb-6">The Master</h3>
+              <p className="text-gray-700 mb-4">
+                With 30 years of experience as a Gospel singer, composer, and music producer, Jenkins Kheejo has shaped the sound of Mauritian music. His journey spans continents, performances, and countless lives touched through music.
+              </p>
+              <p className="text-gray-700">
+                In 2005, he won the prestigious "Song of the Year" award in Mauritius. In 2015, he was decorated by the President of Mauritius with the title M.S.K., recognizing his exceptional contributions to music and culture.
+              </p>
             </div>
-            <div className="bg-white rounded-2xl shadow-premium p-8">
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <Award className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-lg text-primary">National Recognition</h4>
-                    <p className="text-gray-600">M.S.K. Decoration by the President of Mauritius (2015)</p>
-                  </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="flex gap-4">
+                <Award className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-bold text-primary mb-2">National Recognition</h4>
+                  <p className="text-gray-600">M.S.K. Decoration by the President of Mauritius (2015)</p>
                 </div>
-                <div className="flex gap-4">
-                  <Music className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-lg text-primary">Creative Mastery</h4>
-                    <p className="text-gray-600">Over 300 gospel songs composed and multiple audio albums</p>
-                  </div>
+              </div>
+              <div className="flex gap-4">
+                <Music className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-bold text-primary mb-2">Creative Mastery</h4>
+                  <p className="text-gray-600">Over 300 gospel songs composed and multiple audio albums</p>
                 </div>
-                <div className="flex gap-4">
-                  <Users className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-lg text-primary">Proven Mentorship</h4>
-                    <p className="text-gray-600">Trained musicians to national and international levels</p>
-                  </div>
+              </div>
+              <div className="flex gap-4">
+                <Users className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-bold text-primary mb-2">Proven Mentorship</h4>
+                  <p className="text-gray-600">Trained musicians to national and international levels</p>
                 </div>
-                <div className="flex gap-4">
-                  <Heart className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-lg text-primary">Spiritual Leadership</h4>
-                    <p className="text-gray-600">President and Founder of Eglise en Adoration, inspiring worship globally</p>
-                  </div>
+              </div>
+              <div className="flex gap-4">
+                <Heart className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-bold text-primary mb-2">Spiritual Leadership</h4>
+                  <p className="text-gray-600">President and Founder of Eglise en Adoration, inspiring worship globally</p>
                 </div>
-                <div className="flex gap-4">
-                  <Music className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-lg text-primary">Business Leadership</h4>
-                    <p className="text-gray-600">CEO and Founder of Great Communications Ltd</p>
-                  </div>
+              </div>
+              <div className="flex gap-4">
+                <Sparkles className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-bold text-primary mb-2">Business Leadership</h4>
+                  <p className="text-gray-600">CEO and Founder of Great Communications Ltd</p>
                 </div>
               </div>
             </div>
@@ -382,30 +426,28 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
               Our Comprehensive Course Offerings
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600">
               From instrument mastery to professional production and worship leadership. All courses are 12 months long.
             </p>
           </div>
 
           {/* Course Tabs */}
-          <div className="flex flex-wrap gap-2 mb-12 justify-center">
-            {[
-              { id: 'instruments', label: '🎸 Instruments' },
-              { id: 'media', label: '📹 Media Production' },
-              { id: 'audio', label: '🎧 Audio Engineering' },
-              { id: 'songwriting', label: '✍️ Songwriting' },
-              { id: 'worship', label: '🙏 Worship Leadership' }
-            ].map(tab => (
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
+            {Object.entries(courseCategories).map(([key, value]) => (
               <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                key={key}
+                onClick={() => setActiveTab(key)}
                 className={`px-4 py-2 rounded-lg font-semibold transition-all ${
-                  activeTab === tab.id
+                  activeTab === key
                     ? 'bg-primary text-white shadow-lg'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                {tab.label}
+                {key === 'instruments' && '🎸 Instruments'}
+                {key === 'media' && '📹 Media Production'}
+                {key === 'audio' && '🎧 Audio Engineering'}
+                {key === 'songwriting' && '✍️ Songwriting'}
+                {key === 'worship' && '🙏 Worship Leadership'}
               </button>
             ))}
           </div>
@@ -476,15 +518,24 @@ export default function Home() {
             <div className="space-y-8">
               <Card className="p-8 border-0 shadow-subtle bg-gradient-to-br from-primary/5 to-blue-50">
                 <h3 className="text-3xl font-bold text-primary mb-2">Media Production Course</h3>
-                <p className="text-gray-700 mb-6">Master professional video production, cinematography, editing, and streaming.</p>
+                <p className="text-gray-700 mb-8">Master professional video production, cinematography, editing, and streaming.</p>
+                
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                  {courseCategories.media.modules.map((module, idx) => (
+                  {(courseCategories.media.modules as any[]).map((module, idx) => (
                     <div key={idx} className="bg-white p-6 rounded-lg border border-gray-200">
-                      <h4 className="font-bold text-primary mb-2">Module {idx + 1}</h4>
-                      <p className="text-gray-700">{module}</p>
+                      <h4 className="font-bold text-primary mb-3 text-lg">Module {idx + 1}: {module.title}</h4>
+                      <ul className="space-y-2">
+                        {module.topics.map((topic: string, topicIdx: number) => (
+                          <li key={topicIdx} className="flex gap-2 text-gray-700 text-sm">
+                            <span className="text-accent font-bold">•</span>
+                            <span>{topic}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   ))}
                 </div>
+                
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="text-gray-600">Duration: {courseCategories.media.duration}</p>
@@ -671,42 +722,41 @@ export default function Home() {
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">Email *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
-                      placeholder="your@email.com"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">Phone *</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      required
-                      className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
-                      placeholder="+230 XXXX XXXX"
-                    />
-                  </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-2">Email *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    placeholder="your@email.com"
+                  />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold mb-2">Choose Your Course Category *</label>
+                  <label className="block text-sm font-semibold mb-2">Phone *</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    required
+                    className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    placeholder="+230 XXXX XXXX"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-2">Course Category *</label>
                   <select
                     name="courseCategory"
                     required
                     className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white/50"
                   >
-                    <option value="" className="text-gray-800">Select a course category...</option>
-                    <option value="instruments" className="text-gray-800">Instrument Courses</option>
-                    <option value="media" className="text-gray-800">Media Production</option>
-                    <option value="audio" className="text-gray-800">Audio Engineering</option>
-                    <option value="songwriting" className="text-gray-800">Songwriting & Composition</option>
-                    <option value="worship" className="text-gray-800">Worship Leadership</option>
+                    <option value="">Select a course category...</option>
+                    <option value="Instrument Courses">Instrument Courses</option>
+                    <option value="Media Production">Media Production</option>
+                    <option value="Audio Engineering">Audio Engineering</option>
+                    <option value="Songwriting & Composition">Songwriting & Composition</option>
+                    <option value="Worship Leadership">Worship Leadership</option>
                   </select>
                 </div>
 
@@ -728,10 +778,10 @@ export default function Home() {
                     required
                     className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white/50"
                   >
-                    <option value="" className="text-gray-800">Select a location...</option>
-                    <option value="goodlands" className="text-gray-800">North - Goodlands</option>
-                    <option value="flacq" className="text-gray-800">East - Flacq</option>
-                    <option value="quatre-bornes" className="text-gray-800">Center - Quatre Bornes</option>
+                    <option value="">Select a location...</option>
+                    <option value="North - Goodlands">North - Goodlands</option>
+                    <option value="East - Flacq">East - Flacq</option>
+                    <option value="Center - Quatre Bornes">Center - Quatre Bornes</option>
                   </select>
                 </div>
 
@@ -739,41 +789,44 @@ export default function Home() {
                   <label className="block text-sm font-semibold mb-2">Message (Optional)</label>
                   <textarea
                     name="message"
-                    rows={4}
-                    className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 resize-none"
                     placeholder="Tell us about your musical background or any questions..."
+                    rows={4}
                   />
                 </div>
 
-                <Button
+                {/* Payment Instructions */}
+                <div className="bg-white/10 border border-white/20 rounded-lg p-6 mt-8">
+                  <h3 className="text-xl font-bold mb-4">💳 Payment Instructions</h3>
+                  <div className="space-y-3 text-sm">
+                    <p><strong>Monthly Subscription:</strong> Rs 1,200/month</p>
+                    <p><strong>Payment Method:</strong> Juice by MCB</p>
+                    <p className="bg-white/10 p-3 rounded">
+                      Send your monthly payment to: <strong>57566278</strong><br/>
+                      Include your full name in the message
+                    </p>
+                    <p><strong>First Payment:</strong> Rs 1,200 (non-refundable deposit to secure your enrollment)</p>
+                    <p><strong>Following Months:</strong> Rs 1,200/month</p>
+                  </div>
+                </div>
+
+                <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-4 mt-6">
+                  <p className="text-sm font-semibold">⚠️ Important: Non-Refundable Fee</p>
+                  <p className="text-sm mt-2">Once payment is made, it cannot be refunded. Please ensure you are ready to commit to the course before making payment.</p>
+                </div>
+
+                <p className="text-sm text-blue-100 text-center">
+                  After submitting this form, you will receive a confirmation email. Please complete your payment via Juice by MCB within 24 hours.
+                </p>
+
+                <Button 
                   type="submit"
-                  size="lg"
-                  className="w-full bg-white text-primary hover:bg-gray-100 font-bold text-lg"
+                  className="w-full bg-white text-primary hover:bg-blue-50 font-bold py-3 text-lg"
                 >
                   Submit Enrollment
                 </Button>
 
-                <div className="bg-white/10 border border-white/30 rounded-lg p-6 mt-6">
-                  <h3 className="text-lg font-bold text-white mb-3">Payment Instructions</h3>
-                  <div className="space-y-3 text-blue-100">
-                    <p><strong>Monthly Subscription:</strong> Rs 1,200/month</p>
-                    <p><strong>Payment Method:</strong> Juice by MCB</p>
-                    <div className="bg-white/20 rounded p-4 border border-white/30">
-                      <p className="text-sm mb-2">Send your monthly payment to:</p>
-                      <p className="text-2xl font-bold text-white">57566278</p>
-                      <p className="text-sm mt-2 text-blue-50">Include your full name in the message</p>
-                      <p className="text-xs text-blue-100 mt-3"><strong>First Payment:</strong> Rs 1,200 (non-refundable deposit to secure your enrollment)</p>
-                      <p className="text-xs text-blue-100"><strong>Following Months:</strong> Rs 1,200/month</p>
-                    </div>
-                    <div className="bg-red-500/20 border border-red-400/50 rounded p-3 mt-3">
-                      <p className="text-sm font-semibold text-red-100">Important: Non-Refundable Fee</p>
-                      <p className="text-xs text-red-100 mt-1">Once payment is made, it cannot be refunded. Please ensure you are ready to commit to the course before making payment.</p>
-                    </div>
-                    <p className="text-sm italic">After submitting this form, you will receive a confirmation email. Please complete your payment via Juice by MCB within 24 hours.</p>
-                  </div>
-                </div>
-
-                <p className="text-sm text-blue-100 text-center">
+                <p className="text-xs text-blue-100 text-center">
                   * Required fields. Enrollment deadline: January 31, 2026
                 </p>
               </form>
@@ -782,109 +835,61 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-20 md:py-28 bg-gray-50">
-        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
-              <h2 className="text-3xl font-bold text-primary mb-8">Get in Touch</h2>
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <MapPin className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-primary mb-2">Our Locations</h4>
-                    <ul className="text-gray-700 space-y-1">
-                      <li>North: Goodlands</li>
-                      <li>East: Flacq</li>
-                      <li>Center: Quatre Bornes</li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <Mail className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-primary mb-1">Email</h4>
-                    <p className="text-gray-700">info@kingmusicacademy.mu</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <Phone className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-primary mb-1">Phone</h4>
-                    <p className="text-gray-700">+230 XXXX XXXX</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-2xl shadow-subtle p-8">
-              <h3 className="text-2xl font-bold text-primary mb-4">Why Choose King Music Academy?</h3>
-              <ul className="space-y-3 text-gray-700">
-                <li className="flex gap-3">
-                  <span className="text-accent font-bold">✓</span>
-                  <span>Learn from a national icon with 30 years of experience</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-accent font-bold">✓</span>
-                  <span>Comprehensive courses: Instruments, Media, Audio, Songwriting, Worship</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-accent font-bold">✓</span>
-                  <span>12-month professional courses with structured curriculum</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-accent font-bold">✓</span>
-                  <span>Christian values integrated into every lesson</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-accent font-bold">✓</span>
-                  <span>Affordable pricing from Rs 1,000 - Rs 1,500/month</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-accent font-bold">✓</span>
-                  <span>Three locations across the island</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-accent font-bold">✓</span>
-                  <span>Performance opportunity at the annual concert</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
-      <footer className="bg-primary text-white py-12">
+      <footer className="bg-gray-900 text-white py-16">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <img src="/images/king-logo.png" alt="King Music Academy" className="h-8 w-8 object-contain" />
-                <span className="font-bold">King Music Academy</span>
+              <h3 className="text-xl font-bold mb-4">Get in Touch</h3>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <MapPin className="w-5 h-5 text-accent" />
+                  <div>
+                    <p className="font-semibold">Our Locations</p>
+                    <p className="text-gray-400 text-sm">North: Goodlands | East: Flacq | Center: Quatre Bornes</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Mail className="w-5 h-5 text-accent" />
+                  <div>
+                    <p className="font-semibold">Email</p>
+                    <p className="text-gray-400 text-sm">info@kingmusicacademy.mu</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Phone className="w-5 h-5 text-accent" />
+                  <div>
+                    <p className="font-semibold">Phone</p>
+                    <p className="text-gray-400 text-sm">+230 XXXX XXXX</p>
+                  </div>
+                </div>
               </div>
-              <p className="text-blue-100">
-                Professional music education rooted in Christian values. Master Your Music, Magnify Your Purpose.
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold mb-4">About Us</h3>
+              <p className="text-gray-400 text-sm mb-4">
+                King Music Academy provides professional music education rooted in Christian values, preparing students for performance, worship, and ministry.
               </p>
+              <a href="#about" className="text-accent hover:text-white transition">About the Founder</a>
             </div>
+
             <div>
-              <h4 className="font-bold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-blue-100">
-                <li><a href="#founder" className="hover:text-white transition">About the Founder</a></li>
-                <li><a href="#enrollment" className="hover:text-white transition">Enroll Now</a></li>
-                <li><a href="#" className="hover:text-white transition">Contact Us</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4">Courses</h4>
-              <ul className="space-y-2 text-blue-100">
-                <li>Instruments • Media • Audio</li>
-                <li>Songwriting • Worship Leadership</li>
+              <h3 className="text-xl font-bold mb-4">Why Choose Us?</h3>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li>✓ Learn from a national icon with 30 years of experience</li>
+                <li>✓ Comprehensive courses: Instruments, Media, Audio, Songwriting, Worship</li>
+                <li>✓ 12-month professional courses with structured curriculum</li>
+                <li>✓ Christian values integrated into every lesson</li>
+                <li>✓ Affordable pricing from Rs 1,000 - Rs 1,500/month</li>
+                <li>✓ Three locations across the island</li>
+                <li>✓ Performance opportunity at the annual concert</li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-blue-700 pt-8 text-center text-blue-100">
-            <p>&copy; 2026 King Music Academy. All rights reserved. | Mauritius</p>
+
+          <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 King Music Academy. All rights reserved. | Professional Music Education in Mauritius</p>
           </div>
         </div>
       </footer>

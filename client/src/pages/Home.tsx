@@ -798,6 +798,9 @@ export default function Home() {
                 {/* Payment Instructions */}
                 <div className="bg-white/10 border border-white/20 rounded-lg p-6 mt-8">
                   <h3 className="text-xl font-bold mb-4">💳 Payment Instructions</h3>
+                  <div className="flex items-center justify-center mb-6">
+                    <img src="/images/mcb-juice-logo.png" alt="MCB Juice" className="h-16 object-contain" />
+                  </div>
                   <div className="space-y-3 text-sm">
                     <p><strong>Monthly Subscription:</strong> Rs 1,200/month</p>
                     <p><strong>Payment Method:</strong> Juice by MCB</p>
@@ -835,6 +838,19 @@ export default function Home() {
         </div>
       </section>
 
+      {/* WhatsApp Floating Button */}
+      <a
+        href="https://wa.me/23057566278?text=Hi%20King%20Music%20Academy%2C%20I%20have%20questions%20about%20your%20courses%20and%20enrollment."
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-40 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg transition-all hover:scale-110 flex items-center justify-center"
+        title="Chat with us on WhatsApp"
+      >
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.272-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-9.746 9.798c0 2.734.732 5.36 2.124 7.582L2.523 22l8.23-2.161a9.857 9.857 0 004.6 1.173h.004c5.45 0 9.854-4.405 9.854-9.854 0-2.633-.636-5.108-1.845-7.303-1.207-2.194-2.926-4.171-5.012-5.544-2.085-1.372-4.518-2.151-7.046-2.151z"/>
+        </svg>
+      </a>
+
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-16">
         <div className="container">
@@ -859,8 +875,8 @@ export default function Home() {
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-accent" />
                   <div>
-                    <p className="font-semibold">Phone</p>
-                    <p className="text-gray-400 text-sm">+230 XXXX XXXX</p>
+                    <p className="font-semibold">WhatsApp</p>
+                    <p className="text-gray-400 text-sm">+230 57566278</p>
                   </div>
                 </div>
               </div>

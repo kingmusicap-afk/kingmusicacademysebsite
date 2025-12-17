@@ -42,6 +42,7 @@ router.post("/", async (req, res) => {
       lastName,
       email,
       phone,
+      age,
       location,
       courseType,
       courseLevel,
@@ -76,6 +77,7 @@ router.post("/", async (req, res) => {
       lastName,
       email,
       phone,
+      age: age ? parseInt(age) : undefined,
       location,
       courseType,
       courseLevel,
@@ -143,6 +145,7 @@ router.post("/", async (req, res) => {
         <li>Name: ${firstName} ${lastName}</li>
         <li>Email: ${email}</li>
         <li>Phone: ${phone}</li>
+        <li>Age: ${age || 'Not provided'}</li>
         <li>Location: ${location}</li>
       </ul>
       <p><strong>Course Details:</strong></p>

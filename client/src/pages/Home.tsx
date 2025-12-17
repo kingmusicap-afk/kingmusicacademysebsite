@@ -228,15 +228,15 @@ export default function Home() {
               Our Courses
             </Button>
             <Button 
-              onClick={() => document.getElementById('enrollment')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => window.location.href = '/contact'}
               variant="outline"
               className="hidden md:inline-flex text-primary border-primary hover:bg-primary/5"
             >
               Contact Us
             </Button>
             <Button 
-              onClick={() => document.getElementById('enrollment')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-primary hover:bg-blue-900 text-white"
+              onClick={() => window.location.href = '/admin'}
+              className="bg-primary hover:bg-primary/90 text-white"
             >
               Enroll Now
             </Button>

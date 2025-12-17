@@ -11,3 +11,4 @@
 - [x] Update Songwriting pricing to Rs 2,500 one-time (2 hours)
 - [x] Update Worship Leadership pricing to Rs 5,000 for 1 month
 - [x] Reduce WhatsApp logo size to 80x80 px
+- [x] Fix "Our Courses" button navigation to scroll to courses section

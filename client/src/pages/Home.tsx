@@ -85,11 +85,11 @@ export default function Home() {
   };
 
   const instruments = [
-    { name: 'Drum', icon: '🥁', description: 'Master rhythm and groove' },
-    { name: 'Keyboard', icon: '🎹', description: 'Explore harmony and chords' },
-    { name: 'Guitar', icon: '🎸', description: 'Learn strumming and fingerpicking' },
-    { name: 'Bass Guitar', icon: '🎻', description: 'Feel the foundation of music' },
-    { name: 'Vocal', icon: '🎤', description: 'Develop your voice and presence' }
+    { name: 'Drum', icon: '🥁', description: 'Master rhythm and groove. Learn by ear and chord charts.' },
+    { name: 'Keyboard', icon: '🎹', description: 'Explore harmony and chords. Learn by ear and chord charts.' },
+    { name: 'Guitar', icon: '🎸', description: 'Learn strumming and fingerpicking. Learn by ear and chord charts.' },
+    { name: 'Bass Guitar', icon: '🎻', description: 'Feel the foundation of music. Learn by ear and chord charts.' },
+    { name: 'Vocal', icon: '🎤', description: 'Develop your voice and presence. Learn solfège and music theory.' }
   ];
 
   const locations = [
@@ -217,12 +217,28 @@ export default function Home() {
             <img src="/images/king-logo.png" alt="King Music Academy" className="h-10 w-10 object-contain" />
             <span className="text-xl font-bold text-primary hidden sm:inline">King Music Academy</span>
           </div>
-          <Button 
-            onClick={() => document.getElementById('enrollment')?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-primary hover:bg-blue-900 text-white"
-          >
-            Enroll Now
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button 
+              onClick={() => document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' })}
+              variant="outline"
+              className="hidden md:inline-flex text-primary border-primary hover:bg-primary/5"
+            >
+              Our Courses
+            </Button>
+            <Button 
+              onClick={() => document.getElementById('enrollment')?.scrollIntoView({ behavior: 'smooth' })}
+              variant="outline"
+              className="hidden md:inline-flex text-primary border-primary hover:bg-primary/5"
+            >
+              Contact Us
+            </Button>
+            <Button 
+              onClick={() => document.getElementById('enrollment')?.scrollIntoView({ behavior: 'smooth' })}
+              className="bg-primary hover:bg-blue-900 text-white"
+            >
+              Enroll Now
+            </Button>
+          </div>
         </div>
       </nav>
 
@@ -378,7 +394,7 @@ export default function Home() {
               <div className="bg-blue-50 border-l-4 border-primary p-6 rounded">
                 <p className="text-primary font-semibold mb-2">🎵 Christian Values</p>
                 <p className="text-gray-700">
-                  Every lesson is grounded in Christian values, preparing students not just for performance, but for worship and ministry. We believe music is a gift to glorify and serve.
+                  Every lesson is grounded in Christian values, preparing students not just for performance, but for worship and ministry. We believe music is a gift to glorify and serve God.
                 </p>
               </div>
             </div>
@@ -680,7 +696,7 @@ export default function Home() {
               </div>
             </div>
             <img 
-              src="/images/king-concert.jpg" 
+              src="/images/concert-2024.jpg" 
               alt="Students performing at annual concert" 
               className="w-full h-auto rounded-2xl shadow-premium object-cover"
             />
@@ -772,6 +788,19 @@ export default function Home() {
                 </div>
 
                 <div>
+                  <label className="block text-sm font-semibold mb-2">Age *</label>
+                  <input
+                    type="number"
+                    name="age"
+                    required
+                    min="5"
+                    max="120"
+                    className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    placeholder="Your age"
+                  />
+                </div>
+
+                <div>
                   <label className="block text-sm font-semibold mb-2">Preferred Location *</label>
                   <select
                     name="location"
@@ -816,6 +845,20 @@ export default function Home() {
                 <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-4 mt-6">
                   <p className="text-sm font-semibold">⚠️ Important: Non-Refundable Fee</p>
                   <p className="text-sm mt-2">Once payment is made, it cannot be refunded. Please ensure you are ready to commit to the course before making payment.</p>
+                </div>
+
+                <div className="bg-blue-500/20 border border-blue-500/50 rounded-lg p-4 mt-6">
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      name="rulesAccepted"
+                      required
+                      className="mt-1 w-5 h-5 accent-white"
+                    />
+                    <span className="text-sm">
+                      I have read and agree to the Rules and Regulations of King Music Academy. I acknowledge that this is a Christian institution and commit to respecting its Christian values and principles. *
+                    </span>
+                  </label>
                 </div>
 
                 <p className="text-sm text-blue-100 text-center">

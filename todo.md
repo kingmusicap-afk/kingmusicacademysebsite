@@ -15,3 +15,5 @@
 - [x] Create Contact Us page with contact form
 - [x] Update locations: Remove Curepipe and Port Louis, add Goodlands and Flacq
 - [x] Add student testimonials section with 3-4 success stories
+- [x] Fix Enroll button to scroll to enrollment form instead of redirecting to admin
+- [x] Add Quatre Bornes back to Classes Across Mauritius section

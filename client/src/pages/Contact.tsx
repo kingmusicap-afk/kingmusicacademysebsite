@@ -139,6 +139,7 @@ export default function Contact() {
                   <div className="text-gray-600 space-y-2">
                     <p>• Goodlands (North)</p>
                     <p>• Flacq (East)</p>
+                    <p>• Quatre Bornes (Center)</p>
                   </div>
                 </div>
 

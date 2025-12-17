@@ -97,7 +97,8 @@ export default function Home() {
 
   const locations = [
     { region: 'North', city: 'Goodlands' },
-    { region: 'East', city: 'Flacq' }
+    { region: 'East', city: 'Flacq' },
+    { region: 'Center', city: 'Quatre Bornes' }
   ];
 
   const courseCategories = {
@@ -234,7 +235,7 @@ export default function Home() {
               Contact Us
             </Button>
             <Button 
-              onClick={() => window.location.href = '/admin'}
+              onClick={() => document.getElementById('enrollment')?.scrollIntoView({ behavior: 'smooth' })}
               className="bg-primary hover:bg-primary/90 text-white"
             >
               Enroll Now

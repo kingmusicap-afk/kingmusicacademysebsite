@@ -106,14 +106,14 @@ export default function Home() {
       title: 'Instrument Courses',
       price: 'Rs 1,200/month',
       duration: '12 Months',
-      description: 'Professional instrument training for all levels',
+      description: 'Professional instrument training for all levels (Total: Rs 14,400)',
       courses: instruments
     },
     media: {
       title: 'Media Production Course',
       price: 'Rs 2,500/month',
-      duration: '12 Months',
-      description: 'Master professional video production and streaming',
+      duration: '3 Months',
+      description: 'Master professional video production and streaming (Total: Rs 7,500)',
       modules: [
         {
           title: 'Camera Fundamentals & Pre-Production',
@@ -175,9 +175,9 @@ export default function Home() {
     },
     audio: {
       title: 'Audio Engineering Course',
-      price: 'Rs 1,500/month',
-      duration: '12 Months',
-      description: 'Professional audio production and live sound',
+      price: 'Rs 2,500/month',
+      duration: '3 Months',
+      description: 'Professional audio production and live sound (Total: Rs 7,500)',
       modules: [
         'Professional Sound System Equipment',
         'Live Mixing Techniques',
@@ -186,22 +186,21 @@ export default function Home() {
       ]
     },
     songwriting: {
-      title: 'Songwriting & Composition Course',
-      price: 'Rs 1,200/month',
-      duration: '12 Months',
-      description: 'Transform your inspiration into professional songs',
+      title: 'Songwriting & Composition Workshop',
+      price: 'Rs 2,500',
+      duration: '2 Hours',
+      description: 'Transform your inspiration into professional songs (One-time workshop)',
       modules: [
         'Song Concept & Inspiration',
         'Lyric Writing',
-        'Melody & Harmony Development',
-        'Production & Publishing'
+        'Melody & Harmony Development'
       ]
     },
     worship: {
       title: 'Worship Leadership Course',
-      price: 'Rs 1,000/month',
-      duration: '12 Months',
-      description: 'Lead worship with purpose and excellence',
+      price: 'Rs 5,000',
+      duration: '1 Month',
+      description: 'Lead worship with purpose and excellence (Intensive one-month program)',
       modules: [
         'How to Lead Worship in Church',
         'Organizing & Running Rehearsals',

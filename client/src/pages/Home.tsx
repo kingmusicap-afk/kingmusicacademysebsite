@@ -97,8 +97,7 @@ export default function Home() {
 
   const locations = [
     { region: 'North', city: 'Goodlands' },
-    { region: 'East', city: 'Flacq' },
-    { region: 'Center', city: 'Quatre Bornes' }
+    { region: 'East', city: 'Flacq' }
   ];
 
   const courseCategories = {
@@ -879,6 +878,78 @@ export default function Home() {
                 </p>
               </form>
             )}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 md:py-28 bg-gradient-to-br from-blue-50 to-white">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Student Success Stories</h2>
+            <p className="text-lg text-gray-600">Hear from our talented students about their transformative journey at King Music Academy</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Testimonial 1 */}
+            <div className="bg-white rounded-lg shadow-subtle hover:shadow-lg transition-shadow p-8">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary to-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">A</div>
+                <div>
+                  <h3 className="font-bold text-gray-900">Amira Patel</h3>
+                  <p className="text-sm text-gray-600">Piano Student</p>
+                </div>
+              </div>
+              <div className="flex gap-1 mb-4">
+                {[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400">★</span>)}
+              </div>
+              <p className="text-gray-700 italic">"The instructors here are incredibly patient and skilled. I went from complete beginner to playing full songs in just 6 months. Highly recommended!"</p>
+            </div>
+
+            {/* Testimonial 2 */}
+            <div className="bg-white rounded-lg shadow-subtle hover:shadow-lg transition-shadow p-8">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary to-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">R</div>
+                <div>
+                  <h3 className="font-bold text-gray-900">Rohan Kumar</h3>
+                  <p className="text-sm text-gray-600">Guitar Student</p>
+                </div>
+              </div>
+              <div className="flex gap-1 mb-4">
+                {[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400">★</span>)}
+              </div>
+              <p className="text-gray-700 italic">"Best decision I made! The structured curriculum and personalized attention helped me master guitar. Now I perform at local events!"</p>
+            </div>
+
+            {/* Testimonial 3 */}
+            <div className="bg-white rounded-lg shadow-subtle hover:shadow-lg transition-shadow p-8">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary to-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">S</div>
+                <div>
+                  <h3 className="font-bold text-gray-900">Sophie Dubois</h3>
+                  <p className="text-sm text-gray-600">Vocal Student</p>
+                </div>
+              </div>
+              <div className="flex gap-1 mb-4">
+                {[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400">★</span>)}
+              </div>
+              <p className="text-gray-700 italic">"My confidence in singing has skyrocketed! The vocal training here is world-class. I love the supportive community and professional environment."</p>
+            </div>
+
+            {/* Testimonial 4 */}
+            <div className="bg-white rounded-lg shadow-subtle hover:shadow-lg transition-shadow p-8">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary to-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">M</div>
+                <div>
+                  <h3 className="font-bold text-gray-900">Marcus Johnson</h3>
+                  <p className="text-sm text-gray-600">Audio Engineering</p>
+                </div>
+              </div>
+              <div className="flex gap-1 mb-4">
+                {[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400">★</span>)}
+              </div>
+              <p className="text-gray-700 italic">"The Audio Engineering course was exactly what I needed to start my music production career. Practical skills and industry knowledge!"</p>
+            </div>
           </div>
         </div>
       </section>

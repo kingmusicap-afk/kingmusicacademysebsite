@@ -137,9 +137,8 @@ export default function Contact() {
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">Locations</h3>
                   <div className="text-gray-600 space-y-2">
-                    <p>• Port Louis</p>
-                    <p>• Quatre Bornes</p>
-                    <p>• Curepipe</p>
+                    <p>• Goodlands (North)</p>
+                    <p>• Flacq (East)</p>
                   </div>
                 </div>
 

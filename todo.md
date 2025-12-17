@@ -13,3 +13,5 @@
 - [x] Reduce WhatsApp logo size to 80x80 px
 - [x] Fix "Our Courses" button navigation to scroll to courses section
 - [x] Create Contact Us page with contact form
+- [x] Update locations: Remove Curepipe and Port Louis, add Goodlands and Flacq
+- [x] Add student testimonials section with 3-4 success stories

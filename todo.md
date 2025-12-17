@@ -1,3 +1,4 @@
 - [x] Update Media Production pricing to Rs 2,500/month
 - [x] Add Age column to Admin Dashboard enrollment table
 - [x] Replace WhatsApp logo with official logo in floating button
+- [x] Replace WhatsApp logo with "Chat with us now!" image in floating button

@@ -5,3 +5,4 @@
 - [x] Replace WhatsApp CTA image with cleaner WhatsApp icon
 - [x] Display age column in Admin Dashboard enrollment table
 - [x] Reduce WhatsApp logo size to 100x100 px
+- [x] Replace WhatsApp logo with new image (100x100 px)

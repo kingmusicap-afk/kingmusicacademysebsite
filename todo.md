@@ -2,3 +2,4 @@
 - [x] Add Age column to Admin Dashboard enrollment table
 - [x] Replace WhatsApp logo with official logo in floating button
 - [x] Replace WhatsApp logo with "Chat with us now!" image in floating button
+- [x] Replace WhatsApp CTA image with cleaner WhatsApp icon

@@ -889,10 +889,10 @@ export default function Home() {
         href="https://wa.me/23057566278?text=Hi%20King%20Music%20Academy%2C%20I%20have%20questions%20about%20your%20courses%20and%20enrollment."
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-40 shadow-lg transition-all hover:scale-110 flex items-center justify-center"
+        className="fixed bottom-6 right-6 z-40 rounded-full shadow-lg transition-all hover:scale-110 flex items-center justify-center"
         title="Chat with us on WhatsApp"
       >
-        <img src="/images/whatsapp-cta.png" alt="Chat with us now on WhatsApp" className="w-32 h-auto object-contain" />
+        <img src="/images/whatsapp-icon.png" alt="Chat with us on WhatsApp" className="w-20 h-20 object-contain" />
       </a>
 
       {/* Footer */}

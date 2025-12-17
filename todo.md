@@ -10,3 +10,4 @@
 - [x] Update Audio Engineering pricing to Rs 2,500/month x 3 months (Rs 7,500 total)
 - [x] Update Songwriting pricing to Rs 2,500 one-time (2 hours)
 - [x] Update Worship Leadership pricing to Rs 5,000 for 1 month
+- [x] Reduce WhatsApp logo size to 80x80 px

@@ -891,7 +891,7 @@ export default function Home() {
         className="fixed bottom-6 right-6 z-40 rounded-full shadow-lg transition-all hover:scale-110 flex items-center justify-center"
         title="Chat with us on WhatsApp"
       >
-        <img src="/images/whatsapp-logo-new.png" alt="Chat with us on WhatsApp" className="object-contain" style={{ width: '100px', height: '100px' }} />
+        <img src="/images/whatsapp-logo-new.png" alt="Chat with us on WhatsApp" className="object-contain" style={{ width: '80px', height: '80px' }} />
       </a>
 
       {/* Footer */}

@@ -9,6 +9,7 @@ interface Enrollment {
   lastName: string;
   email: string;
   phone: string;
+  age?: number;
   location: string;
   courseType: string;
   specificCourse: string;
@@ -320,6 +321,7 @@ export default function AdminDashboard() {
                     <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Name</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Email</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Phone</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Age</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Course</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Location</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Payment</th>
@@ -335,6 +337,7 @@ export default function AdminDashboard() {
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600">{enrollment.email}</td>
                       <td className="px-6 py-4 text-sm text-gray-600">{enrollment.phone}</td>
+                      <td className="px-6 py-4 text-sm text-gray-600">{enrollment.age || '-'}</td>
                       <td className="px-6 py-4 text-sm text-gray-600">{enrollment.specificCourse}</td>
                       <td className="px-6 py-4 text-sm text-gray-600">{enrollment.location}</td>
                       <td className="px-6 py-4 text-sm">

@@ -32,6 +32,7 @@ export const enrollments = mysqlTable("enrollments", {
   lastName: varchar("lastName", { length: 100 }).notNull(),
   email: varchar("email", { length: 255 }).notNull(),
   phone: varchar("phone", { length: 20 }).notNull(),
+  age: int("age"),
   location: varchar("location", { length: 100 }).notNull(), // Goodlands, Flacq, or Quatre Bornes
   courseType: varchar("courseType", { length: 100 }).notNull(), // Instruments, Media, Audio, Songwriting, Worship
   courseLevel: varchar("courseLevel", { length: 50 }).notNull(), // Beginner or Intermediate

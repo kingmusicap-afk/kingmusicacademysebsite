@@ -19,19 +19,21 @@ export default function Home() {
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
     const phone = formData.get('phone') as string;
+    const age = formData.get('age') as string;
     const courseCategory = formData.get('courseCategory') as string;
     const courseName = formData.get('courseName') as string;
     const location = formData.get('location') as string;
     const message = formData.get('message') as string;
     
-    console.log('Form submitted with data:', { name, email, phone, courseCategory, courseName, location, message });
+    console.log('Form submitted with data:', { name, email, phone, age, courseCategory, courseName, location, message });
     
     // Validate required fields
-    if (!name || !email || !phone || !courseCategory || !courseName || !location) {
+    if (!name || !email || !phone || !age || !courseCategory || !courseName || !location) {
       console.log('Validation failed. Missing fields:', {
         name: !name,
         email: !email,
         phone: !phone,
+        age: !age,
         courseCategory: !courseCategory,
         courseName: !courseName,
         location: !location
@@ -56,6 +58,7 @@ export default function Home() {
           lastName,
           email,
           phone,
+          age: parseInt(age),
           location,
           courseType: courseCategory,
           courseLevel: 'Beginner',
@@ -108,7 +111,7 @@ export default function Home() {
     },
     media: {
       title: 'Media Production Course',
-      price: 'Rs 1,500/month',
+      price: 'Rs 2,500/month',
       duration: '12 Months',
       description: 'Master professional video production and streaming',
       modules: [
@@ -940,7 +943,7 @@ export default function Home() {
                 <li>✓ Comprehensive courses: Instruments, Media, Audio, Songwriting, Worship</li>
                 <li>✓ 12-month professional courses with structured curriculum</li>
                 <li>✓ Christian values integrated into every lesson</li>
-                <li>✓ Affordable pricing from Rs 1,000 - Rs 1,500/month</li>
+                <li>✓ Affordable pricing from Rs 1,000 - Rs 2,500/month</li>
                 <li>✓ Three locations across the island</li>
                 <li>✓ Performance opportunity at the annual concert</li>
               </ul>

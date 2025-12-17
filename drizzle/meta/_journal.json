@@ -15,6 +15,13 @@
       "when": 1765694785411,
       "tag": "0001_next_morph",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1765974854530,
+      "tag": "0002_steady_millenium_guard",
+      "breakpoints": true
     }
   ]
 }

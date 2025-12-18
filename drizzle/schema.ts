@@ -76,3 +76,20 @@ export const classCapacity = mysqlTable("classCapacity", {
 
 export type ClassCapacity = typeof classCapacity.$inferSelect;
 export type InsertClassCapacity = typeof classCapacity.$inferInsert;
+// Class reminders table for tracking sent reminders
+export const classReminders = mysqlTable("classReminders", {
+  id: int("id").autoincrement().primaryKey(),
+  enrollmentId: int("enrollmentId").notNull(),
+  reminderDate: timestamp("reminderDate").notNull(),
+  classDate: timestamp("classDate").notNull(),
+  emailSent: int("emailSent").default(0).notNull(),
+  whatsappSent: int("whatsappSent").default(0).notNull(),
+  emailSentAt: timestamp("emailSentAt"),
+  whatsappSentAt: timestamp("whatsappSentAt"),
+  emailError: text("emailError"),
+  whatsappError: text("whatsappError"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ClassReminder = typeof classReminders.$inferSelect;
+export type InsertClassReminder = typeof classReminders.$inferInsert;

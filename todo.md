@@ -25,3 +25,6 @@
 - [x] Add attendance tracking with checkboxes and date tracking in Schedule view
 - [x] Create downloadable attendance reports feature
 - [x] Implement class capacity limits with "Full" status display
+- [x] Create automated email reminders 24 hours before class
+- [x] Create automated WhatsApp reminders 24 hours before class
+- [x] Set up scheduled job to send reminders at specified times

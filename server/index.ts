@@ -6,6 +6,7 @@ import enrollmentsRouter from "./routes/enrollments.js";
 import contactRouter from "./routes/contact.js";
 import attendanceRouter from "./routes/attendance.js";
 import capacityRouter from "./routes/capacity.js";
+import remindersRouter from "./routes/reminders.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,6 +24,7 @@ async function startServer() {
   app.use("/api/contact", contactRouter);
   app.use("/api/attendance", attendanceRouter);
   app.use("/api/capacity", capacityRouter);
+  app.use("/api/reminders", remindersRouter);
 
   // Serve static files from dist/public in production
   const staticPath =

@@ -30,7 +30,7 @@ export default function AdminDashboard() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingStatus, setEditingStatus] = useState<'pending' | 'paid' | 'overdue'>('pending');
   const [updateLoading, setUpdateLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<'enrollments' | 'schedule' | 'attendance' | 'capacity'>('enrollments');
+  const [activeTab, setActiveTab] = useState<'enrollments' | 'schedule' | 'attendance' | 'capacity' | 'reminders'>('enrollments');
 
   // Simple authentication
   const handleLogin = (e: React.FormEvent) => {
@@ -307,6 +307,16 @@ export default function AdminDashboard() {
           >
             Class Capacity
           </button>
+          <button
+            onClick={() => setActiveTab('reminders')}
+            className={`px-4 py-2 font-semibold border-b-2 transition-colors whitespace-nowrap ${
+              activeTab === 'reminders'
+                ? 'border-primary text-primary'
+                : 'border-transparent text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            Reminders
+          </button>
         </div>
 
         {/* Enrollments Tab */}
@@ -552,6 +562,62 @@ export default function AdminDashboard() {
             </Card>
           </div>
         )}
+
+        {/* Reminders Tab */}
+        {activeTab === 'reminders' && (
+          <div className="space-y-6">
+            <Card className="p-6 border-0 shadow-subtle">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-bold text-primary">Class Reminders Management</h2>
+                <div className="flex gap-2">
+                  <Button
+                    onClick={() => {
+                      fetch('/api/reminders/create-batch', { method: 'POST' })
+                        .then(r => r.json())
+                        .then(d => alert(`Created ${d.created} reminders`))
+                        .catch(e => alert('Error creating reminders'));
+                    }}
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                  >
+                    Create Batch
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      fetch('/api/reminders/send-pending', { method: 'POST' })
+                        .then(r => r.json())
+                        .then(d => alert(`Sent ${d.emailsSent} emails, ${d.whatsappsSent} WhatsApp messages`))
+                        .catch(e => alert('Error sending reminders'));
+                    }}
+                    className="bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    Send Pending
+                  </Button>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <p className="text-sm font-semibold text-gray-900 mb-2">Email Reminders</p>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>✓ Automated 24-hour email reminders</li>
+                    <li>✓ Course and location details included</li>
+                    <li>✓ Contact information provided</li>
+                    <li>✓ Professional HTML templates</li>
+                  </ul>
+                </div>
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <p className="text-sm font-semibold text-gray-900 mb-2">WhatsApp Reminders</p>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>✓ Automated 24-hour WhatsApp messages</li>
+                    <li>✓ Friendly emoji-enhanced messages</li>
+                    <li>✓ Direct contact information</li>
+                    <li>✓ Reduces class no-shows</li>
+                  </ul>
+                </div>
+              </div>
+            </Card>
+          </div>
+        )}
+
       </div>
 
       {/* Edit Modal */}
@@ -568,39 +634,38 @@ export default function AdminDashboard() {
               </button>
             </div>
 
-            <div className="mb-6">
-              <p className="text-sm text-gray-600 mb-4">
-                {enrollments.find(e => e.id === editingId)?.firstName} {enrollments.find(e => e.id === editingId)?.lastName}
-              </p>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Payment Status
-              </label>
-              <select
-                value={editingStatus}
-                onChange={(e) => setEditingStatus(e.target.value as 'pending' | 'paid' | 'overdue')}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-              >
-                <option value="pending">Pending</option>
-                <option value="paid">Paid</option>
-                <option value="overdue">Overdue</option>
-              </select>
-            </div>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Payment Status
+                </label>
+                <select
+                  value={editingStatus}
+                  onChange={(e) => setEditingStatus(e.target.value as 'pending' | 'paid' | 'overdue')}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <option value="pending">Pending</option>
+                  <option value="paid">Paid</option>
+                  <option value="overdue">Overdue</option>
+                </select>
+              </div>
 
-            <div className="flex gap-3">
-              <Button
-                onClick={() => setEditingId(null)}
-                variant="outline"
-                className="flex-1"
-              >
-                Cancel
-              </Button>
-              <Button
-                onClick={handleUpdatePaymentStatus}
-                disabled={updateLoading}
-                className="flex-1 bg-primary hover:bg-blue-900 text-white"
-              >
-                {updateLoading ? 'Updating...' : 'Update'}
-              </Button>
+              <div className="flex gap-2 pt-4">
+                <Button
+                  onClick={handleUpdatePaymentStatus}
+                  disabled={updateLoading}
+                  className="flex-1 bg-primary hover:bg-blue-900 text-white"
+                >
+                  {updateLoading ? 'Updating...' : 'Update'}
+                </Button>
+                <Button
+                  onClick={() => setEditingId(null)}
+                  variant="outline"
+                  className="flex-1"
+                >
+                  Cancel
+                </Button>
+              </div>
             </div>
           </Card>
         </div>

@@ -30,7 +30,7 @@ export default function AdminDashboard() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingStatus, setEditingStatus] = useState<'pending' | 'paid' | 'overdue'>('pending');
   const [updateLoading, setUpdateLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<'enrollments' | 'schedule'>('enrollments');
+  const [activeTab, setActiveTab] = useState<'enrollments' | 'schedule' | 'attendance' | 'capacity'>('enrollments');
 
   // Simple authentication
   const handleLogin = (e: React.FormEvent) => {
@@ -266,10 +266,10 @@ export default function AdminDashboard() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-8 border-b border-gray-200">
+        <div className="flex gap-2 mb-8 border-b border-gray-200 overflow-x-auto">
           <button
             onClick={() => setActiveTab('enrollments')}
-            className={`px-4 py-2 font-semibold border-b-2 transition-colors ${
+            className={`px-4 py-2 font-semibold border-b-2 transition-colors whitespace-nowrap ${
               activeTab === 'enrollments'
                 ? 'border-primary text-primary'
                 : 'border-transparent text-gray-600 hover:text-gray-900'
@@ -279,13 +279,33 @@ export default function AdminDashboard() {
           </button>
           <button
             onClick={() => setActiveTab('schedule')}
-            className={`px-4 py-2 font-semibold border-b-2 transition-colors ${
+            className={`px-4 py-2 font-semibold border-b-2 transition-colors whitespace-nowrap ${
               activeTab === 'schedule'
                 ? 'border-primary text-primary'
                 : 'border-transparent text-gray-600 hover:text-gray-900'
             }`}
           >
             Schedule
+          </button>
+          <button
+            onClick={() => setActiveTab('attendance')}
+            className={`px-4 py-2 font-semibold border-b-2 transition-colors whitespace-nowrap ${
+              activeTab === 'attendance'
+                ? 'border-primary text-primary'
+                : 'border-transparent text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            Attendance
+          </button>
+          <button
+            onClick={() => setActiveTab('capacity')}
+            className={`px-4 py-2 font-semibold border-b-2 transition-colors whitespace-nowrap ${
+              activeTab === 'capacity'
+                ? 'border-primary text-primary'
+                : 'border-transparent text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            Class Capacity
           </button>
         </div>
 
@@ -475,6 +495,59 @@ export default function AdminDashboard() {
                     </div>
                   );
                 })}
+              </div>
+            </Card>
+          </div>
+        )}
+
+        {/* Attendance Tab */}
+        {activeTab === 'attendance' && (
+          <div className="space-y-6">
+            <Card className="p-6 border-0 shadow-subtle">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-bold text-primary">Attendance Tracking</h2>
+                <a href="/api/attendance/report/all" download>
+                  <Button className="bg-primary hover:bg-blue-900 text-white">
+                    Download Report
+                  </Button>
+                </a>
+              </div>
+              <p className="text-gray-600 text-sm mb-4">Mark student attendance and download comprehensive attendance reports.</p>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <p className="text-sm font-semibold text-gray-900 mb-2">Features:</p>
+                <ul className="text-sm text-gray-600 space-y-1 ml-4">
+                  <li>✓ Mark attendance for each class session</li>
+                  <li>✓ Track attendance by date and student</li>
+                  <li>✓ Download CSV attendance reports</li>
+                  <li>✓ Add notes for missed classes</li>
+                </ul>
+              </div>
+            </Card>
+          </div>
+        )}
+
+        {/* Capacity Tab */}
+        {activeTab === 'capacity' && (
+          <div className="space-y-6">
+            <Card className="p-6 border-0 shadow-subtle">
+              <h2 className="text-lg font-bold text-primary mb-4">Class Capacity Management</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <p className="text-sm font-semibold text-gray-900 mb-2">Current Configuration</p>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Default capacity: 10 students per class</li>
+                    <li>• Locations: Goodlands, Quatre Bornes, Flacq</li>
+                    <li>• Time slots: 2:00 PM - 5:00 PM</li>
+                  </ul>
+                </div>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <p className="text-sm font-semibold text-gray-900 mb-2">Features</p>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>✓ Set maximum capacity per class</li>
+                    <li>✓ Display "Full" status when capacity reached</li>
+                    <li>✓ Manage enrollment limits by location</li>
+                  </ul>
+                </div>
               </div>
             </Card>
           </div>

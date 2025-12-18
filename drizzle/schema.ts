@@ -48,3 +48,31 @@ export const enrollments = mysqlTable("enrollments", {
 
 export type Enrollment = typeof enrollments.$inferSelect;
 export type InsertEnrollment = typeof enrollments.$inferInsert;
+
+// Attendance tracking table
+export const attendance = mysqlTable("attendance", {
+  id: int("id").autoincrement().primaryKey(),
+  enrollmentId: int("enrollmentId").notNull(),
+  attendanceDate: timestamp("attendanceDate").notNull(),
+  attended: int("attended").default(0).notNull(), // 1 for present, 0 for absent
+  notes: text("notes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Attendance = typeof attendance.$inferSelect;
+export type InsertAttendance = typeof attendance.$inferInsert;
+
+// Class capacity limits table
+export const classCapacity = mysqlTable("classCapacity", {
+  id: int("id").autoincrement().primaryKey(),
+  day: varchar("day", { length: 20 }).notNull(), // Monday, Tuesday, Wednesday, Thursday, Friday
+  time: varchar("time", { length: 10 }).notNull(), // 2:00 PM, 3:00 PM, etc.
+  location: varchar("location", { length: 100 }).notNull(), // Goodlands, Flacq, Quatre Bornes
+  courseType: varchar("courseType", { length: 100 }).notNull(), // Instruments, Media, Audio, etc.
+  maxCapacity: int("maxCapacity").notNull().default(10), // Maximum students allowed
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ClassCapacity = typeof classCapacity.$inferSelect;
+export type InsertClassCapacity = typeof classCapacity.$inferInsert;

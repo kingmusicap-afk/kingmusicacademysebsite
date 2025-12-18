@@ -22,3 +22,6 @@
 - [x] Add Drums and Bass Guitar to instrument courses
 - [x] Remove note section from course schedule table
 - [x] Create Student Scheduling page in admin dashboard showing enrollments by course/location/time
+- [x] Add attendance tracking with checkboxes and date tracking in Schedule view
+- [x] Create downloadable attendance reports feature
+- [x] Implement class capacity limits with "Full" status display

@@ -4,6 +4,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 import enrollmentsRouter from "./routes/enrollments.js";
 import contactRouter from "./routes/contact.js";
+import attendanceRouter from "./routes/attendance.js";
+import capacityRouter from "./routes/capacity.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,6 +21,8 @@ async function startServer() {
   // API Routes
   app.use("/api/enrollments", enrollmentsRouter);
   app.use("/api/contact", contactRouter);
+  app.use("/api/attendance", attendanceRouter);
+  app.use("/api/capacity", capacityRouter);
 
   // Serve static files from dist/public in production
   const staticPath =

@@ -978,7 +978,7 @@ export default function Home() {
               <tbody>
                 {/* Instrument Courses - Tuesday Goodlands */}
                 <tr className="hover:bg-blue-50 transition-colors">
-                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Piano / Guitar / Vocal</td>
+                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Piano / Guitar / Vocal / Drums / Bass Guitar</td>
                   <td className="border border-gray-300 px-4 py-3">Goodlands</td>
                   <td className="border border-gray-300 px-4 py-3">Tuesday: 2:00 PM, 3:00 PM, 4:00 PM, 5:00 PM</td>
                   <td className="border border-gray-300 px-4 py-3">1 hour</td>
@@ -987,7 +987,7 @@ export default function Home() {
                 </tr>
                 {/* Instrument Courses - Wednesday Quatre Bornes */}
                 <tr className="hover:bg-blue-50 transition-colors">
-                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Piano / Guitar / Vocal</td>
+                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Piano / Guitar / Vocal / Drums / Bass Guitar</td>
                   <td className="border border-gray-300 px-4 py-3">Quatre Bornes</td>
                   <td className="border border-gray-300 px-4 py-3">Wednesday: 2:00 PM, 3:00 PM, 4:00 PM, 5:00 PM</td>
                   <td className="border border-gray-300 px-4 py-3">1 hour</td>
@@ -996,7 +996,7 @@ export default function Home() {
                 </tr>
                 {/* Instrument Courses - Thursday Flacq */}
                 <tr className="hover:bg-blue-50 transition-colors">
-                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Piano / Guitar / Vocal</td>
+                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Piano / Guitar / Vocal / Drums / Bass Guitar</td>
                   <td className="border border-gray-300 px-4 py-3">Flacq</td>
                   <td className="border border-gray-300 px-4 py-3">Thursday: 2:00 PM, 3:00 PM, 4:00 PM, 5:00 PM</td>
                   <td className="border border-gray-300 px-4 py-3">1 hour</td>
@@ -1005,7 +1005,7 @@ export default function Home() {
                 </tr>
                 {/* Instrument Courses - Friday Quatre Bornes */}
                 <tr className="hover:bg-blue-50 transition-colors">
-                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Piano / Guitar / Vocal</td>
+                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Piano / Guitar / Vocal / Drums / Bass Guitar</td>
                   <td className="border border-gray-300 px-4 py-3">Quatre Bornes</td>
                   <td className="border border-gray-300 px-4 py-3">Friday: 2:00 PM, 3:00 PM, 4:00 PM, 5:00 PM</td>
                   <td className="border border-gray-300 px-4 py-3">1 hour</td>
@@ -1049,9 +1049,7 @@ export default function Home() {
             </table>
           </div>
 
-          <div className="mt-12 bg-blue-50 border-l-4 border-primary p-6 rounded">
-            <p className="text-gray-700"><span className="font-semibold text-primary">Note:</span> All classes are conducted by experienced instructors. Flexible scheduling available upon request. Contact us at kingmusicltd@gmail.com or WhatsApp +230 57566278 for custom schedules or private lessons.</p>
-          </div>
+
         </div>
       </section>
 

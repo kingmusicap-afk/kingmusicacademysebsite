@@ -21,3 +21,4 @@
 - [x] Update course schedule table with new planning (Thursday classes and location-based time slots)
 - [x] Add Drums and Bass Guitar to instrument courses
 - [x] Remove note section from course schedule table
+- [x] Create Student Scheduling page in admin dashboard showing enrollments by course/location/time

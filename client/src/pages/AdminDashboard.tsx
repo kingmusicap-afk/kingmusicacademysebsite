@@ -30,6 +30,7 @@ export default function AdminDashboard() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingStatus, setEditingStatus] = useState<'pending' | 'paid' | 'overdue'>('pending');
   const [updateLoading, setUpdateLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<'enrollments' | 'schedule'>('enrollments');
 
   // Simple authentication
   const handleLogin = (e: React.FormEvent) => {
@@ -187,6 +188,21 @@ export default function AdminDashboard() {
   const courses = Array.from(new Set(enrollments.map(e => e.courseType)));
   const locations = Array.from(new Set(enrollments.map(e => e.location)));
 
+  const scheduleData = [
+    { day: 'Tuesday', location: 'Goodlands', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
+    { day: 'Wednesday', location: 'Quatre Bornes', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
+    { day: 'Thursday', location: 'Flacq', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
+    { day: 'Friday', location: 'Quatre Bornes', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
+  ];
+
+  const getStudentsForSchedule = (day: string, location: string) => {
+    return enrollments.filter(e => e.location === location && e.courseType === 'Instruments');
+  };
+
+  const getStudentsForSpecializedCourse = (course: string) => {
+    return enrollments.filter(e => e.specificCourse === course);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -249,134 +265,220 @@ export default function AdminDashboard() {
           </Card>
         </div>
 
-        {/* Filters */}
-        <Card className="p-6 border-0 shadow-subtle mb-8">
-          <h2 className="text-lg font-bold text-primary mb-4">Filters</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Course Type
-              </label>
-              <select
-                value={filterCourse}
-                onChange={(e) => setFilterCourse(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-              >
-                <option value="all">All Courses</option>
-                {courses.filter(Boolean).map(course => (
-                  <option key={course} value={course}>{course}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Location
-              </label>
-              <select
-                value={filterLocation}
-                onChange={(e) => setFilterLocation(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-              >
-                <option value="all">All Locations</option>
-                {locations.filter(Boolean).map(location => (
-                  <option key={location} value={location}>{location}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Payment Status
-              </label>
-              <select
-                value={filterPayment}
-                onChange={(e) => setFilterPayment(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-              >
-                <option value="all">All Status</option>
-                <option value="paid">Paid</option>
-                <option value="pending">Pending</option>
-                <option value="overdue">Overdue</option>
-              </select>
-            </div>
-          </div>
-        </Card>
-
-        {/* Enrollments Table */}
-        <Card className="border-0 shadow-subtle overflow-hidden">
-          {loading ? (
-            <div className="p-8 text-center">
-              <p className="text-gray-600">Loading enrollments...</p>
-            </div>
-          ) : filteredEnrollments.length === 0 ? (
-            <div className="p-8 text-center">
-              <p className="text-gray-600">No enrollments found</p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50 border-b border-gray-200">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Name</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Email</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Phone</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Age</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Course</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Location</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Payment</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Date</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Action</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {filteredEnrollments.map((enrollment) => (
-                    <tr key={enrollment.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-6 py-4 text-sm text-gray-900 font-medium">
-                        {enrollment.firstName} {enrollment.lastName}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{enrollment.email}</td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{enrollment.phone}</td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{enrollment.age || '-'}</td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{enrollment.specificCourse}</td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{enrollment.location}</td>
-                      <td className="px-6 py-4 text-sm">
-                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                          enrollment.paymentStatus === 'paid'
-                            ? 'bg-green-100 text-green-800'
-                            : enrollment.paymentStatus === 'pending'
-                            ? 'bg-yellow-100 text-yellow-800'
-                            : 'bg-red-100 text-red-800'
-                        }`}>
-                          {enrollment.paymentStatus.charAt(0).toUpperCase() + enrollment.paymentStatus.slice(1)}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
-                        {new Date(enrollment.createdAt).toLocaleDateString()}
-                      </td>
-                      <td className="px-6 py-4 text-sm">
-                        <Button
-                          onClick={() => handleEditClick(enrollment)}
-                          variant="outline"
-                          size="sm"
-                          className="flex items-center gap-2"
-                        >
-                          <Edit2 className="w-4 h-4" />
-                          Edit
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </Card>
-
-        {/* Summary */}
-        <div className="mt-8 text-center text-gray-600">
-          <p>Showing {filteredEnrollments.length} of {enrollments.length} enrollments</p>
+        {/* Tabs */}
+        <div className="flex gap-2 mb-8 border-b border-gray-200">
+          <button
+            onClick={() => setActiveTab('enrollments')}
+            className={`px-4 py-2 font-semibold border-b-2 transition-colors ${
+              activeTab === 'enrollments'
+                ? 'border-primary text-primary'
+                : 'border-transparent text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            Enrollments
+          </button>
+          <button
+            onClick={() => setActiveTab('schedule')}
+            className={`px-4 py-2 font-semibold border-b-2 transition-colors ${
+              activeTab === 'schedule'
+                ? 'border-primary text-primary'
+                : 'border-transparent text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            Schedule
+          </button>
         </div>
+
+        {/* Enrollments Tab */}
+        {activeTab === 'enrollments' && (
+          <>
+            {/* Filters */}
+            <Card className="p-6 border-0 shadow-subtle mb-8">
+              <h2 className="text-lg font-bold text-primary mb-4">Filters</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Course Type
+                  </label>
+                  <select
+                    value={filterCourse}
+                    onChange={(e) => setFilterCourse(e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="all">All Courses</option>
+                    {courses.filter(Boolean).map(course => (
+                      <option key={course} value={course}>{course}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Location
+                  </label>
+                  <select
+                    value={filterLocation}
+                    onChange={(e) => setFilterLocation(e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="all">All Locations</option>
+                    {locations.filter(Boolean).map(location => (
+                      <option key={location} value={location}>{location}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Payment Status
+                  </label>
+                  <select
+                    value={filterPayment}
+                    onChange={(e) => setFilterPayment(e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="all">All Status</option>
+                    <option value="paid">Paid</option>
+                    <option value="pending">Pending</option>
+                    <option value="overdue">Overdue</option>
+                  </select>
+                </div>
+              </div>
+            </Card>
+
+            {/* Enrollments Table */}
+            <Card className="border-0 shadow-subtle overflow-hidden">
+              {loading ? (
+                <div className="p-8 text-center">
+                  <p className="text-gray-600">Loading enrollments...</p>
+                </div>
+              ) : filteredEnrollments.length === 0 ? (
+                <div className="p-8 text-center">
+                  <p className="text-gray-600">No enrollments found</p>
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead className="bg-gray-50 border-b border-gray-200">
+                      <tr>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Name</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Email</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Phone</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Age</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Course</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Location</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Payment</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Date</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                      {filteredEnrollments.map((enrollment) => (
+                        <tr key={enrollment.id} className="hover:bg-gray-50 transition-colors">
+                          <td className="px-6 py-4 text-sm text-gray-900 font-medium">
+                            {enrollment.firstName} {enrollment.lastName}
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-600">{enrollment.email}</td>
+                          <td className="px-6 py-4 text-sm text-gray-600">{enrollment.phone}</td>
+                          <td className="px-6 py-4 text-sm text-gray-600">{enrollment.age || '-'}</td>
+                          <td className="px-6 py-4 text-sm text-gray-600">{enrollment.specificCourse}</td>
+                          <td className="px-6 py-4 text-sm text-gray-600">{enrollment.location}</td>
+                          <td className="px-6 py-4 text-sm">
+                            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                              enrollment.paymentStatus === 'paid'
+                                ? 'bg-green-100 text-green-800'
+                                : enrollment.paymentStatus === 'pending'
+                                ? 'bg-yellow-100 text-yellow-800'
+                                : 'bg-red-100 text-red-800'
+                            }`}>
+                              {enrollment.paymentStatus.charAt(0).toUpperCase() + enrollment.paymentStatus.slice(1)}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-600">
+                            {new Date(enrollment.createdAt).toLocaleDateString()}
+                          </td>
+                          <td className="px-6 py-4 text-sm">
+                            <Button
+                              onClick={() => handleEditClick(enrollment)}
+                              variant="outline"
+                              size="sm"
+                              className="flex items-center gap-2"
+                            >
+                              <Edit2 className="w-4 h-4" />
+                              Edit
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </Card>
+
+            {/* Summary */}
+            <div className="mt-8 text-center text-gray-600">
+              <p>Showing {filteredEnrollments.length} of {enrollments.length} enrollments</p>
+            </div>
+          </>
+        )}
+
+        {/* Schedule Tab */}
+        {activeTab === 'schedule' && (
+          <div className="space-y-6">
+            {/* Instrument Courses Schedule */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {scheduleData.map((schedule) => (
+                <Card key={`${schedule.day}-${schedule.location}`} className="p-6 border-0 shadow-subtle">
+                  <h3 className="text-lg font-bold text-primary mb-4">{schedule.day} - {schedule.location}</h3>
+                  <div className="space-y-3">
+                    {schedule.times.map(time => {
+                      const students = getStudentsForSchedule(schedule.day, schedule.location);
+                      return (
+                        <div key={time} className="border border-gray-200 rounded-lg p-3 bg-gray-50">
+                          <p className="font-semibold text-gray-900">{time}</p>
+                          {students.length > 0 ? (
+                            <ul className="text-sm text-gray-600 mt-2 space-y-1">
+                              {students.map(s => (
+                                <li key={s.id}>• {s.firstName} {s.lastName} - {s.specificCourse}</li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className="text-sm text-gray-400 mt-2">No students scheduled</p>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+            {/* Thursday Evening Specialized Courses */}
+            <Card className="p-6 border-0 shadow-subtle">
+              <h3 className="text-lg font-bold text-primary mb-4">Thursday 7:00 PM - Specialized Courses</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {['Media Production', 'Audio Engineering', 'Songwriting Workshop', 'Worship Leadership'].map(course => {
+                  const students = getStudentsForSpecializedCourse(course);
+                  return (
+                    <div key={course} className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                      <p className="font-semibold text-gray-900 mb-3">{course}</p>
+                      {students.length > 0 ? (
+                        <ul className="text-sm text-gray-600 space-y-1">
+                          {students.map(s => (
+                            <li key={s.id}>• {s.firstName} {s.lastName}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="text-sm text-gray-400">No students enrolled</p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </Card>
+          </div>
+        )}
       </div>
 
       {/* Edit Modal */}

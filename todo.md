@@ -18,3 +18,4 @@
 - [x] Fix Enroll button to scroll to enrollment form instead of redirecting to admin
 - [x] Add Quatre Bornes back to Classes Across Mauritius section
 - [x] Create Course Schedule Table with lesson times, duration, and availability
+- [x] Update course schedule table with new planning (Thursday classes and location-based time slots)

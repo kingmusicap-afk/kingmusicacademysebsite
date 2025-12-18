@@ -1053,6 +1053,180 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Student Gallery Section */}
+      <section className="py-20 md:py-28 bg-gray-50">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Student Gallery</h2>
+            <p className="text-lg text-gray-600">Showcase of our talented students performing at concerts, studio sessions, and special events</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Gallery Item 1 */}
+            <div className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow group">
+              <img src="/images/king-concert.jpg" alt="Student Piano Performance" className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex items-end p-4">
+                <div className="text-white">
+                  <h3 className="font-bold text-lg">Piano Performance</h3>
+                  <p className="text-sm text-gray-200">Annual Student Concert 2024</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Gallery Item 2 */}
+            <div className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow group">
+              <img src="/images/king-concert.jpg" alt="Guitar Ensemble" className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex items-end p-4">
+                <div className="text-white">
+                  <h3 className="font-bold text-lg">Guitar Ensemble</h3>
+                  <p className="text-sm text-gray-200">Group Performance Showcase</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Gallery Item 3 */}
+            <div className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow group">
+              <img src="/images/king-concert.jpg" alt="Vocal Studio Session" className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex items-end p-4">
+                <div className="text-white">
+                  <h3 className="font-bold text-lg">Vocal Studio Session</h3>
+                  <p className="text-sm text-gray-200">Professional Recording</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Gallery Item 4 */}
+            <div className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow group">
+              <img src="/images/king-concert.jpg" alt="Drums Workshop" className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex items-end p-4">
+                <div className="text-white">
+                  <h3 className="font-bold text-lg">Drums Workshop</h3>
+                  <p className="text-sm text-gray-200">Rhythm Mastery Class</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Gallery Item 5 */}
+            <div className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow group">
+              <img src="/images/king-concert.jpg" alt="Media Production Setup" className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex items-end p-4">
+                <div className="text-white">
+                  <h3 className="font-bold text-lg">Media Production</h3>
+                  <p className="text-sm text-gray-200">Professional Studio Setup</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Gallery Item 6 */}
+            <div className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow group">
+              <img src="/images/king-concert.jpg" alt="Worship Leadership" className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex items-end p-4">
+                <div className="text-white">
+                  <h3 className="font-bold text-lg">Worship Leadership</h3>
+                  <p className="text-sm text-gray-200">Church Performance</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Performance Calendar Section */}
+      <section className="py-20 md:py-28 bg-white">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Upcoming Events & Performances</h2>
+            <p className="text-lg text-gray-600">Mark your calendar for exciting student performances and academy events</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Event 1 */}
+            <Card className="p-8 border-2 border-primary/20 hover:border-primary/50 transition-colors">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="bg-primary/10 rounded-lg p-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-primary">15</div>
+                    <div className="text-sm text-gray-600">February</div>
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-primary mb-2">Monthly Student Recital</h3>
+                  <p className="text-gray-600 mb-3">Showcase performances by our talented instrument students</p>
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <MapPin className="w-4 h-4" />
+                    <span>Quatre Bornes Studio</span>
+                  </div>
+                </div>
+              </div>
+              <Button className="w-full bg-primary hover:bg-blue-900 text-white">Learn More</Button>
+            </Card>
+
+            {/* Event 2 */}
+            <Card className="p-8 border-2 border-primary/20 hover:border-primary/50 transition-colors">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="bg-primary/10 rounded-lg p-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-primary">22</div>
+                    <div className="text-sm text-gray-600">February</div>
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-primary mb-2">Media Production Showcase</h3>
+                  <p className="text-gray-600 mb-3">Student video projects and production work exhibition</p>
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <MapPin className="w-4 h-4" />
+                    <span>Goodlands Campus</span>
+                  </div>
+                </div>
+              </div>
+              <Button className="w-full bg-primary hover:bg-blue-900 text-white">Learn More</Button>
+            </Card>
+
+            {/* Event 3 */}
+            <Card className="p-8 border-2 border-primary/20 hover:border-primary/50 transition-colors">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="bg-primary/10 rounded-lg p-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-primary">01</div>
+                    <div className="text-sm text-gray-600">March</div>
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-primary mb-2">Worship Leadership Workshop</h3>
+                  <p className="text-gray-600 mb-3">Special training session with Kheejoo Jenkins</p>
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <MapPin className="w-4 h-4" />
+                    <span>Flacq Studio</span>
+                  </div>
+                </div>
+              </div>
+              <Button className="w-full bg-primary hover:bg-blue-900 text-white">Learn More</Button>
+            </Card>
+
+            {/* Event 4 */}
+            <Card className="p-8 border-2 border-primary/20 hover:border-primary/50 transition-colors">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="bg-primary/10 rounded-lg p-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-primary">15</div>
+                    <div className="text-sm text-gray-600">March</div>
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-primary mb-2">Annual Student Concert</h3>
+                  <p className="text-gray-600 mb-3">Grand finale performance featuring all students and courses</p>
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <MapPin className="w-4 h-4" />
+                    <span>Grand Theater, Port Louis</span>
+                  </div>
+                </div>
+              </div>
+              <Button className="w-full bg-primary hover:bg-blue-900 text-white">Learn More</Button>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* WhatsApp Floating Button */}
       <a
         href="https://wa.me/23057566278?text=Hi%20King%20Music%20Academy%2C%20I%20have%20questions%20about%20your%20courses%20and%20enrollment."

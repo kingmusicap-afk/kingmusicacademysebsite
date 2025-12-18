@@ -29,3 +29,5 @@
 - [x] Create automated WhatsApp reminders 24 hours before class
 - [x] Set up scheduled job to send reminders at specified times
 - [x] Add "Share with Friend" buttons for WhatsApp and Email on homepage
+- [x] Create Student Gallery Section with sample performance images
+- [x] Implement Performance Calendar with upcoming events and dates

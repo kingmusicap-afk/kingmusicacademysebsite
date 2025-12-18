@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Music, Award, Users, Sparkles, Heart, MapPin, Mail, Phone } from 'lucide-react';
+import { Music, Award, Users, Sparkles, Heart, MapPin, Mail, Phone, Share2 } from 'lucide-react';
 import { useRef } from 'react';
 
 export default function Home() {
@@ -1114,6 +1114,34 @@ export default function Home() {
                 <li>✓ Three locations across the island</li>
                 <li>✓ Performance opportunity at the annual concert</li>
               </ul>
+            </div>
+          </div>
+
+          {/* Share Section */}
+          <div className="border-t border-gray-800 pt-8 mb-8">
+            <div className="text-center mb-6">
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center justify-center gap-2">
+                <Share2 className="w-5 h-5" />
+                Share with a Friend
+              </h3>
+              <p className="text-gray-400 mb-4">Know someone interested in music? Share King Music Academy with them!</p>
+              <div className="flex justify-center gap-4">
+                <a
+                  href={`https://wa.me/?text=Check%20out%20King%20Music%20Academy%20-%20Professional%20Music%20Education%20in%20Mauritius!%20Learn%20from%20a%20national%20icon%20with%2030%20years%20of%20experience.%20Courses%20in%20Instruments%2C%20Media%20Production%2C%20Audio%20Engineering%2C%20Songwriting%20%26%20Worship%20Leadership.%20Visit%20us%20today!%20%F0%9F%8E%B5`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition"
+                >
+                  <span>📱 Share on WhatsApp</span>
+                </a>
+                <a
+                  href={`mailto:?subject=King%20Music%20Academy%20-%20Professional%20Music%20Education&body=Hi!%0A%0AI%20wanted%20to%20share%20an%20amazing%20opportunity%20with%20you.%20King%20Music%20Academy%20offers%20professional%20music%20education%20in%20Mauritius%20with%20courses%20in%3A%0A%0A%F0%9F%8E%B8%20Instruments%20(Piano%2C%20Guitar%2C%20Vocal%2C%20Drums%2C%20Bass)%0A%F0%9F%8E%AC%20Media%20Production%0A%F0%9F%94%8A%20Audio%20Engineering%0A%F0%9F%8E%B5%20Songwriting%20%26%20Composition%0A%F0%9F%99%8F%20Worship%20Leadership%0A%0ALearn%20from%20a%20national%20icon%20with%2030%20years%20of%20musical%20mastery!%0A%0ALocations%3A%20Goodlands%2C%20Quatre%20Bornes%2C%20Flacq%0AAffordable%20pricing%20from%20Rs%201%2C200%20-%20Rs%202%2C500%2Fmonth%0A%0ACheck%20us%20out%20and%20start%20your%20musical%20journey%20today!%0A%0AVisit%20our%20website%20for%20more%20details.`}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition"
+                >
+                  <Mail className="w-5 h-5" />
+                  Share via Email
+                </a>
+              </div>
             </div>
           </div>
 

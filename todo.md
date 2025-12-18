@@ -17,3 +17,4 @@
 - [x] Add student testimonials section with 3-4 success stories
 - [x] Fix Enroll button to scroll to enrollment form instead of redirecting to admin
 - [x] Add Quatre Bornes back to Classes Across Mauritius section
+- [x] Create Course Schedule Table with lesson times, duration, and availability

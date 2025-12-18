@@ -955,6 +955,106 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Course Schedule Table */}
+      <section className="py-20 md:py-28 bg-white">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Course Schedule & Availability</h2>
+            <p className="text-lg text-gray-600">Find the perfect class time and location that fits your schedule</p>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-primary text-white">
+                  <th className="border border-gray-300 px-4 py-3 text-left font-semibold">Course</th>
+                  <th className="border border-gray-300 px-4 py-3 text-left font-semibold">Location</th>
+                  <th className="border border-gray-300 px-4 py-3 text-left font-semibold">Day & Time</th>
+                  <th className="border border-gray-300 px-4 py-3 text-left font-semibold">Duration</th>
+                  <th className="border border-gray-300 px-4 py-3 text-left font-semibold">Price</th>
+                  <th className="border border-gray-300 px-4 py-3 text-center font-semibold">Availability</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* Instrument Courses */}
+                <tr className="hover:bg-blue-50 transition-colors">
+                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Piano</td>
+                  <td className="border border-gray-300 px-4 py-3">Goodlands</td>
+                  <td className="border border-gray-300 px-4 py-3">Mon & Wed, 4:00 PM</td>
+                  <td className="border border-gray-300 px-4 py-3">1 hour</td>
+                  <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 1,200/month</td>
+                  <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Open</span></td>
+                </tr>
+                <tr className="hover:bg-blue-50 transition-colors">
+                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Piano</td>
+                  <td className="border border-gray-300 px-4 py-3">Flacq</td>
+                  <td className="border border-gray-300 px-4 py-3">Tue & Thu, 5:00 PM</td>
+                  <td className="border border-gray-300 px-4 py-3">1 hour</td>
+                  <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 1,200/month</td>
+                  <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Open</span></td>
+                </tr>
+                <tr className="hover:bg-blue-50 transition-colors">
+                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Guitar</td>
+                  <td className="border border-gray-300 px-4 py-3">Quatre Bornes</td>
+                  <td className="border border-gray-300 px-4 py-3">Mon & Wed, 6:00 PM</td>
+                  <td className="border border-gray-300 px-4 py-3">1 hour</td>
+                  <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 1,200/month</td>
+                  <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">Limited</span></td>
+                </tr>
+                <tr className="hover:bg-blue-50 transition-colors">
+                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Vocal</td>
+                  <td className="border border-gray-300 px-4 py-3">Goodlands</td>
+                  <td className="border border-gray-300 px-4 py-3">Sat & Sun, 10:00 AM</td>
+                  <td className="border border-gray-300 px-4 py-3">1 hour</td>
+                  <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 1,200/month</td>
+                  <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Open</span></td>
+                </tr>
+                {/* Media Production */}
+                <tr className="hover:bg-blue-50 transition-colors">
+                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Media Production</td>
+                  <td className="border border-gray-300 px-4 py-3">Flacq</td>
+                  <td className="border border-gray-300 px-4 py-3">Tue, 7:00 PM</td>
+                  <td className="border border-gray-300 px-4 py-3">3 months</td>
+                  <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 2,500/month</td>
+                  <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Open</span></td>
+                </tr>
+                {/* Audio Engineering */}
+                <tr className="hover:bg-blue-50 transition-colors">
+                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Audio Engineering</td>
+                  <td className="border border-gray-300 px-4 py-3">Quatre Bornes</td>
+                  <td className="border border-gray-300 px-4 py-3">Thu, 6:30 PM</td>
+                  <td className="border border-gray-300 px-4 py-3">3 months</td>
+                  <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 2,500/month</td>
+                  <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Open</span></td>
+                </tr>
+                {/* Songwriting */}
+                <tr className="hover:bg-blue-50 transition-colors">
+                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Songwriting Workshop</td>
+                  <td className="border border-gray-300 px-4 py-3">Goodlands</td>
+                  <td className="border border-gray-300 px-4 py-3">Sat, 2:00 PM</td>
+                  <td className="border border-gray-300 px-4 py-3">2 hours (1-time)</td>
+                  <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 2,500</td>
+                  <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Open</span></td>
+                </tr>
+                {/* Worship Leadership */}
+                <tr className="hover:bg-blue-50 transition-colors">
+                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Worship Leadership</td>
+                  <td className="border border-gray-300 px-4 py-3">Flacq</td>
+                  <td className="border border-gray-300 px-4 py-3">Sun, 5:00 PM</td>
+                  <td className="border border-gray-300 px-4 py-3">1 month</td>
+                  <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 5,000</td>
+                  <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">Limited</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-12 bg-blue-50 border-l-4 border-primary p-6 rounded">
+            <p className="text-gray-700"><span className="font-semibold text-primary">Note:</span> All classes are conducted by experienced instructors. Flexible scheduling available upon request. Contact us at kingmusicltd@gmail.com or WhatsApp +230 57566278 for custom schedules or private lessons.</p>
+          </div>
+        </div>
+      </section>
+
       {/* WhatsApp Floating Button */}
       <a
         href="https://wa.me/23057566278?text=Hi%20King%20Music%20Academy%2C%20I%20have%20questions%20about%20your%20courses%20and%20enrollment."

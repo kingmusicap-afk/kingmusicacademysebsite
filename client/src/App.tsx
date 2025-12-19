@@ -10,6 +10,7 @@ import RulesAndRegulations from "./pages/RulesAndRegulations";
 import Contact from "./pages/Contact";
 import Scholarship from "./pages/Scholarship";
 import ChurchPackage from "./pages/ChurchPackage";
+import AdminBookingsDashboard from "./pages/AdminBookingsDashboard";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -20,6 +21,7 @@ function Router() {
       <Route path={"/scholarship"} component={Scholarship} />
       <Route path={"/church-package"} component={ChurchPackage} />
       <Route path={"/admin"} component={AdminDashboard} />
+      <Route path={"/admin/bookings"} component={AdminBookingsDashboard} />
       <Route path={"/rules-and-regulations"} component={RulesAndRegulations} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}

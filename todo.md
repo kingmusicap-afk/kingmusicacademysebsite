@@ -39,3 +39,11 @@
 - [x] Implement Church Package booking form with date/participant selection
 - [x] Create admin tracking for scholarships and church packages
 - [x] Set up email confirmations for church package bookings
+- [x] Create Admin Dashboard with tabs for Scholarships and Church Bookings
+- [x] Build Scholarship Applications table with filtering and search
+- [x] Build Church Package Bookings table with filtering and search
+- [x] Implement status tracking (Pending, Approved, Rejected, Completed)
+- [x] Add communication tools (email templates, send messages)
+- [x] Create detailed view/modal for each application
+- [x] Add notes and internal comments feature
+- [x] Implement bulk actions (approve, reject, send email)

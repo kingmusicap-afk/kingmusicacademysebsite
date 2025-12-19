@@ -47,3 +47,10 @@
 - [x] Create detailed view/modal for each application
 - [x] Add notes and internal comments feature
 - [x] Implement bulk actions (approve, reject, send email)
+- [x] Create Analytics Dashboard with key metrics and charts
+- [x] Implement automated confirmation/rejection emails for applicants
+- [x] Implement automated confirmation/rejection emails for churches
+- [x] Set up quarterly sponsor impact report emails
+- [x] Create email templates for all notification types
+- [x] Add scheduled job for quarterly email sending
+- [x] Create calendar view for upcoming church bookings

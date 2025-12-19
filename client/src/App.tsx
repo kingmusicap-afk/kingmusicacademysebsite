@@ -11,6 +11,8 @@ import Contact from "./pages/Contact";
 import Scholarship from "./pages/Scholarship";
 import ChurchPackage from "./pages/ChurchPackage";
 import AdminBookingsDashboard from "./pages/AdminBookingsDashboard";
+import AnalyticsDashboard from "./pages/AnalyticsDashboard";
+import EmailNotificationSettings from "./pages/EmailNotificationSettings";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -22,6 +24,8 @@ function Router() {
       <Route path={"/church-package"} component={ChurchPackage} />
       <Route path={"/admin"} component={AdminDashboard} />
       <Route path={"/admin/bookings"} component={AdminBookingsDashboard} />
+      <Route path={"/admin/analytics"} component={AnalyticsDashboard} />
+      <Route path={"/admin/email-settings"} component={EmailNotificationSettings} />
       <Route path={"/rules-and-regulations"} component={RulesAndRegulations} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}

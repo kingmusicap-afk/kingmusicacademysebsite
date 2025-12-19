@@ -324,7 +324,7 @@ export default function Home() {
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl mb-8">
               <h3 className="text-2xl font-bold text-primary mb-6">The Master</h3>
               <p className="text-gray-700 mb-4">
-                With 30 years of experience as a Gospel singer, composer, and music producer, Jenkins Kheejo has shaped the sound of Mauritian music. His journey spans continents, performances, and countless lives touched through music.
+                With 30 years of experience as a Gospel singer, composer, and music producer, Jenkins Kheejoo has shaped the sound of Mauritian music. His journey spans continents, performances, and countless lives touched through music.
               </p>
               <p className="text-gray-700">
                 In 2005, he won the prestigious "Song of the Year" award in Mauritius. In 2015, he was decorated by the President of Mauritius with the title M.S.K., recognizing his exceptional contributions to music and culture.

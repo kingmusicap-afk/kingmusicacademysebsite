@@ -1,8 +1,7 @@
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Music, Award, Users, Sparkles, Heart, MapPin, Mail, Phone, Share2 } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 export default function Home() {
   const [submitted, setSubmitted] = useState(false);
@@ -226,6 +225,20 @@ export default function Home() {
               className="hidden md:inline-flex text-primary border-primary hover:bg-primary/5"
             >
               Our Courses
+            </Button>
+            <Button 
+              onClick={() => window.location.href = '/scholarship'}
+              variant="outline"
+              className="hidden md:inline-flex text-primary border-primary hover:bg-primary/5"
+            >
+              Scholarship
+            </Button>
+            <Button 
+              onClick={() => window.location.href = '/church-package'}
+              variant="outline"
+              className="hidden md:inline-flex text-primary border-primary hover:bg-primary/5"
+            >
+              Church Package
             </Button>
             <Button 
               onClick={() => window.location.href = '/contact'}
@@ -1223,6 +1236,33 @@ export default function Home() {
               </div>
               <Button className="w-full bg-primary hover:bg-blue-900 text-white">Learn More</Button>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Church Package CTA Section */}
+      <section className="py-20 md:py-28 bg-gradient-to-r from-primary to-blue-900 text-white">
+        <div className="container">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Church Worship Seminar & Training</h2>
+            <p className="text-xl text-blue-100 mb-8">
+              Bring professional worship leadership and sound system training to your church musicians. Rs 2,000 per person.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                onClick={() => window.location.href = '/church-package'}
+                className="bg-white text-primary hover:bg-blue-50 font-semibold px-8 py-3"
+              >
+                Learn More
+              </Button>
+              <Button 
+                onClick={() => window.location.href = '/church-package'}
+                variant="outline"
+                className="border-white text-white hover:bg-white/10 font-semibold px-8 py-3"
+              >
+                Book Now
+              </Button>
+            </div>
           </div>
         </div>
       </section>

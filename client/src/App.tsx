@@ -8,6 +8,8 @@ import Home from "./pages/Home";
 import AdminDashboard from "./pages/AdminDashboard";
 import RulesAndRegulations from "./pages/RulesAndRegulations";
 import Contact from "./pages/Contact";
+import Scholarship from "./pages/Scholarship";
+import ChurchPackage from "./pages/ChurchPackage";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -15,6 +17,8 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/contact"} component={Contact} />
+      <Route path={"/scholarship"} component={Scholarship} />
+      <Route path={"/church-package"} component={ChurchPackage} />
       <Route path={"/admin"} component={AdminDashboard} />
       <Route path={"/rules-and-regulations"} component={RulesAndRegulations} />
       <Route path={"/404"} component={NotFound} />

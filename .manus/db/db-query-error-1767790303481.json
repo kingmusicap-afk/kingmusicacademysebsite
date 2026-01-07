@@ -1,0 +1,8 @@
+{
+  "query": "UPDATE enrollments SET createdAt = '2026-01-07T00:00:00Z' WHERE createdAt IS NULL OR createdAt = '';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4XsCh7iWuU32dZo.root --database KgrdzpSFaXe4NZwja8oaAC --execute UPDATE enrollments SET createdAt = '2026-01-07T00:00:00Z' WHERE createdAt IS NULL OR createdAt = '';",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 1: Unknown column 'createdat' in 'where clause'"
+  ]
+}

@@ -63,8 +63,6 @@ export default function Home() {
           courseLevel: 'Beginner',
           specificCourse: courseName,
           startDate: new Date().toISOString().split('T')[0],
-          createdAt: new Date().toISOString(),
-          paymentStatus: 'pending',
           notes: message,
         }),
       });

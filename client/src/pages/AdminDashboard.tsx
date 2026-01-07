@@ -14,7 +14,7 @@ interface Enrollment {
   courseType: string;
   specificCourse: string;
   paymentStatus: 'pending' | 'paid' | 'overdue';
-  createdAt: string;
+  enrollmentDate: string;
 }
 
 export default function AdminDashboard() {
@@ -449,8 +449,8 @@ export default function AdminDashboard() {
                             </span>
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-600">
-                            {enrollment.createdAt && !isNaN(new Date(enrollment.createdAt).getTime())
-                              ? new Date(enrollment.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+                            {enrollment.enrollmentDate && !isNaN(new Date(enrollment.enrollmentDate).getTime())
+                              ? new Date(enrollment.enrollmentDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
                               : 'N/A'}
                           </td>
                           <td className="px-6 py-4 text-sm">

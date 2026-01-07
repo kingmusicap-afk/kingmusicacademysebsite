@@ -255,20 +255,19 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// PATCH /api/enrollments/:id - Update payment status
+// PATCH /api/enrollments/:id - Update enrollment status
 router.patch("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { paymentStatus } = req.body;
+    const { status } = req.body;
 
-    if (!["pending", "paid", "overdue"].includes(paymentStatus)) {
+    if (!["pending", "confirmed", "cancelled"].includes(status)) {
       return res.status(400).json({
-        error: "Invalid payment status",
+        error: "Invalid status. Must be 'pending', 'confirmed', or 'cancelled'",
       });
     }
 
-    const enrollments = await getEnrollments();
-    const enrollment = enrollments.find((e: any) => e.id === parseInt(id));
+    const enrollment = await getEnrollmentById(parseInt(id));
 
     if (!enrollment) {
       return res.status(404).json({
@@ -276,18 +275,17 @@ router.patch("/:id", async (req, res) => {
       });
     }
 
-    const newStatus = paymentStatus === "paid" ? "confirmed" : "pending";
-    await updateEnrollmentStatus(parseInt(id), newStatus);
+    await updateEnrollmentStatus(parseInt(id), status);
 
     res.json({
       success: true,
-      message: "Payment status updated",
-      paymentStatus,
+      message: "Enrollment status updated",
+      status,
     });
   } catch (error) {
     console.error("Update error:", error);
     res.status(500).json({
-      error: "Failed to update payment status",
+      error: "Failed to update enrollment status",
     });
   }
 });

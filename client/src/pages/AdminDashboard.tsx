@@ -13,7 +13,7 @@ interface Enrollment {
   location: string;
   courseType: string;
   specificCourse: string;
-  paymentStatus: 'pending' | 'paid' | 'overdue';
+  status: 'pending' | 'confirmed' | 'cancelled';
   enrollmentDate: string;
 }
 
@@ -28,7 +28,7 @@ export default function AdminDashboard() {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [editingStatus, setEditingStatus] = useState<'pending' | 'paid' | 'overdue'>('pending');
+  const [editingStatus, setEditingStatus] = useState<'pending' | 'confirmed' | 'cancelled'>('pending');
   const [updateLoading, setUpdateLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<'enrollments' | 'schedule' | 'attendance' | 'capacity' | 'reminders'>('enrollments');
   const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null);
@@ -59,13 +59,9 @@ export default function AdminDashboard() {
       const response = await fetch('/api/enrollments');
       if (response.ok) {
         const data = await response.json();
-        // Transform data to include payment status
-        const enrollmentsWithStatus = data.map((enrollment: any) => ({
-          ...enrollment,
-          paymentStatus: calculatePaymentStatus(enrollment.createdAt)
-        }));
-        setEnrollments(enrollmentsWithStatus);
-        setFilteredEnrollments(enrollmentsWithStatus);
+        // Use the actual status from database
+        setEnrollments(data);
+        setFilteredEnrollments(data);
       }
     } catch (error) {
       console.error('Error fetching enrollments:', error);
@@ -74,22 +70,11 @@ export default function AdminDashboard() {
     }
   };
 
-  const calculatePaymentStatus = (createdAt: string): 'pending' | 'paid' | 'overdue' => {
-    const createdDate = new Date(createdAt);
-    const now = new Date();
-    const hoursDiff = (now.getTime() - createdDate.getTime()) / (1000 * 60 * 60);
-    
-    if (hoursDiff > 24) {
-      return 'overdue';
-    } else if (hoursDiff > 0) {
-      return 'pending';
-    }
-    return 'pending';
-  };
+
 
   const handleEditClick = (enrollment: Enrollment) => {
     setEditingId(enrollment.id);
-    setEditingStatus(enrollment.paymentStatus);
+    setEditingStatus(enrollment.status);
   };
 
   const handleUpdatePaymentStatus = async () => {
@@ -103,15 +88,16 @@ export default function AdminDashboard() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          paymentStatus: editingStatus,
+          status: editingStatus,
         }),
       });
 
       if (response.ok) {
         const updatedEnrollments = enrollments.map(e =>
-          e.id === editingId ? { ...e, paymentStatus: editingStatus } : e
+          e.id === editingId ? { ...e, status: editingStatus } : e
         );
         setEnrollments(updatedEnrollments);
+        setFilteredEnrollments(updatedEnrollments);
         setEditingId(null);
       } else {
         alert('Failed to update payment status');
@@ -160,7 +146,7 @@ export default function AdminDashboard() {
     }
 
     if (filterPayment !== 'all') {
-      filtered = filtered.filter(e => e.paymentStatus === filterPayment);
+      filtered = filtered.filter(e => e.status === filterPayment);
     }
 
     setFilteredEnrollments(filtered);
@@ -204,9 +190,9 @@ export default function AdminDashboard() {
 
   const stats = {
     total: enrollments.length,
-    paid: enrollments.filter(e => e.paymentStatus === 'paid').length,
-    pending: enrollments.filter(e => e.paymentStatus === 'pending').length,
-    overdue: enrollments.filter(e => e.paymentStatus === 'overdue').length,
+    paid: enrollments.filter(e => e.status === 'confirmed').length,
+    pending: enrollments.filter(e => e.status === 'pending').length,
+    overdue: enrollments.filter(e => e.status === 'cancelled').length,
   };
 
   const courses = Array.from(new Set(enrollments.map(e => e.courseType)));
@@ -439,13 +425,13 @@ export default function AdminDashboard() {
                           <td className="px-6 py-4 text-sm text-gray-600">{enrollment.location}</td>
                           <td className="px-6 py-4 text-sm">
                             <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                              enrollment.paymentStatus === 'paid'
+                              enrollment.status === 'confirmed'
                                 ? 'bg-green-100 text-green-800'
-                                : enrollment.paymentStatus === 'pending'
+                                : enrollment.status === 'pending'
                                 ? 'bg-yellow-100 text-yellow-800'
                                 : 'bg-red-100 text-red-800'
                             }`}>
-                              {enrollment.paymentStatus.charAt(0).toUpperCase() + enrollment.paymentStatus.slice(1)}
+                              {enrollment.status.charAt(0).toUpperCase() + enrollment.status.slice(1)}
                             </span>
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-600">
@@ -698,12 +684,12 @@ export default function AdminDashboard() {
                 </label>
                 <select
                   value={editingStatus}
-                  onChange={(e) => setEditingStatus(e.target.value as 'pending' | 'paid' | 'overdue')}
+                  onChange={(e) => setEditingStatus(e.target.value as 'pending' | 'confirmed' | 'cancelled')}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                   <option value="pending">Pending</option>
-                  <option value="paid">Paid</option>
-                  <option value="overdue">Overdue</option>
+                  <option value="confirmed">Confirmed</option>
+                  <option value="cancelled">Cancelled</option>
                 </select>
               </div>
 

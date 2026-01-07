@@ -464,23 +464,29 @@ export default function Home() {
 
           {/* Course Tabs */}
           <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {Object.entries(courseCategories).map(([key, value]) => (
-              <button
-                key={key}
-                onClick={() => setActiveTab(key)}
-                className={`px-4 py-2 rounded-lg font-semibold transition-all ${
-                  activeTab === key
-                    ? 'bg-primary text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {key === 'instruments' && '🎸 Instruments'}
-                {key === 'media' && '📹 Media Production'}
-                {key === 'audio' && '🎧 Audio Engineering'}
-                {key === 'songwriting' && '✍️ Songwriting'}
-                {key === 'worship' && '🙏 Worship Leadership'}
-              </button>
-            ))}
+            {Object.entries(courseCategories).map(([key, value]) => {
+              // Hide tabs for courses not yet released
+              if (['media', 'audio', 'songwriting', 'worship'].includes(key)) {
+                return null;
+              }
+              return (
+                <button
+                  key={key}
+                  onClick={() => setActiveTab(key)}
+                  className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                    activeTab === key
+                      ? 'bg-primary text-white shadow-lg'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {key === 'instruments' && '🎸 Instruments'}
+                  {key === 'media' && '📹 Media Production'}
+                  {key === 'audio' && '🎧 Audio Engineering'}
+                  {key === 'songwriting' && '✍️ Songwriting'}
+                  {key === 'worship' && '🙏 Worship Leadership'}
+                </button>
+              );
+            })}
           </div>
 
           {/* Instruments Tab */}
@@ -544,8 +550,8 @@ export default function Home() {
             </div>
           )}
 
-          {/* Media Production Tab */}
-          {activeTab === 'media' && (
+          {/* Media Production Tab - HIDDEN FOR LATER RELEASE */}
+          {activeTab === 'media' && false && (
             <div className="space-y-8">
               <Card className="p-8 border-0 shadow-subtle bg-gradient-to-br from-primary/5 to-blue-50">
                 <h3 className="text-3xl font-bold text-primary mb-2">Media Production Course</h3>
@@ -583,8 +589,8 @@ export default function Home() {
             </div>
           )}
 
-          {/* Audio Engineering Tab */}
-          {activeTab === 'audio' && (
+          {/* Audio Engineering Tab - HIDDEN FOR LATER RELEASE */}
+          {activeTab === 'audio' && false && (
             <div className="space-y-8">
               <Card className="p-8 border-0 shadow-subtle bg-gradient-to-br from-primary/5 to-blue-50">
                 <h3 className="text-3xl font-bold text-primary mb-2">Audio Engineering Course</h3>
@@ -613,8 +619,8 @@ export default function Home() {
             </div>
           )}
 
-          {/* Songwriting Tab */}
-          {activeTab === 'songwriting' && (
+          {/* Songwriting Tab - HIDDEN FOR LATER RELEASE */}
+          {activeTab === 'songwriting' && false && (
             <div className="space-y-8">
               <Card className="p-8 border-0 shadow-subtle bg-gradient-to-br from-primary/5 to-blue-50">
                 <h3 className="text-3xl font-bold text-primary mb-2">Songwriting & Composition Course</h3>
@@ -643,8 +649,8 @@ export default function Home() {
             </div>
           )}
 
-          {/* Worship Leadership Tab */}
-          {activeTab === 'worship' && (
+          {/* Worship Leadership Tab - HIDDEN FOR LATER RELEASE */}
+          {activeTab === 'worship' && false && (
             <div className="space-y-8">
               <Card className="p-8 border-0 shadow-subtle bg-gradient-to-br from-primary/5 to-blue-50">
                 <h3 className="text-3xl font-bold text-primary mb-2">Worship Leadership Course</h3>
@@ -1025,8 +1031,9 @@ export default function Home() {
                   <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 1,200/month</td>
                   <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Open</span></td>
                 </tr>
-                {/* Thursday Evening Specialized Courses */}
-                <tr className="hover:bg-blue-50 transition-colors">
+                {/* Specialized Courses - HIDDEN FOR LATER RELEASE */}
+                {/* Media Production */}
+                {/* <tr className="hover:bg-blue-50 transition-colors">
                   <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Media Production</td>
                   <td className="border border-gray-300 px-4 py-3">All Locations</td>
                   <td className="border border-gray-300 px-4 py-3">Thursday, 7:00 PM</td>
@@ -1034,6 +1041,7 @@ export default function Home() {
                   <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 2,500/month</td>
                   <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Open</span></td>
                 </tr>
+                {/* Audio Engineering */}
                 <tr className="hover:bg-blue-50 transition-colors">
                   <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Audio Engineering</td>
                   <td className="border border-gray-300 px-4 py-3">All Locations</td>
@@ -1042,6 +1050,7 @@ export default function Home() {
                   <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 2,500/month</td>
                   <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Open</span></td>
                 </tr>
+                {/* Songwriting Workshop */}
                 <tr className="hover:bg-blue-50 transition-colors">
                   <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Songwriting Workshop</td>
                   <td className="border border-gray-300 px-4 py-3">All Locations</td>
@@ -1050,6 +1059,7 @@ export default function Home() {
                   <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 2,500</td>
                   <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Open</span></td>
                 </tr>
+                {/* Worship Leadership */}
                 <tr className="hover:bg-blue-50 transition-colors">
                   <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Worship Leadership</td>
                   <td className="border border-gray-300 px-4 py-3">All Locations</td>
@@ -1057,7 +1067,7 @@ export default function Home() {
                   <td className="border border-gray-300 px-4 py-3">1 month</td>
                   <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 5,000</td>
                   <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Open</span></td>
-                </tr>
+                </tr> */
               </tbody>
             </table>
           </div>

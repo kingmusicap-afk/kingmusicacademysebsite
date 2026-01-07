@@ -449,7 +449,9 @@ export default function AdminDashboard() {
                             </span>
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-600">
-                            {new Date(enrollment.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                            {enrollment.createdAt && !isNaN(new Date(enrollment.createdAt).getTime())
+                              ? new Date(enrollment.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+                              : 'N/A'}
                           </td>
                           <td className="px-6 py-4 text-sm">
                             <div className="flex items-center gap-2">

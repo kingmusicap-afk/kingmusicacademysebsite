@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { LogOut, Users, CheckCircle, Clock, XCircle, Edit2, X } from 'lucide-react';
+import { LogOut, Users, CheckCircle, Clock, XCircle, Edit2, X, Trash2 } from 'lucide-react';
 
 interface Enrollment {
   id: number;
@@ -31,6 +31,7 @@ export default function AdminDashboard() {
   const [editingStatus, setEditingStatus] = useState<'pending' | 'paid' | 'overdue'>('pending');
   const [updateLoading, setUpdateLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<'enrollments' | 'schedule' | 'attendance' | 'capacity' | 'reminders'>('enrollments');
+  const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null);
 
   // Simple authentication
   const handleLogin = (e: React.FormEvent) => {
@@ -120,6 +121,29 @@ export default function AdminDashboard() {
       alert('Error updating payment status');
     } finally {
       setUpdateLoading(false);
+    }
+  };
+
+  // Delete enrollment
+  const handleDeleteEnrollment = async (enrollmentId: number) => {
+    try {
+      const response = await fetch(`/api/enrollments/${enrollmentId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const updatedEnrollments = enrollments.filter(e => e.id !== enrollmentId);
+        setEnrollments(updatedEnrollments);
+        setDeleteConfirm(null);
+      } else {
+        alert('Failed to delete enrollment');
+      }
+    } catch (error) {
+      console.error('Error deleting enrollment:', error);
+      alert('Error deleting enrollment');
     }
   };
 
@@ -425,18 +449,49 @@ export default function AdminDashboard() {
                             </span>
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-600">
-                            {new Date(enrollment.createdAt).toLocaleDateString()}
+                            {new Date(enrollment.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
                           </td>
                           <td className="px-6 py-4 text-sm">
-                            <Button
-                              onClick={() => handleEditClick(enrollment)}
-                              variant="outline"
-                              size="sm"
-                              className="flex items-center gap-2"
-                            >
-                              <Edit2 className="w-4 h-4" />
-                              Edit
-                            </Button>
+                            <div className="flex items-center gap-2">
+                              <Button
+                                onClick={() => handleEditClick(enrollment)}
+                                variant="outline"
+                                size="sm"
+                                className="flex items-center gap-2"
+                              >
+                                <Edit2 className="w-4 h-4" />
+                                Edit
+                              </Button>
+                              {deleteConfirm === enrollment.id ? (
+                                <div className="flex gap-2">
+                                  <Button
+                                    onClick={() => handleDeleteEnrollment(enrollment.id)}
+                                    variant="destructive"
+                                    size="sm"
+                                    className="flex items-center gap-2"
+                                  >
+                                    Confirm
+                                  </Button>
+                                  <Button
+                                    onClick={() => setDeleteConfirm(null)}
+                                    variant="outline"
+                                    size="sm"
+                                  >
+                                    Cancel
+                                  </Button>
+                                </div>
+                              ) : (
+                                <Button
+                                  onClick={() => setDeleteConfirm(enrollment.id)}
+                                  variant="outline"
+                                  size="sm"
+                                  className="flex items-center gap-2 text-red-600 hover:text-red-700 hover:bg-red-50"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                  Delete
+                                </Button>
+                              )}
+                            </div>
                           </td>
                         </tr>
                       ))}

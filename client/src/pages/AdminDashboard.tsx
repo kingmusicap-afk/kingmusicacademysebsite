@@ -206,7 +206,7 @@ export default function AdminDashboard() {
   ];
 
   const getStudentsForSchedule = (day: string, location: string) => {
-    return enrollments.filter(e => e.location === location && e.courseType === 'Instrument Courses');
+    return enrollments.filter(e => e.location === location && e.courseType === 'Instrument Courses' && e.status === 'confirmed');
   };
 
   const getStudentsForSpecializedCourse = (course: string) => {

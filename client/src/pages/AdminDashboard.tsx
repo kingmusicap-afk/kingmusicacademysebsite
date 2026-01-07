@@ -205,8 +205,15 @@ export default function AdminDashboard() {
     { day: 'Friday', location: 'Center - Quatre Bornes', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
   ];
 
-  const getStudentsForSchedule = (day: string, location: string) => {
-    return enrollments.filter(e => e.location === location && e.courseType === 'Instrument Courses' && e.status === 'confirmed');
+  const getStudentsForSchedule = (day: string, location: string, timeSlot: string) => {
+    const allStudents = enrollments.filter(e => e.location === location && e.courseType === 'Instrument Courses' && e.status === 'confirmed');
+    const times = ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'];
+    const timeIndex = times.indexOf(timeSlot);
+    
+    // Distribute students across time slots: student 0 → 2:00 PM, student 1 → 3:00 PM, etc.
+    // If more students than slots, cycle through (student 4 → 2:00 PM, etc.)
+    const studentsForThisSlot = allStudents.filter((_, index) => index % times.length === timeIndex);
+    return studentsForThisSlot;
   };
 
   const getStudentsForSpecializedCourse = (course: string) => {
@@ -506,7 +513,7 @@ export default function AdminDashboard() {
                   <h3 className="text-lg font-bold text-primary mb-4">{schedule.day} - {schedule.location}</h3>
                   <div className="space-y-3">
                     {schedule.times.map(time => {
-                      const students = getStudentsForSchedule(schedule.day, schedule.location);
+                      const students = getStudentsForSchedule(schedule.day, schedule.location, time);
                       return (
                         <div key={time} className="border border-gray-200 rounded-lg p-3 bg-gray-50">
                           <p className="font-semibold text-gray-900">{time}</p>

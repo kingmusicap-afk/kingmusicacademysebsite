@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createEnrollment, getEnrollments, getEnrollmentById, updateEnrollmentStatus } from "../db.js";
+import { createEnrollment, getEnrollments, getEnrollmentById, updateEnrollmentStatus, deleteEnrollment } from "../db.js";
 import { ENV } from "../_core/env.js";
 import nodemailer from "nodemailer";
 import fs from "fs";
@@ -288,6 +288,33 @@ router.patch("/:id", async (req, res) => {
     console.error("Update error:", error);
     res.status(500).json({
       error: "Failed to update payment status",
+    });
+  }
+});
+
+// DELETE /api/enrollments/:id - Delete an enrollment
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const enrollment = await getEnrollmentById(parseInt(id));
+
+    if (!enrollment) {
+      return res.status(404).json({
+        error: "Enrollment not found",
+      });
+    }
+
+    await deleteEnrollment(parseInt(id));
+
+    res.json({
+      success: true,
+      message: "Enrollment deleted successfully",
+    });
+  } catch (error) {
+    console.error("Delete error:", error);
+    res.status(500).json({
+      error: "Failed to delete enrollment",
     });
   }
 });

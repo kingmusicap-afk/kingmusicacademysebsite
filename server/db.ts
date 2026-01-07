@@ -151,3 +151,18 @@ export async function updateEnrollmentStatus(id: number, status: string): Promis
     throw error;
   }
 }
+
+export async function deleteEnrollment(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot delete enrollment: database not available");
+    return;
+  }
+
+  try {
+    await db.delete(enrollments).where(eq(enrollments.id, id));
+  } catch (error) {
+    console.error("[Database] Failed to delete enrollment:", error);
+    throw error;
+  }
+}

@@ -902,8 +902,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 md:py-28 bg-gradient-to-br from-blue-50 to-white">
+      {/* Testimonials Section - HIDDEN FOR LATER RELEASE */}
+      {false && <section className="py-20 md:py-28 bg-gradient-to-br from-blue-50 to-white">
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Student Success Stories</h2>
@@ -972,7 +972,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* Course Schedule Table */}
       <section className="py-20 md:py-28 bg-white">
@@ -1076,8 +1076,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Student Gallery Section */}
-      <section className="py-20 md:py-28 bg-gray-50">
+      {/* Student Gallery Section - HIDDEN FOR LATER RELEASE */}
+      {false && <section className="py-20 md:py-28 bg-gray-50">
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Student Gallery</h2>
@@ -1152,10 +1152,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section>}
 
-      {/* Performance Calendar Section */}
-      <section className="py-20 md:py-28 bg-white">
+      {/* Performance Calendar Section - HIDDEN FOR LATER RELEASE */}
+      {false && <section className="py-20 md:py-28 bg-white">
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Upcoming Events & Performances</h2>
@@ -1248,7 +1248,7 @@ export default function Home() {
             </Card>
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* Church Package CTA Section */}
       <section className="py-20 md:py-28 bg-gradient-to-r from-primary to-blue-900 text-white">

@@ -199,14 +199,14 @@ export default function AdminDashboard() {
   const locations = Array.from(new Set(enrollments.map(e => e.location)));
 
   const scheduleData = [
-    { day: 'Tuesday', location: 'Goodlands', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
-    { day: 'Wednesday', location: 'Quatre Bornes', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
-    { day: 'Thursday', location: 'Flacq', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
-    { day: 'Friday', location: 'Quatre Bornes', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
+    { day: 'Tuesday', location: 'North - Goodlands', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
+    { day: 'Wednesday', location: 'Center - Quatre Bornes', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
+    { day: 'Thursday', location: 'East - Flacq', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
+    { day: 'Friday', location: 'Center - Quatre Bornes', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
   ];
 
   const getStudentsForSchedule = (day: string, location: string) => {
-    return enrollments.filter(e => e.location === location && e.courseType === 'Instruments');
+    return enrollments.filter(e => e.location === location && e.courseType === 'Instrument Courses');
   };
 
   const getStudentsForSpecializedCourse = (course: string) => {

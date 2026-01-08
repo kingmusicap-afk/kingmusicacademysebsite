@@ -133,7 +133,7 @@ export default function Home() {
 
   const courseCategories = {
     instruments: {
-      title: 'Instrument Courses',
+      title: 'Instrument & Vocal',
       price: 'Rs 1,200/month',
       duration: '12 Months',
       description: 'Professional instrument training for all levels (Total: Rs 14,400)',
@@ -824,7 +824,7 @@ export default function Home() {
                     className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white/50"
                   >
                     <option value="">Select a course category...</option>
-                    <option value="Instrument Courses">Instrument Courses</option>
+                    <option value="Instrument & Vocal">Instrument & Vocal</option>
                     <option value="Media Production">Media Production</option>
                     <option value="Audio Engineering">Audio Engineering</option>
                     <option value="Songwriting & Composition">Songwriting & Composition</option>

@@ -250,7 +250,7 @@ export default function AdminDashboard() {
     // Show only students who have selected this specific day and time
     return enrollments.filter(
       e => e.location === location && 
-           e.courseType === 'Instrument Courses' && 
+           e.courseType === 'Instrument & Vocal' && 
            e.status === 'confirmed' &&
            (e as any).classDay === day &&
            (e as any).classTime === timeSlot

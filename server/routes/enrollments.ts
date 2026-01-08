@@ -427,4 +427,73 @@ router.post("/remove-duplicates", async (req, res) => {
   }
 });
 
+// POST /api/enrollments/auto-assign-slots - Auto-assign time slots to confirmed enrollments without slots
+router.post("/auto-assign-slots", async (req, res) => {
+  try {
+    const allEnrollments = await getEnrollments();
+    const timeSlots = ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'];
+    const days = ['Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+    
+    // Find confirmed enrollments without time slots (all course types)
+    const needsAssignment = allEnrollments.filter((e: any) => 
+      e.status === 'confirmed' && 
+      (!e.classDay || !e.classTime)
+    );
+    
+    let assignedCount = 0;
+    const assignments: any[] = [];
+    
+    // Group by location
+    const byLocation: { [key: string]: any[] } = {};
+    needsAssignment.forEach((e: any) => {
+      if (!byLocation[e.location]) {
+        byLocation[e.location] = [];
+      }
+      byLocation[e.location].push(e);
+    });
+    
+    // Assign time slots for each location
+    for (const location in byLocation) {
+      const enrollments = byLocation[location];
+      let slotIndex = 0;
+      
+      for (const enrollment of enrollments) {
+        const day = days[slotIndex % days.length];
+        const time = timeSlots[Math.floor(slotIndex / days.length) % timeSlots.length];
+        
+        // Update enrollment with assigned slot
+        await fetch(`http://localhost:3000/api/enrollments/${enrollment.id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ classDay: day, classTime: time })
+        });
+        
+        assignments.push({
+          id: enrollment.id,
+          name: `${enrollment.firstName} ${enrollment.lastName}`,
+          location,
+          assignedDay: day,
+          assignedTime: time
+        });
+        
+        assignedCount++;
+        slotIndex++;
+      }
+    }
+    
+    res.json({
+      success: true,
+      message: `Auto-assigned ${assignedCount} time slots`,
+      assignedCount,
+      assignments
+    });
+  } catch (error) {
+    console.error("Auto-assign slots error:", error);
+    res.status(500).json({
+      error: "Failed to auto-assign slots",
+      message: (error as any).message
+    });
+  }
+});
+
 export default router;

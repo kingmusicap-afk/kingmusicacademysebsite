@@ -9,8 +9,26 @@ export default function Home() {
   const [availableSlots, setAvailableSlots] = useState<any[]>([]);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('');
+  const [selectedDay, setSelectedDay] = useState('');
   const [loadingSlots, setLoadingSlots] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+
+  // Schedule mapping: location -> days available
+  const scheduleByLocation: { [key: string]: { day: string; times: string[] }[] } = {
+    'North - Goodlands': [
+      { day: 'Tuesday', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
+      { day: 'Saturday', times: ['9:00 AM', '10:00 AM'] }
+    ],
+    'Center - Quatre Bornes': [
+      { day: 'Wednesday', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
+      { day: 'Friday', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
+      { day: 'Saturday', times: ['3:00 PM', '4:00 PM'] }
+    ],
+    'East - Flacq': [
+      { day: 'Thursday', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
+      { day: 'Saturday', times: ['12:00 PM', '1:00 PM'] }
+    ]
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,6 +112,19 @@ export default function Home() {
       console.error('Error submitting enrollment:', error);
       alert('An error occurred while submitting your enrollment. Please try again.');
     }
+  };
+
+  // Get available days for selected location
+  const getAvailableDaysForLocation = (location: string): string[] => {
+    if (!location || !scheduleByLocation[location]) return [];
+    return scheduleByLocation[location].map(s => s.day);
+  };
+
+  // Get available times for selected location and day
+  const getAvailableTimesForLocationDay = (location: string, day: string): string[] => {
+    if (!location || !day || !scheduleByLocation[location]) return [];
+    const schedule = scheduleByLocation[location].find(s => s.day === day);
+    return schedule ? schedule.times : [];
   };
 
   // Fetch available slots when location and course are selected
@@ -876,11 +907,12 @@ export default function Home() {
                   <select
                     name="classDay"
                     required
-                    disabled={availableSlots.length === 0}
+                    disabled={!selectedLocation}
+                    onChange={(e) => setSelectedDay(e.target.value)}
                     className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white/50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <option value="">{loadingSlots ? 'Loading available days...' : 'Select a day...'}</option>
-                    {Array.from(new Set(availableSlots.map((s: any) => s.day))).map((day: any) => (
+                    <option value="">{!selectedLocation ? 'Select a location first...' : 'Select a day...'}</option>
+                    {getAvailableDaysForLocation(selectedLocation).map((day: string) => (
                       <option key={day} value={day}>{day}</option>
                     ))}
                   </select>
@@ -891,11 +923,11 @@ export default function Home() {
                   <select
                     name="classTime"
                     required
-                    disabled={availableSlots.length === 0}
+                    disabled={!selectedLocation || !selectedDay}
                     className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white/50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <option value="">{loadingSlots ? 'Loading available times...' : 'Select a time...'}</option>
-                    {Array.from(new Set(availableSlots.map((s: any) => s.time))).map((time: any) => (
+                    <option value="">{!selectedDay ? 'Select a day first...' : 'Select a time...'}</option>
+                    {getAvailableTimesForLocationDay(selectedLocation, selectedDay).map((time: string) => (
                       <option key={time} value={time}>{time}</option>
                     ))}
                   </select>

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createEnrollment, getEnrollments, getEnrollmentById, updateEnrollmentStatus, deleteEnrollment } from "../db.js";
+import { createEnrollment, getEnrollments, getEnrollmentById, updateEnrollmentStatus, deleteEnrollment, updateEnrollmentSchedule } from "../db.js";
 import { ENV } from "../_core/env.js";
 import nodemailer from "nodemailer";
 import fs from "fs";
@@ -259,17 +259,11 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// PATCH /api/enrollments/:id - Update enrollment status
+// PATCH /api/enrollments/:id - Update enrollment status or schedule
 router.patch("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { status } = req.body;
-
-    if (!["pending", "confirmed", "cancelled"].includes(status)) {
-      return res.status(400).json({
-        error: "Invalid status. Must be 'pending', 'confirmed', or 'cancelled'",
-      });
-    }
+    const { status, classDay, classTime } = req.body;
 
     const enrollment = await getEnrollmentById(parseInt(id));
 
@@ -279,17 +273,30 @@ router.patch("/:id", async (req, res) => {
       });
     }
 
-    await updateEnrollmentStatus(parseInt(id), status);
+    if (status) {
+      if (!["pending", "confirmed", "cancelled"].includes(status)) {
+        return res.status(400).json({
+          error: "Invalid status. Must be 'pending', 'confirmed', or 'cancelled'",
+        });
+      }
+      await updateEnrollmentStatus(parseInt(id), status);
+    }
+
+    if (classDay && classTime) {
+      await updateEnrollmentSchedule(parseInt(id), classDay, classTime);
+    }
 
     res.json({
       success: true,
-      message: "Enrollment status updated",
-      status,
+      message: "Enrollment updated",
+      status: status || enrollment.status,
+      classDay: classDay || enrollment.classDay,
+      classTime: classTime || enrollment.classTime,
     });
   } catch (error) {
     console.error("Update error:", error);
     res.status(500).json({
-      error: "Failed to update enrollment status",
+      error: "Failed to update enrollment",
     });
   }
 });

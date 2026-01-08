@@ -166,3 +166,18 @@ export async function deleteEnrollment(id: number): Promise<void> {
     throw error;
   }
 }
+
+export async function updateEnrollmentSchedule(id: number, classDay: string, classTime: string): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update enrollment schedule: database not available");
+    return;
+  }
+
+  try {
+    await db.update(enrollments).set({ classDay, classTime }).where(eq(enrollments.id, id));
+  } catch (error) {
+    console.error("[Database] Failed to update enrollment schedule:", error);
+    throw error;
+  }
+}

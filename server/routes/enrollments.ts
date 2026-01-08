@@ -367,4 +367,66 @@ router.get("/available-slots/:location/:courseType", async (req, res) => {
   }
 });
 
+// POST /api/enrollments/remove-duplicates - Remove duplicate enrollments
+router.post("/remove-duplicates", async (req, res) => {
+  try {
+    const allEnrollments = await getEnrollments();
+    
+    // Group enrollments by email
+    const enrollmentsByEmail: { [key: string]: any[] } = {};
+    allEnrollments.forEach((enrollment: any) => {
+      if (!enrollmentsByEmail[enrollment.email]) {
+        enrollmentsByEmail[enrollment.email] = [];
+      }
+      enrollmentsByEmail[enrollment.email].push(enrollment);
+    });
+    
+    let removedCount = 0;
+    const duplicateInfo: any[] = [];
+    
+    // For each email with duplicates, keep the confirmed one or the first one
+    for (const email in enrollmentsByEmail) {
+      const enrollments = enrollmentsByEmail[email];
+      
+      if (enrollments.length > 1) {
+        // Sort: confirmed first, then by ID (older first)
+        enrollments.sort((a: any, b: any) => {
+          if (a.status === 'confirmed' && b.status !== 'confirmed') return -1;
+          if (a.status !== 'confirmed' && b.status === 'confirmed') return 1;
+          return a.id - b.id;
+        });
+        
+        // Keep the first one, delete the rest
+        const keepEnrollment = enrollments[0];
+        const toDelete = enrollments.slice(1);
+        
+        duplicateInfo.push({
+          email,
+          kept: keepEnrollment,
+          deleted: toDelete.map((e: any) => ({ id: e.id, status: e.status }))
+        });
+        
+        // Delete duplicates
+        for (const enrollment of toDelete) {
+          await deleteEnrollment(enrollment.id);
+          removedCount++;
+        }
+      }
+    }
+    
+    res.json({
+      success: true,
+      message: `Removed ${removedCount} duplicate enrollments`,
+      removedCount,
+      details: duplicateInfo
+    });
+  } catch (error) {
+    console.error("Remove duplicates error:", error);
+    res.status(500).json({
+      error: "Failed to remove duplicates",
+      message: (error as any).message
+    });
+  }
+});
+
 export default router;

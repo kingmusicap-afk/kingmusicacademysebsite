@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { LogOut, Users, CheckCircle, Clock, XCircle, Edit2, X, Trash2, RefreshCw } from 'lucide-react';
+import { LogOut, Users, CheckCircle, Clock, XCircle, Edit2, X, Trash2, RefreshCw, Zap } from 'lucide-react';
 
 interface Enrollment {
   id: number;
@@ -33,6 +33,34 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<'enrollments' | 'schedule' | 'attendance' | 'capacity' | 'reminders'>('enrollments');
   const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null);
   const [lastRefreshTime, setLastRefreshTime] = useState<Date>(new Date());
+  const [removingDuplicates, setRemovingDuplicates] = useState(false);
+
+  const handleRemoveDuplicates = async () => {
+    if (!window.confirm('This will remove all duplicate enrollments. Continue?')) {
+      return;
+    }
+    
+    setRemovingDuplicates(true);
+    try {
+      const response = await fetch('/api/enrollments/remove-duplicates', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      
+      if (response.ok) {
+        const result = await response.json();
+        alert('Success! Removed ' + result.removedCount + ' duplicate enrollments.');
+        await fetchEnrollments();
+      } else {
+        alert('Error removing duplicates');
+      }
+    } catch (error) {
+      console.error('Error removing duplicates:', error);
+      alert('Failed to remove duplicates');
+    } finally {
+      setRemovingDuplicates(false);
+    }
+  };
 
   // Simple authentication
   const handleLogin = (e: React.FormEvent) => {
@@ -245,6 +273,16 @@ export default function AdminDashboard() {
             </p>
           </div>
           <div className="flex items-center gap-2">
+            <Button
+              onClick={handleRemoveDuplicates}
+              disabled={removingDuplicates}
+              variant="outline"
+              size="sm"
+              className="flex items-center gap-2 bg-red-50 hover:bg-red-100 text-red-700 border-red-200"
+            >
+              <Zap className="w-4 h-4" />
+              {removingDuplicates ? 'Removing...' : 'Remove Duplicates'}
+            </Button>
             <Button
               onClick={() => fetchEnrollments()}
               variant="outline"

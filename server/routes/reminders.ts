@@ -141,7 +141,7 @@ router.post("/send-pending", async (req, res) => {
         enrollment: enrollments,
       })
       .from(classReminders)
-      .innerJoin(enrollments, eq(classReminders.enrollmentId, enrollments.id))
+      .leftJoin(enrollments, eq(classReminders.enrollmentId, enrollments.id))
       .where(
         and(
           lte(classReminders.reminderDate, now),
@@ -153,37 +153,60 @@ router.post("/send-pending", async (req, res) => {
     let whatsappsSent = 0;
     const errors = [];
 
-    for (const { reminder, enrollment } of pendingReminders) {
+    for (const record of pendingReminders) {
       try {
+        const reminder = record.reminder;
+        const enrollment = record.enrollment;
+        
+        if (!enrollment) {
+          console.warn(`Enrollment not found for reminder ${reminder.id}`);
+          continue;
+        }
+
         // Send email
         if (reminder.emailSent === 0) {
-          await sendEmailReminder(enrollment);
-          await db
-            .update(classReminders)
-            .set({
-              emailSent: 1,
-              emailSentAt: new Date(),
-            })
-            .where(eq(classReminders.id, reminder.id));
-          emailsSent++;
+          try {
+            await sendEmailReminder(enrollment);
+            await db
+              .update(classReminders)
+              .set({
+                emailSent: 1,
+                emailSentAt: new Date(),
+              })
+              .where(eq(classReminders.id, reminder.id));
+            emailsSent++;
+          } catch (emailError) {
+            console.error(`Error sending email for enrollment ${enrollment.id}:`, emailError);
+            errors.push({
+              enrollmentId: enrollment.id,
+              error: `Email: ${(emailError as any).message}`,
+            });
+          }
         }
 
         // Send WhatsApp
         if (reminder.whatsappSent === 0) {
-          await sendWhatsAppReminder(enrollment);
-          await db
-            .update(classReminders)
-            .set({
-              whatsappSent: 1,
-              whatsappSentAt: new Date(),
-            })
-            .where(eq(classReminders.id, reminder.id));
-          whatsappsSent++;
+          try {
+            await sendWhatsAppReminder(enrollment);
+            await db
+              .update(classReminders)
+              .set({
+                whatsappSent: 1,
+                whatsappSentAt: new Date(),
+              })
+              .where(eq(classReminders.id, reminder.id));
+            whatsappsSent++;
+          } catch (whatsappError) {
+            console.error(`Error sending WhatsApp for enrollment ${enrollment.id}:`, whatsappError);
+            errors.push({
+              enrollmentId: enrollment.id,
+              error: `WhatsApp: ${(whatsappError as any).message}`,
+            });
+          }
         }
       } catch (error) {
-        console.error(`Error sending reminders for enrollment ${enrollment.id}:`, error);
+        console.error(`Error processing reminder:`, error);
         errors.push({
-          enrollmentId: enrollment.id,
           error: (error as any).message,
         });
       }

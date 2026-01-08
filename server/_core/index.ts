@@ -8,6 +8,7 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import enrollmentsRouter from "../routes/enrollments.js";
+import remindersRouter from "../routes/reminders.js";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -38,6 +39,8 @@ async function startServer() {
   registerOAuthRoutes(app);
   // Enrollments API
   app.use("/api/enrollments", enrollmentsRouter);
+  // Reminders API
+  app.use("/api/reminders", remindersRouter);
   // tRPC API
   app.use(
     "/api/trpc",

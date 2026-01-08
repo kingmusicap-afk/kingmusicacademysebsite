@@ -1097,6 +1097,33 @@ export default function Home() {
                   <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 1,200/month</td>
                   <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Open</span></td>
                 </tr>
+                {/* Instrument Courses - Saturday Goodlands */}
+                <tr className="hover:bg-blue-50 transition-colors">
+                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Piano / Guitar / Vocal / Drums / Bass Guitar</td>
+                  <td className="border border-gray-300 px-4 py-3">Goodlands</td>
+                  <td className="border border-gray-300 px-4 py-3">Saturday: 9:00 AM, 10:00 AM, 11:00 AM, 12:00 PM</td>
+                  <td className="border border-gray-300 px-4 py-3">1 hour</td>
+                  <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 1,200/month</td>
+                  <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Open</span></td>
+                </tr>
+                {/* Instrument Courses - Saturday Flacq */}
+                <tr className="hover:bg-blue-50 transition-colors">
+                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Piano / Guitar / Vocal / Drums / Bass Guitar</td>
+                  <td className="border border-gray-300 px-4 py-3">Flacq</td>
+                  <td className="border border-gray-300 px-4 py-3">Saturday: 12:00 PM, 1:00 PM, 2:00 PM, 3:00 PM</td>
+                  <td className="border border-gray-300 px-4 py-3">1 hour</td>
+                  <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 1,200/month</td>
+                  <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Open</span></td>
+                </tr>
+                {/* Instrument Courses - Saturday Quatre Bornes */}
+                <tr className="hover:bg-blue-50 transition-colors">
+                  <td className="border border-gray-300 px-4 py-3 font-semibold text-primary">Piano / Guitar / Vocal / Drums / Bass Guitar</td>
+                  <td className="border border-gray-300 px-4 py-3">Quatre Bornes</td>
+                  <td className="border border-gray-300 px-4 py-3">Saturday: 3:00 PM, 4:00 PM, 5:00 PM, 6:00 PM</td>
+                  <td className="border border-gray-300 px-4 py-3">1 hour</td>
+                  <td className="border border-gray-300 px-4 py-3 font-semibold">Rs 1,200/month</td>
+                  <td className="border border-gray-300 px-4 py-3 text-center"><span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Open</span></td>
+                </tr>
                 {/* Specialized Courses - HIDDEN FOR LATER RELEASE */}
                 {/* Media Production */}
                 {/* <tr className="hover:bg-blue-50 transition-colors">

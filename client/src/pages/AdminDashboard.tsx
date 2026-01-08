@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { LogOut, Users, CheckCircle, Clock, XCircle, Edit2, X, Trash2 } from 'lucide-react';
+import { LogOut, Users, CheckCircle, Clock, XCircle, Edit2, X, Trash2, RefreshCw } from 'lucide-react';
 
 interface Enrollment {
   id: number;
@@ -32,6 +32,7 @@ export default function AdminDashboard() {
   const [updateLoading, setUpdateLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<'enrollments' | 'schedule' | 'attendance' | 'capacity' | 'reminders'>('enrollments');
   const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null);
+  const [lastRefreshTime, setLastRefreshTime] = useState<Date>(new Date());
 
   // Simple authentication
   const handleLogin = (e: React.FormEvent) => {
@@ -53,15 +54,27 @@ export default function AdminDashboard() {
     }
   }, [isAuthenticated]);
 
+  // Auto-refresh every 3 minutes
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    
+    const interval = setInterval(() => {
+      fetchEnrollments();
+      setLastRefreshTime(new Date());
+    }, 3 * 60 * 1000); // 3 minutes in milliseconds
+    
+    return () => clearInterval(interval);
+  }, [isAuthenticated]);
+
   const fetchEnrollments = async () => {
     try {
-      setLoading(true);
       const response = await fetch('/api/enrollments');
       if (response.ok) {
         const data = await response.json();
         // Use the actual status from database
         setEnrollments(data);
         setFilteredEnrollments(data);
+        setLastRefreshTime(new Date());
       }
     } catch (error) {
       console.error('Error fetching enrollments:', error);
@@ -225,15 +238,31 @@ export default function AdminDashboard() {
       {/* Header */}
       <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-30">
         <div className="container flex items-center justify-between py-4">
-          <h1 className="text-2xl font-bold text-primary">Admin Dashboard</h1>
-          <Button
-            onClick={() => setIsAuthenticated(false)}
-            variant="outline"
-            className="flex items-center gap-2"
-          >
-            <LogOut className="w-4 h-4" />
-            Logout
-          </Button>
+          <div>
+            <h1 className="text-2xl font-bold text-primary">Admin Dashboard</h1>
+            <p className="text-xs text-gray-500 mt-1">
+              Auto-refresh every 3 minutes • Last updated: {lastRefreshTime.toLocaleTimeString()}
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              onClick={() => fetchEnrollments()}
+              variant="outline"
+              size="sm"
+              className="flex items-center gap-2"
+            >
+              <RefreshCw className="w-4 h-4" />
+              Refresh Now
+            </Button>
+            <Button
+              onClick={() => setIsAuthenticated(false)}
+              variant="outline"
+              className="flex items-center gap-2"
+            >
+              <LogOut className="w-4 h-4" />
+              Logout
+            </Button>
+          </div>
         </div>
       </header>
 

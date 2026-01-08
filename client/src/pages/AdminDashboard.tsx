@@ -206,14 +206,14 @@ export default function AdminDashboard() {
   ];
 
   const getStudentsForSchedule = (day: string, location: string, timeSlot: string) => {
-    const allStudents = enrollments.filter(e => e.location === location && e.courseType === 'Instrument Courses' && e.status === 'confirmed');
-    const times = ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'];
-    const timeIndex = times.indexOf(timeSlot);
-    
-    // Distribute students across time slots: student 0 → 2:00 PM, student 1 → 3:00 PM, etc.
-    // If more students than slots, cycle through (student 4 → 2:00 PM, etc.)
-    const studentsForThisSlot = allStudents.filter((_, index) => index % times.length === timeIndex);
-    return studentsForThisSlot;
+    // Show only students who have selected this specific day and time
+    return enrollments.filter(
+      e => e.location === location && 
+           e.courseType === 'Instrument Courses' && 
+           e.status === 'confirmed' &&
+           (e as any).classDay === day &&
+           (e as any).classTime === timeSlot
+    );
   };
 
   const getStudentsForSpecializedCourse = (course: string) => {

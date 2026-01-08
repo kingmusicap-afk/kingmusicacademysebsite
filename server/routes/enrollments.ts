@@ -51,6 +51,8 @@ router.post("/", async (req, res) => {
       parentPhone,
       previousExperience,
       startDate,
+      classDay,
+      classTime,
       notes,
     } = req.body;
 
@@ -86,6 +88,8 @@ router.post("/", async (req, res) => {
       parentPhone: parentPhone || undefined,
       previousExperience: previousExperience || undefined,
       startDate,
+      classDay: classDay || undefined,
+      classTime: classTime || undefined,
       status: "pending",
       notes: notes || undefined,
     });
@@ -313,6 +317,52 @@ router.delete("/:id", async (req, res) => {
     console.error("Delete error:", error);
     res.status(500).json({
       error: "Failed to delete enrollment",
+    });
+  }
+});
+
+// GET /api/enrollments/available-slots - Get available time slots for a location and course type
+router.get("/available-slots/:location/:courseType", async (req, res) => {
+  try {
+    const { location, courseType } = req.params;
+
+    // Get all enrollments for this location and course type
+    const allEnrollments = await getEnrollments();
+    const enrollmentsForSlot = allEnrollments.filter(
+      (e: any) => e.location === location && e.courseType === courseType && e.status === 'confirmed'
+    );
+
+    // Define available time slots
+    const timeSlots = ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'];
+    const days = ['Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+    const maxCapacity = 4; // Max students per time slot
+
+    // Build availability map
+    const availability = days.flatMap(day => {
+      return timeSlots.map(time => {
+        // Count students already assigned to this day/time
+        const enrolledCount = enrollmentsForSlot.filter(
+          (e: any) => e.classDay === day && e.classTime === time
+        ).length;
+
+        const isAvailable = enrolledCount < maxCapacity;
+        const spotsRemaining = maxCapacity - enrolledCount;
+
+        return {
+          day,
+          time,
+          isAvailable,
+          spotsRemaining,
+          enrolledCount,
+        };
+      });
+    });
+
+    res.json(availability);
+  } catch (error) {
+    console.error("Available slots error:", error);
+    res.status(500).json({
+      error: "Failed to fetch available slots",
     });
   }
 });

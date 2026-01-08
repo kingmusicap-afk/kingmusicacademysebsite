@@ -6,6 +6,10 @@ import { useRef, useState } from 'react';
 export default function Home() {
   const [submitted, setSubmitted] = useState(false);
   const [activeTab, setActiveTab] = useState('instruments');
+  const [availableSlots, setAvailableSlots] = useState<any[]>([]);
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [selectedCourse, setSelectedCourse] = useState('');
+  const [loadingSlots, setLoadingSlots] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -22,12 +26,14 @@ export default function Home() {
     const courseCategory = formData.get('courseCategory') as string;
     const courseName = formData.get('courseName') as string;
     const location = formData.get('location') as string;
+    const classDay = formData.get('classDay') as string;
+    const classTime = formData.get('classTime') as string;
     const message = formData.get('message') as string;
     
-    console.log('Form submitted with data:', { name, email, phone, age, courseCategory, courseName, location, message });
+    console.log('Form submitted with data:', { name, email, phone, age, courseCategory, courseName, location, classDay, classTime, message });
     
     // Validate required fields
-    if (!name || !email || !phone || !age || !courseCategory || !courseName || !location) {
+    if (!name || !email || !phone || !age || !courseCategory || !courseName || !location || !classDay || !classTime) {
       console.log('Validation failed. Missing fields:', {
         name: !name,
         email: !email,
@@ -35,7 +41,9 @@ export default function Home() {
         age: !age,
         courseCategory: !courseCategory,
         courseName: !courseName,
-        location: !location
+        location: !location,
+        classDay: !classDay,
+        classTime: !classTime
       });
       alert('Please fill in all required fields');
       return;
@@ -62,6 +70,8 @@ export default function Home() {
           courseType: courseCategory,
           courseLevel: 'Beginner',
           specificCourse: courseName,
+          classDay,
+          classTime,
           startDate: new Date().toISOString().split('T')[0],
           notes: message,
         }),
@@ -83,6 +93,27 @@ export default function Home() {
     } catch (error) {
       console.error('Error submitting enrollment:', error);
       alert('An error occurred while submitting your enrollment. Please try again.');
+    }
+  };
+
+  // Fetch available slots when location and course are selected
+  const handleLocationChange = async (location: string, courseType: string) => {
+    setSelectedLocation(location);
+    if (location && courseType) {
+      setLoadingSlots(true);
+      try {
+        const encodedLocation = encodeURIComponent(location);
+        const encodedCourse = encodeURIComponent(courseType);
+        const response = await fetch(`/api/enrollments/available-slots/${encodedLocation}/${encodedCourse}`);
+        if (response.ok) {
+          const slots = await response.json();
+          setAvailableSlots(slots.filter((s: any) => s.isAvailable));
+        }
+      } catch (error) {
+        console.error('Error fetching available slots:', error);
+      } finally {
+        setLoadingSlots(false);
+      }
     }
   };
 
@@ -786,6 +817,10 @@ export default function Home() {
                   <select
                     name="courseCategory"
                     required
+                    onChange={(e) => {
+                      setSelectedCourse(e.target.value);
+                      handleLocationChange(selectedLocation, e.target.value);
+                    }}
                     className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white/50"
                   >
                     <option value="">Select a course category...</option>
@@ -826,12 +861,43 @@ export default function Home() {
                   <select
                     name="location"
                     required
+                    onChange={(e) => handleLocationChange(e.target.value, selectedCourse)}
                     className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white/50"
                   >
                     <option value="">Select a location...</option>
                     <option value="North - Goodlands">North - Goodlands</option>
                     <option value="East - Flacq">East - Flacq</option>
                     <option value="Center - Quatre Bornes">Center - Quatre Bornes</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-2">Preferred Class Day *</label>
+                  <select
+                    name="classDay"
+                    required
+                    disabled={availableSlots.length === 0}
+                    className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <option value="">{loadingSlots ? 'Loading available days...' : 'Select a day...'}</option>
+                    {Array.from(new Set(availableSlots.map((s: any) => s.day))).map((day: any) => (
+                      <option key={day} value={day}>{day}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-2">Preferred Class Time *</label>
+                  <select
+                    name="classTime"
+                    required
+                    disabled={availableSlots.length === 0}
+                    className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <option value="">{loadingSlots ? 'Loading available times...' : 'Select a time...'}</option>
+                    {Array.from(new Set(availableSlots.map((s: any) => s.time))).map((time: any) => (
+                      <option key={time} value={time}>{time}</option>
+                    ))}
                   </select>
                 </div>
 

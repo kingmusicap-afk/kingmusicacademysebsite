@@ -43,6 +43,8 @@ export const enrollments = mysqlTable("enrollments", {
   startDate: varchar("startDate", { length: 50 }).notNull(),
   enrollmentDate: timestamp("enrollmentDate").defaultNow().notNull(),
   status: varchar("status", { length: 50 }).notNull().default("pending"), // pending, confirmed, cancelled
+  classDay: varchar("classDay", { length: 20 }), // Monday, Tuesday, Wednesday, Thursday, Friday
+  classTime: varchar("classTime", { length: 10 }), // 2:00 PM, 3:00 PM, 4:00 PM, 5:00 PM
   notes: text("notes"),
 });
 

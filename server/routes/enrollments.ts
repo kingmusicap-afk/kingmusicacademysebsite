@@ -384,16 +384,14 @@ router.post("/remove-duplicates", async (req, res) => {
     let removedCount = 0;
     const duplicateInfo: any[] = [];
     
-    // For each email with duplicates, keep the confirmed one or the first one
+    // For each email with duplicates, keep the newest one (highest ID)
     for (const email in enrollmentsByEmail) {
       const enrollments = enrollmentsByEmail[email];
       
       if (enrollments.length > 1) {
-        // Sort: confirmed first, then by ID (older first)
+        // Sort: by ID (newest first - higher ID = newer)
         enrollments.sort((a: any, b: any) => {
-          if (a.status === 'confirmed' && b.status !== 'confirmed') return -1;
-          if (a.status !== 'confirmed' && b.status === 'confirmed') return 1;
-          return a.id - b.id;
+          return b.id - a.id; // Reverse order: newest first
         });
         
         // Keep the first one, delete the rest

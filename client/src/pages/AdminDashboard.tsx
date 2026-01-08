@@ -244,6 +244,9 @@ export default function AdminDashboard() {
     { day: 'Wednesday', location: 'Center - Quatre Bornes', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
     { day: 'Thursday', location: 'East - Flacq', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
     { day: 'Friday', location: 'Center - Quatre Bornes', times: ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'] },
+    { day: 'Saturday', location: 'North - Goodlands', times: ['9:00 AM', '10:00 AM'] },
+    { day: 'Saturday', location: 'East - Flacq', times: ['12:00 PM', '1:00 PM'] },
+    { day: 'Saturday', location: 'Center - Quatre Bornes', times: ['3:00 PM', '4:00 PM'] },
   ];
 
   const getStudentsForSchedule = (day: string, location: string, timeSlot: string) => {

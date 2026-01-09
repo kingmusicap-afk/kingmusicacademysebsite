@@ -164,11 +164,18 @@ export default function Home() {
 
   const courseCategories = {
     instruments: {
-      title: 'Instrument & Vocal',
+      title: 'Instrument',
       price: 'Rs 1,200/month',
       duration: '12 Months',
       description: 'Professional instrument training for all levels (Total: Rs 14,400)',
       courses: instruments
+    },
+    vocal: {
+      title: 'Vocal',
+      price: 'Rs 1,200/month',
+      duration: '12 Months',
+      description: 'Professional vocal training and singing lessons (Total: Rs 14,400)',
+      courses: [{ name: 'Vocal', icon: '🎤', description: 'Develop your voice and presence. Learn solfege and music theory.' }]
     },
     media: {
       title: 'Media Production Course',
@@ -855,7 +862,8 @@ export default function Home() {
                     className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white/50"
                   >
                     <option value="">Select a course category...</option>
-                    <option value="Instrument & Vocal">Instrument & Vocal</option>
+                    <option value="Instrument">Instrument (Piano, Guitar, Drums, Bass Guitar)</option>
+                    <option value="Vocal">Vocal (Singing & Voice Training)</option>
                     <option value="Media Production">Media Production</option>
                     <option value="Audio Engineering">Audio Engineering</option>
                     <option value="Songwriting & Composition">Songwriting & Composition</option>

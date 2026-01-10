@@ -251,9 +251,10 @@ export default function AdminDashboard() {
 
   const getStudentsForSchedule = (day: string, location: string, timeSlot: string) => {
     // Show only students who have selected this specific day and time
+    // Include Instrument, Vocal, and Instrument & Vocal course types
     return enrollments.filter(
       e => e.location === location && 
-           e.courseType === 'Instrument & Vocal' && 
+           (e.courseType === 'Instrument & Vocal' || e.courseType === 'Instrument' || e.courseType === 'Vocal') && 
            e.status === 'confirmed' &&
            (e as any).classDay === day &&
            (e as any).classTime === timeSlot

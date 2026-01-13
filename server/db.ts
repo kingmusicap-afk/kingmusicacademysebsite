@@ -181,3 +181,48 @@ export async function updateEnrollmentSchedule(id: number, classDay: string, cla
     throw error;
   }
 }
+export async function updateEnrollment(
+  id: number,
+  updates: {
+    status?: string;
+    classDay?: string;
+    classTime?: string;
+    specificCourse?: string;
+    courseLevel?: string;
+  }
+): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update enrollment: database not available");
+    return;
+  }
+
+  try {
+    const updateData: Record<string, any> = {};
+    
+    if (updates.status !== undefined) {
+      updateData.status = updates.status;
+    }
+    if (updates.classDay !== undefined) {
+      updateData.classDay = updates.classDay;
+    }
+    if (updates.classTime !== undefined) {
+      updateData.classTime = updates.classTime;
+    }
+    if (updates.specificCourse !== undefined) {
+      updateData.specificCourse = updates.specificCourse;
+    }
+    if (updates.courseLevel !== undefined) {
+      updateData.courseLevel = updates.courseLevel;
+    }
+
+    if (Object.keys(updateData).length === 0) {
+      return;
+    }
+
+    await db.update(enrollments).set(updateData).where(eq(enrollments.id, id));
+  } catch (error) {
+    console.error("[Database] Failed to update enrollment:", error);
+    throw error;
+  }
+}

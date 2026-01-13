@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createEnrollment, getEnrollments, getEnrollmentById, updateEnrollmentStatus, deleteEnrollment, updateEnrollmentSchedule } from "../db.js";
+import { createEnrollment, getEnrollments, getEnrollmentById, updateEnrollmentStatus, deleteEnrollment, updateEnrollmentSchedule, updateEnrollment } from "../db.js";
 import { ENV } from "../_core/env.js";
 import nodemailer from "nodemailer";
 import fs from "fs";
@@ -278,10 +278,11 @@ router.put("/:id", async (req, res) => {
 });
 
 // PATCH /api/enrollments/:id - Update enrollment status or schedule
+// PATCH /api/enrollments/:id - Update enrollment status, schedule, course details
 router.patch("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { status, classDay, classTime } = req.body;
+    const { status, classDay, classTime, specificCourse, courseLevel } = req.body;
 
     const enrollment = await getEnrollmentById(parseInt(id));
 
@@ -291,18 +292,21 @@ router.patch("/:id", async (req, res) => {
       });
     }
 
-    if (status) {
-      if (!["pending", "confirmed", "cancelled"].includes(status)) {
-        return res.status(400).json({
-          error: "Invalid status. Must be 'pending', 'confirmed', or 'cancelled'",
-        });
-      }
-      await updateEnrollmentStatus(parseInt(id), status);
+    // Validate status if provided
+    if (status && !["pending", "confirmed", "cancelled"].includes(status)) {
+      return res.status(400).json({
+        error: "Invalid status. Must be pending, confirmed, or cancelled",
+      });
     }
 
-    if (classDay && classTime) {
-      await updateEnrollmentSchedule(parseInt(id), classDay, classTime);
-    }
+    // Use the comprehensive update function
+    await updateEnrollment(parseInt(id), {
+      status,
+      classDay,
+      classTime,
+      specificCourse,
+      courseLevel,
+    });
 
     res.json({
       success: true,
@@ -310,6 +314,8 @@ router.patch("/:id", async (req, res) => {
       status: status || enrollment.status,
       classDay: classDay || enrollment.classDay,
       classTime: classTime || enrollment.classTime,
+      specificCourse: specificCourse || enrollment.specificCourse,
+      courseLevel: courseLevel || enrollment.courseLevel,
     });
   } catch (error) {
     console.error("Update error:", error);
@@ -318,207 +324,3 @@ router.patch("/:id", async (req, res) => {
     });
   }
 });
-
-// DELETE /api/enrollments/:id - Delete an enrollment
-router.delete("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const enrollment = await getEnrollmentById(parseInt(id));
-
-    if (!enrollment) {
-      return res.status(404).json({
-        error: "Enrollment not found",
-      });
-    }
-
-    await deleteEnrollment(parseInt(id));
-
-    res.json({
-      success: true,
-      message: "Enrollment deleted successfully",
-    });
-  } catch (error) {
-    console.error("Delete error:", error);
-    res.status(500).json({
-      error: "Failed to delete enrollment",
-    });
-  }
-});
-
-// GET /api/enrollments/available-slots - Get available time slots for a location and course type
-router.get("/available-slots/:location/:courseType", async (req, res) => {
-  try {
-    const { location, courseType } = req.params;
-
-    // Get all enrollments for this location and course type
-    const allEnrollments = await getEnrollments();
-    const enrollmentsForSlot = allEnrollments.filter(
-      (e: any) => e.location === location && e.courseType === courseType && e.status === 'confirmed'
-    );
-
-    // Define available time slots
-    const timeSlots = ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'];
-    const days = ['Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-    const maxCapacity = 4; // Max students per time slot
-
-    // Build availability map
-    const availability = days.flatMap(day => {
-      return timeSlots.map(time => {
-        // Count students already assigned to this day/time
-        const enrolledCount = enrollmentsForSlot.filter(
-          (e: any) => e.classDay === day && e.classTime === time
-        ).length;
-
-        const isAvailable = enrolledCount < maxCapacity;
-        const spotsRemaining = maxCapacity - enrolledCount;
-
-        return {
-          day,
-          time,
-          isAvailable,
-          spotsRemaining,
-          enrolledCount,
-        };
-      });
-    });
-
-    res.json(availability);
-  } catch (error) {
-    console.error("Available slots error:", error);
-    res.status(500).json({
-      error: "Failed to fetch available slots",
-    });
-  }
-});
-
-// POST /api/enrollments/remove-duplicates - Remove duplicate enrollments
-router.post("/remove-duplicates", async (req, res) => {
-  try {
-    const allEnrollments = await getEnrollments();
-    
-    // Group enrollments by email
-    const enrollmentsByEmail: { [key: string]: any[] } = {};
-    allEnrollments.forEach((enrollment: any) => {
-      if (!enrollmentsByEmail[enrollment.email]) {
-        enrollmentsByEmail[enrollment.email] = [];
-      }
-      enrollmentsByEmail[enrollment.email].push(enrollment);
-    });
-    
-    let removedCount = 0;
-    const duplicateInfo: any[] = [];
-    
-    // For each email with duplicates, keep the newest one (highest ID)
-    for (const email in enrollmentsByEmail) {
-      const enrollments = enrollmentsByEmail[email];
-      
-      if (enrollments.length > 1) {
-        // Sort: by ID (newest first - higher ID = newer)
-        enrollments.sort((a: any, b: any) => {
-          return b.id - a.id; // Reverse order: newest first
-        });
-        
-        // Keep the first one, delete the rest
-        const keepEnrollment = enrollments[0];
-        const toDelete = enrollments.slice(1);
-        
-        duplicateInfo.push({
-          email,
-          kept: keepEnrollment,
-          deleted: toDelete.map((e: any) => ({ id: e.id, status: e.status }))
-        });
-        
-        // Delete duplicates
-        for (const enrollment of toDelete) {
-          await deleteEnrollment(enrollment.id);
-          removedCount++;
-        }
-      }
-    }
-    
-    res.json({
-      success: true,
-      message: `Removed ${removedCount} duplicate enrollments`,
-      removedCount,
-      details: duplicateInfo
-    });
-  } catch (error) {
-    console.error("Remove duplicates error:", error);
-    res.status(500).json({
-      error: "Failed to remove duplicates",
-      message: (error as any).message
-    });
-  }
-});
-
-// POST /api/enrollments/auto-assign-slots - Auto-assign time slots to confirmed enrollments without slots
-router.post("/auto-assign-slots", async (req, res) => {
-  try {
-    const allEnrollments = await getEnrollments();
-    const timeSlots = ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'];
-    const days = ['Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-    
-    // Find confirmed enrollments without time slots (all course types)
-    const needsAssignment = allEnrollments.filter((e: any) => 
-      e.status === 'confirmed' && 
-      (!e.classDay || !e.classTime)
-    );
-    
-    let assignedCount = 0;
-    const assignments: any[] = [];
-    
-    // Group by location
-    const byLocation: { [key: string]: any[] } = {};
-    needsAssignment.forEach((e: any) => {
-      if (!byLocation[e.location]) {
-        byLocation[e.location] = [];
-      }
-      byLocation[e.location].push(e);
-    });
-    
-    // Assign time slots for each location
-    for (const location in byLocation) {
-      const enrollments = byLocation[location];
-      let slotIndex = 0;
-      
-      for (const enrollment of enrollments) {
-        const day = days[slotIndex % days.length];
-        const time = timeSlots[Math.floor(slotIndex / days.length) % timeSlots.length];
-        
-        // Update enrollment with assigned slot
-        await fetch(`http://localhost:3000/api/enrollments/${enrollment.id}`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ classDay: day, classTime: time })
-        });
-        
-        assignments.push({
-          id: enrollment.id,
-          name: `${enrollment.firstName} ${enrollment.lastName}`,
-          location,
-          assignedDay: day,
-          assignedTime: time
-        });
-        
-        assignedCount++;
-        slotIndex++;
-      }
-    }
-    
-    res.json({
-      success: true,
-      message: `Auto-assigned ${assignedCount} time slots`,
-      assignedCount,
-      assignments
-    });
-  } catch (error) {
-    console.error("Auto-assign slots error:", error);
-    res.status(500).json({
-      error: "Failed to auto-assign slots",
-      message: (error as any).message
-    });
-  }
-});
-
-export default router;

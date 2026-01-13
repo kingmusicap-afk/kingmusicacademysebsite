@@ -66,7 +66,7 @@ export default function AdminDashboard() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     // In production, this should be a proper backend authentication
-    if (password === 'KingMusic2025') {
+    if (password === 'Louanges7&') {
       setIsAuthenticated(true);
       setLoginError('');
       setPassword('');
@@ -105,7 +105,7 @@ export default function AdminDashboard() {
         setLastRefreshTime(new Date());
       }
     } catch (error) {
-      console.error('Error fetching enrollments:', error);
+      console.error('[AdminDashboard] Error fetching enrollments:', error);
     } finally {
       setLoading(false);
     }

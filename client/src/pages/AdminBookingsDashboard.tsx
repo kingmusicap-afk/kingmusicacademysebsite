@@ -63,7 +63,7 @@ export default function AdminBookingsDashboard() {
   // Authentication
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'KingMusic2025') {
+    if (password === 'Louanges7&') {
       setIsAuthenticated(true);
       setLoginError('');
       setPassword('');

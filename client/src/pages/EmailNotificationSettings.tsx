@@ -29,7 +29,7 @@ export default function EmailNotificationSettings() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'KingMusic2025') {
+    if (password === 'Louanges7&') {
       setIsAuthenticated(true);
       setLoginError('');
       setPassword('');

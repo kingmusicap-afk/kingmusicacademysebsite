@@ -1,0 +1,444 @@
+{
+  "query": "SELECT id, firstName, lastName, email, phone FROM enrollments WHERE phone IS NULL OR phone = '' OR phone = '+230' ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4XsCh7iWuU32dZo.root --database KgrdzpSFaXe4NZwja8oaAC --execute SELECT id, firstName, lastName, email, phone FROM enrollments WHERE phone IS NULL OR phone = '' OR phone = '+230' ORDER BY id;",
+  "rows": [
+    {
+      "id": "1710002",
+      "firstName": "Nitish",
+      "lastName": "Mannick",
+      "email": "nitish@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710003",
+      "firstName": "Dheeraj",
+      "lastName": "Lall Beeharry",
+      "email": "dheeraj@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710004",
+      "firstName": "Lucas",
+      "lastName": "Julie",
+      "email": "lucas@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710005",
+      "firstName": "Aaron",
+      "lastName": "Appiah",
+      "email": "aaron@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710006",
+      "firstName": "Kavish",
+      "lastName": "pydayya",
+      "email": "kavish@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710007",
+      "firstName": "Asheem",
+      "lastName": "Asheem",
+      "email": "asheem@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710008",
+      "firstName": "Leelah",
+      "lastName": "Nivesh",
+      "email": "leelah@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710009",
+      "firstName": "Abhishaye",
+      "lastName": "babajee",
+      "email": "abhishaye@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710010",
+      "firstName": "Joshina",
+      "lastName": "Boyro",
+      "email": "joshina@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710011",
+      "firstName": "Preety",
+      "lastName": "Pudaruth",
+      "email": "preety@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710012",
+      "firstName": "Johan",
+      "lastName": "Gobin",
+      "email": "johan@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710013",
+      "firstName": "JACQUES",
+      "lastName": "BRYAN MIGALE",
+      "email": "jacques@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710014",
+      "firstName": "Jenna",
+      "lastName": "Potheegadoo",
+      "email": "jenna@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710015",
+      "firstName": "Runal",
+      "lastName": "Udhin",
+      "email": "runal@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710016",
+      "firstName": "Christopher",
+      "lastName": "Ng",
+      "email": "christopher@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710017",
+      "firstName": "Speville",
+      "lastName": "Rimina Celeste",
+      "email": "speville@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710018",
+      "firstName": "Woosye",
+      "lastName": "louis Daniel",
+      "email": "woosye@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710019",
+      "firstName": "Cyndia",
+      "lastName": "David-Raboude",
+      "email": "cyndia@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710020",
+      "firstName": "Zacharie",
+      "lastName": "Marie Annaelle",
+      "email": "zacharie@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710021",
+      "firstName": "Ayan",
+      "lastName": "Madiah",
+      "email": "ayan@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710022",
+      "firstName": "Sakhilesh",
+      "lastName": "appadoo",
+      "email": "sakhilesh@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710023",
+      "firstName": "Corine",
+      "lastName": "Lew chin",
+      "email": "corine@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710024",
+      "firstName": "Rojambal",
+      "lastName": "Rutton",
+      "email": "rojambal@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710025",
+      "firstName": "Joshua",
+      "lastName": "Veeramootoo",
+      "email": "joshua@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710026",
+      "firstName": "Ishika",
+      "lastName": "Bundhoo",
+      "email": "ishika@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710027",
+      "firstName": "Néhémie",
+      "lastName": "Mathieu",
+      "email": "nehemie@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710028",
+      "firstName": "Orlando",
+      "lastName": "Orlando",
+      "email": "orlando@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710029",
+      "firstName": "Kiaan",
+      "lastName": "arush kallooa",
+      "email": "kiaan@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710030",
+      "firstName": "Clyde",
+      "lastName": "Savriapen",
+      "email": "clyde@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710031",
+      "firstName": "Yohan",
+      "lastName": "Valayten",
+      "email": "yohan@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710032",
+      "firstName": "Cayden",
+      "lastName": "Souroup",
+      "email": "cayden@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710033",
+      "firstName": "Néhémie",
+      "lastName": "Mathieu",
+      "email": "nehemie2@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710034",
+      "firstName": "Sweety",
+      "lastName": "Meetadevi Bissessur",
+      "email": "sweety@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710035",
+      "firstName": "Keith",
+      "lastName": "Edouard",
+      "email": "keith@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710036",
+      "firstName": "Vilasnee",
+      "lastName": "umeshwaree canniah",
+      "email": "vilasnee@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710037",
+      "firstName": "Jeshua",
+      "lastName": "Jess appadoo",
+      "email": "jeshua@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710038",
+      "firstName": "Olivier",
+      "lastName": "Lebon",
+      "email": "olivier@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710039",
+      "firstName": "Ali",
+      "lastName": "Shirley",
+      "email": "ali@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710040",
+      "firstName": "Beharee",
+      "lastName": "Ritesh",
+      "email": "beharee@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710041",
+      "firstName": "Jaden",
+      "lastName": "Kheejoo",
+      "email": "jaden@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710042",
+      "firstName": "Jaden",
+      "lastName": "Kheejoo",
+      "email": "jaden2@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710043",
+      "firstName": "Annabelle",
+      "lastName": "Annabelle",
+      "email": "annabelle@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710044",
+      "firstName": "JEAN",
+      "lastName": "ALAN TEDDY OLIVETTE",
+      "email": "jean@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710045",
+      "firstName": "Praven",
+      "lastName": "kessyven coornaden",
+      "email": "praven@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710046",
+      "firstName": "Emma",
+      "lastName": "Melissa Agathe",
+      "email": "emma@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710047",
+      "firstName": "Lucas",
+      "lastName": "Wuillaume",
+      "email": "lucas2@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710048",
+      "firstName": "Ivan",
+      "lastName": "Agathe",
+      "email": "ivan@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710049",
+      "firstName": "Reetika",
+      "lastName": "Munsaram",
+      "email": "reetika@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710050",
+      "firstName": "Auclair",
+      "lastName": "Milena",
+      "email": "auclair@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710051",
+      "firstName": "Gobin",
+      "lastName": "Ranjit",
+      "email": "gobin@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710052",
+      "firstName": "Gobin",
+      "lastName": "veema",
+      "email": "gobin2@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710053",
+      "firstName": "Oviyen",
+      "lastName": "Sunnassee",
+      "email": "oviyen@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710054",
+      "firstName": "Elishah",
+      "lastName": "ramnarayan",
+      "email": "elishah@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710055",
+      "firstName": "Acsah",
+      "lastName": "ramnarayan",
+      "email": "acsah@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710056",
+      "firstName": "Néhémie",
+      "lastName": "Mathieu",
+      "email": "nehemie3@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710057",
+      "firstName": "Melanie",
+      "lastName": "Jane juliette",
+      "email": "melanie@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710058",
+      "firstName": "Célérine",
+      "lastName": "Joanna",
+      "email": "celerine@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710059",
+      "firstName": "Moorooteea",
+      "lastName": "Ishuraj",
+      "email": "moorooteea@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710060",
+      "firstName": "Reuma",
+      "lastName": "Joela Grandpaul",
+      "email": "reuma@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710061",
+      "firstName": "Marie",
+      "lastName": "Aurelie Balloo",
+      "email": "marie@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710062",
+      "firstName": "Melanie",
+      "lastName": "Martine Marie",
+      "email": "melanie2@email.com",
+      "phone": "+230"
+    },
+    {
+      "id": "1710063",
+      "firstName": "Melanie",
+      "lastName": "Martine Marie",
+      "email": "melanie3@email.com",
+      "phone": "+230"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tfirstName\tlastName\temail\tphone\n1710002\tNitish\tMannick\tnitish@email.com\t+230\n1710003\tDheeraj\tLall Beeharry\tdheeraj@email.com\t+230\n1710004\tLucas\tJulie\tlucas@email.com\t+230\n1710005\tAaron\tAppiah\taaron@email.com\t+230\n1710006\tKavish\tpydayya\tkavish@email.com\t+230\n1710007\tAsheem\tAsheem\tasheem@email.com\t+230\n1710008\tLeelah\tNivesh\tleelah@email.com\t+230\n1710009\tAbhishaye\tbabajee\tabhishaye@email.com\t+230\n1710010\tJoshina\tBoyro\tjoshina@email.com\t+230\n1710011\tPreety\tPudaruth\tpreety@email.com\t+230\n1710012\tJohan\tGobin\tjohan@email.com\t+230\n1710013\tJACQUES\tBRYAN MIGALE\tjacques@email.com\t+230\n1710014\tJenna\tPotheegadoo\tjenna@email.com\t+230\n1710015\tRunal\tUdhin\trunal@email.com\t+230\n1710016\tChristopher\tNg\tchristopher@email.com\t+230\n1710017\tSpeville\tRimina Celeste\tspeville@email.com\t+230\n1710018\tWoosye\tlouis Daniel\twoosye@email.com\t+230\n1710019\tCyndia\tDavid-Raboude\tcyndia@email.com\t+230\n1710020\tZacharie\tMarie Annaelle\tzacharie@email.com\t+230\n1710021\tAyan\tMadiah\tayan@email.com\t+230\n1710022\tSakhilesh\tappadoo\tsakhilesh@email.com\t+230\n1710023\tCorine\tLew chin\tcorine@email.com\t+230\n1710024\tRojambal\tRutton\trojambal@email.com\t+230\n1710025\tJoshua\tVeeramootoo\tjoshua@email.com\t+230\n1710026\tIshika\tBundhoo\tishika@email.com\t+230\n1710027\tNéhémie\tMathieu\tnehemie@email.com\t+230\n1710028\tOrlando\tOrlando\torlando@email.com\t+230\n1710029\tKiaan\tarush kallooa\tkiaan@email.com\t+230\n1710030\tClyde\tSavriapen\tclyde@email.com\t+230\n1710031\tYohan\tValayten\tyohan@email.com\t+230\n1710032\tCayden\tSouroup\tcayden@email.com\t+230\n1710033\tNéhémie\tMathieu\tnehemie2@email.com\t+230\n1710034\tSweety\tMeetadevi Bissessur\tsweety@email.com\t+230\n1710035\tKeith\tEdouard\tkeith@email.com\t+230\n1710036\tVilasnee\tumeshwaree canniah\tvilasnee@email.com\t+230\n1710037\tJeshua\tJess appadoo\tjeshua@email.com\t+230\n1710038\tOlivier\tLebon\tolivier@email.com\t+230\n1710039\tAli\tShirley\tali@email.com\t+230\n1710040\tBeharee\tRitesh\tbeharee@email.com\t+230\n1710041\tJaden\tKheejoo\tjaden@email.com\t+230\n1710042\tJaden\tKheejoo\tjaden2@email.com\t+230\n1710043\tAnnabelle\tAnnabelle\tannabelle@email.com\t+230\n1710044\tJEAN\tALAN TEDDY OLIVETTE\tjean@email.com\t+230\n1710045\tPraven\tkessyven coornaden\tpraven@email.com\t+230\n1710046\tEmma\tMelissa Agathe\temma@email.com\t+230\n1710047\tLucas\tWuillaume\tlucas2@email.com\t+230\n1710048\tIvan\tAgathe\tivan@email.com\t+230\n1710049\tReetika\tMunsaram\treetika@email.com\t+230\n1710050\tAuclair\tMilena\tauclair@email.com\t+230\n1710051\tGobin\tRanjit\tgobin@email.com\t+230\n1710052\tGobin\tveema\tgobin2@email.com\t+230\n1710053\tOviyen\tSunnassee\toviyen@email.com\t+230\n1710054\tElishah\tramnarayan\telishah@email.com\t+230\n1710055\tAcsah\tramnarayan\tacsah@email.com\t+230\n1710056\tNéhémie\tMathieu\tnehemie3@email.com\t+230\n1710057\tMelanie\tJane juliette\tmelanie@email.com\t+230\n1710058\tCélérine\tJoanna\tcelerine@email.com\t+230\n1710059\tMoorooteea\tIshuraj\tmoorooteea@email.com\t+230\n1710060\tReuma\tJoela Grandpaul\treuma@email.com\t+230\n1710061\tMarie\tAurelie Balloo\tmarie@email.com\t+230\n1710062\tMelanie\tMartine Marie\tmelanie2@email.com\t+230\n1710063\tMelanie\tMartine Marie\tmelanie3@email.com\t+230\n",
+  "stderr": "",
+  "execution_time_ms": 64
+}

@@ -13,6 +13,9 @@ interface Enrollment {
   location: string;
   courseType: string;
   specificCourse: string;
+  classDay?: string;
+  classTime?: string;
+  courseLevel?: string;
   status: 'pending' | 'confirmed' | 'cancelled';
   enrollmentDate: string;
 }
@@ -883,3 +886,6 @@ const [editingCourseLevel, setEditingCourseLevel] = useState<string>('');
     </Card>
   </div>
 )}
+    </div>
+  );
+}

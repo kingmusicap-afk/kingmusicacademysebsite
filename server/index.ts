@@ -8,6 +8,8 @@ import attendanceRouter from "./routes/attendance.js";
 import capacityRouter from "./routes/capacity.js";
 import remindersRouter from "./routes/reminders.js";
 import { runMigrations } from "./migrations.js";
+import { getDb } from "./db.js";
+import { enrollments } from "../drizzle/schema.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,14 +26,37 @@ async function startServer() {
   app.use(express.urlencoded({ extended: true }));
 
   // Debug endpoint to check database status
-  app.get("/api/debug/db", (req, res) => {
-    const dbUrl = process.env.DATABASE_URL || "NOT SET";
-    const masked = dbUrl ? dbUrl.replace(/:[^@]*@/, ":***@") : "NOT SET";
-    res.json({
-      database_url: masked,
-      node_env: process.env.NODE_ENV,
-      port: process.env.PORT || 3000
-    });
+  app.get("/api/debug/db", async (req, res) => {
+    try {
+      const dbUrl = process.env.DATABASE_URL || "NOT SET";
+      const masked = dbUrl ? dbUrl.replace(/:[^@]*@/, ":***@") : "NOT SET";
+      
+      const db = await getDb();
+      let enrollmentCount = 0;
+      let queryError = null;
+      
+      if (db) {
+        try {
+          const result = await db.select().from(enrollments);
+          enrollmentCount = result.length;
+        } catch (e: any) {
+          queryError = e.message;
+        }
+      }
+      
+      res.json({
+        database_url: masked,
+        node_env: process.env.NODE_ENV,
+        port: process.env.PORT || 3000,
+        db_connected: db !== null,
+        enrollment_count: enrollmentCount,
+        query_error: queryError
+      });
+    } catch (error: any) {
+      res.status(500).json({
+        error: error.message
+      });
+    }
   });
 
   // API Routes

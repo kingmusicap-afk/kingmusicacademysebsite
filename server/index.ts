@@ -23,6 +23,17 @@ async function startServer() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
+  // Debug endpoint to check database status
+  app.get("/api/debug/db", (req, res) => {
+    const dbUrl = process.env.DATABASE_URL || "NOT SET";
+    const masked = dbUrl ? dbUrl.replace(/:[^@]*@/, ":***@") : "NOT SET";
+    res.json({
+      database_url: masked,
+      node_env: process.env.NODE_ENV,
+      port: process.env.PORT || 3000
+    });
+  });
+
   // API Routes
   app.use("/api/enrollments", enrollmentsRouter);
   app.use("/api/contact", contactRouter);

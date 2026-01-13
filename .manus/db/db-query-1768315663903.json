@@ -1,0 +1,49 @@
+{
+  "query": "SHOW TABLES; SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = DATABASE();",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4XsCh7iWuU32dZo.root --database KgrdzpSFaXe4NZwja8oaAC --execute SHOW TABLES; SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = DATABASE();",
+  "rows": [
+    {
+      "Tables_in_KgrdzpSFaXe4NZwja8oaAC": "__drizzle_migrations"
+    },
+    {
+      "Tables_in_KgrdzpSFaXe4NZwja8oaAC": "attendance"
+    },
+    {
+      "Tables_in_KgrdzpSFaXe4NZwja8oaAC": "classCapacity"
+    },
+    {
+      "Tables_in_KgrdzpSFaXe4NZwja8oaAC": "classReminders"
+    },
+    {
+      "Tables_in_KgrdzpSFaXe4NZwja8oaAC": "enrollments"
+    },
+    {
+      "Tables_in_KgrdzpSFaXe4NZwja8oaAC": "users"
+    },
+    {
+      "Tables_in_KgrdzpSFaXe4NZwja8oaAC": "TABLE_NAME"
+    },
+    {
+      "Tables_in_KgrdzpSFaXe4NZwja8oaAC": "__drizzle_migrations"
+    },
+    {
+      "Tables_in_KgrdzpSFaXe4NZwja8oaAC": "users"
+    },
+    {
+      "Tables_in_KgrdzpSFaXe4NZwja8oaAC": "enrollments"
+    },
+    {
+      "Tables_in_KgrdzpSFaXe4NZwja8oaAC": "attendance"
+    },
+    {
+      "Tables_in_KgrdzpSFaXe4NZwja8oaAC": "classCapacity"
+    },
+    {
+      "Tables_in_KgrdzpSFaXe4NZwja8oaAC": "classReminders"
+    }
+  ],
+  "messages": [],
+  "stdout": "Tables_in_KgrdzpSFaXe4NZwja8oaAC\n__drizzle_migrations\nattendance\nclassCapacity\nclassReminders\nenrollments\nusers\nTABLE_NAME\n__drizzle_migrations\nusers\nenrollments\nattendance\nclassCapacity\nclassReminders\n",
+  "stderr": "",
+  "execution_time_ms": 287
+}

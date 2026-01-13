@@ -1,0 +1,31 @@
+{
+  "query": "SELECT COUNT(*) as total_count FROM enrollments; SELECT * FROM enrollments LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4XsCh7iWuU32dZo.root --database KgrdzpSFaXe4NZwja8oaAC --execute SELECT COUNT(*) as total_count FROM enrollments; SELECT * FROM enrollments LIMIT 5;",
+  "rows": [
+    {
+      "total_count": "62"
+    },
+    {
+      "total_count": "id\tfirstName\tlastName\temail\tphone\tlocation\tcourseType\tcourseLevel\tspecificCourse\tparentName\tparentPhone\tpreviousExperience\tstartDate\tenrollmentDate\tstatus\tnotes\tage\tclassDay\tclassTime"
+    },
+    {
+      "total_count": "450002\tNitish\tMannick\tnitishmannick1010@gmail.com\t+230 5476 6003\tCenter - Quatre Bornes\tInstrument & Vocal\tBeginner\tBass \tNULL\tNULL\tNULL\t2026-01-07\t2026-01-07 11:26:04\tpending\tBeginner in bass\t40\tNULL\tNULL"
+    },
+    {
+      "total_count": "480002\tDheeraj\tLall Beeharry\tdheeraj.lallbeeharry05@gmail.com\t55007241\tCenter - Quatre Bornes\tInstrument & Vocal\tBeginner\tGUITAR,DRUM\tNULL\tNULL\tNULL\t2026-01-07\t2026-01-07 11:41:44\tpending\tNULL\t26\tNULL\tNULL"
+    },
+    {
+      "total_count": "480003\tLucas\tJulie\tmellamarque15@gmail.com\t+23058160441\tCenter - Quatre Bornes\tInstrument & Vocal\tBeginner\tGuitar\tNULL\tNULL\tNULL\t2026-01-07\t2026-01-07 11:51:20\tpending\tI have  some knowledge in drums and in Guitar\t12\tNULL\tNULL"
+    },
+    {
+      "total_count": "480004\tAaron\tAppiah\tviviappiah@gmail.com\t58037152\tNorth - Goodlands\tInstrument & Vocal\tBeginner\tDrums\tNULL\tNULL\tNULL\t2026-01-07\t2026-01-07 11:54:53\tconfirmed\tNULL\t11\tTuesday\t2:00 PM"
+    },
+    {
+      "total_count": "510001\tKavish\tpydayya\tkavish100305@Gmail.com\t57804948\tCenter - Quatre Bornes\tInstrument & Vocal\tBeginner\tPiano\tNULL\tNULL\tNULL\t2026-01-07\t2026-01-07 12:06:47\tconfirmed\tHave basic knowledge only\t20\tTuesday\t2:00 PM"
+    }
+  ],
+  "messages": [],
+  "stdout": "total_count\n62\nid\tfirstName\tlastName\temail\tphone\tlocation\tcourseType\tcourseLevel\tspecificCourse\tparentName\tparentPhone\tpreviousExperience\tstartDate\tenrollmentDate\tstatus\tnotes\tage\tclassDay\tclassTime\n450002\tNitish\tMannick\tnitishmannick1010@gmail.com\t+230 5476 6003\tCenter - Quatre Bornes\tInstrument & Vocal\tBeginner\tBass \tNULL\tNULL\tNULL\t2026-01-07\t2026-01-07 11:26:04\tpending\tBeginner in bass\t40\tNULL\tNULL\n480002\tDheeraj\tLall Beeharry\tdheeraj.lallbeeharry05@gmail.com\t55007241\tCenter - Quatre Bornes\tInstrument & Vocal\tBeginner\tGUITAR,DRUM\tNULL\tNULL\tNULL\t2026-01-07\t2026-01-07 11:41:44\tpending\tNULL\t26\tNULL\tNULL\n480003\tLucas\tJulie\tmellamarque15@gmail.com\t+23058160441\tCenter - Quatre Bornes\tInstrument & Vocal\tBeginner\tGuitar\tNULL\tNULL\tNULL\t2026-01-07\t2026-01-07 11:51:20\tpending\tI have  some knowledge in drums and in Guitar\t12\tNULL\tNULL\n480004\tAaron\tAppiah\tviviappiah@gmail.com\t58037152\tNorth - Goodlands\tInstrument & Vocal\tBeginner\tDrums\tNULL\tNULL\tNULL\t2026-01-07\t2026-01-07 11:54:53\tconfirmed\tNULL\t11\tTuesday\t2:00 PM\n510001\tKavish\tpydayya\tkavish100305@Gmail.com\t57804948\tCenter - Quatre Bornes\tInstrument & Vocal\tBeginner\tPiano\tNULL\tNULL\tNULL\t2026-01-07\t2026-01-07 12:06:47\tconfirmed\tHave basic knowledge only\t20\tTuesday\t2:00 PM\n",
+  "stderr": "",
+  "execution_time_ms": 191
+}

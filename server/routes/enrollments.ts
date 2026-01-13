@@ -214,12 +214,18 @@ router.post("/", async (req, res) => {
 // GET /api/enrollments - Get all enrollments (admin only)
 router.get("/", async (req, res) => {
   try {
+    console.log("[API] GET /api/enrollments called");
+    console.log("[API] DATABASE_URL:", process.env.DATABASE_URL ? "SET" : "NOT SET");
     const allEnrollments = await getEnrollments();
+    console.log("[API] Enrollments fetched:", allEnrollments.length);
     res.json(allEnrollments);
   } catch (error) {
-    console.error("Fetch error:", error);
+    console.error("[API] Fetch error:", error);
+    console.error("[API] Error message:", (error as any)?.message);
+    console.error("[API] Error stack:", (error as any)?.stack);
     res.status(500).json({
       error: "Failed to fetch enrollments",
+      details: (error as any)?.message || "Unknown error"
     });
   }
 });

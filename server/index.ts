@@ -7,11 +7,15 @@ import contactRouter from "./routes/contact.js";
 import attendanceRouter from "./routes/attendance.js";
 import capacityRouter from "./routes/capacity.js";
 import remindersRouter from "./routes/reminders.js";
+import { runMigrations } from "./migrations.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 async function startServer() {
+  // Run migrations before starting the server
+  await runMigrations();
+  
   const app = express();
   const server = createServer(app);
 

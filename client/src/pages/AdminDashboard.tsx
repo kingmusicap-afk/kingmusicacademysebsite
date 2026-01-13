@@ -29,6 +29,11 @@ export default function AdminDashboard() {
   const [loginError, setLoginError] = useState('');
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingStatus, setEditingStatus] = useState<'pending' | 'confirmed' | 'cancelled'>('pending');
+  const [editingClassDay, setEditingClassDay] = useState<string>('');
+const [editingClassTime, setEditingClassTime] = useState<string>('');
+const [editingSpecificCourse, setEditingSpecificCourse] = useState<string>('');
+const [editingCourseLevel, setEditingCourseLevel] = useState<string>('');
+
   const [updateLoading, setUpdateLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<'enrollments' | 'schedule' | 'attendance' | 'capacity' | 'reminders'>('enrollments');
   const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null);
@@ -113,43 +118,58 @@ export default function AdminDashboard() {
 
 
 
-  const handleEditClick = (enrollment: Enrollment) => {
-    setEditingId(enrollment.id);
-    setEditingStatus(enrollment.status);
-  };
+ const handleEditClick = (enrollment: Enrollment) => {
+  setEditingId(enrollment.id);
+  setEditingStatus(enrollment.status);
+  setEditingClassDay(enrollment.classDay || '');
+  setEditingClassTime(enrollment.classTime || '');
+  setEditingSpecificCourse(enrollment.specificCourse || '');
+  setEditingCourseLevel(enrollment.courseLevel || '');
+};
 
-  const handleUpdatePaymentStatus = async () => {
-    if (editingId === null) return;
+ const handleUpdatePaymentStatus = async () => {
+  if (editingId === null) return;
 
-    try {
-      setUpdateLoading(true);
-      const response = await fetch(`/api/enrollments/${editingId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+  try {
+    setUpdateLoading(true);
+    const response = await fetch(`/api/enrollments/${editingId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        status: editingStatus,
+        classDay: editingClassDay,
+        classTime: editingClassTime,
+        specificCourse: editingSpecificCourse,
+        courseLevel: editingCourseLevel,
+      }),
+    });
+
+    if (response.ok) {
+      const updatedEnrollments = enrollments.map(e =>
+        e.id === editingId ? { 
+          ...e, 
           status: editingStatus,
-        }),
-      });
-
-      if (response.ok) {
-        const updatedEnrollments = enrollments.map(e =>
-          e.id === editingId ? { ...e, status: editingStatus } : e
-        );
-        setEnrollments(updatedEnrollments);
-        setFilteredEnrollments(updatedEnrollments);
-        setEditingId(null);
-      } else {
-        alert('Failed to update payment status');
-      }
-    } catch (error) {
-      console.error('Error updating payment status:', error);
-      alert('Error updating payment status');
-    } finally {
-      setUpdateLoading(false);
+          classDay: editingClassDay,
+          classTime: editingClassTime,
+          specificCourse: editingSpecificCourse,
+          courseLevel: editingCourseLevel,
+        } : e
+      );
+      setEnrollments(updatedEnrollments);
+      setFilteredEnrollments(updatedEnrollments);
+      setEditingId(null);
+    } else {
+      alert('Failed to update enrollment');
     }
-  };
+  } catch (error) {
+    console.error('Error updating enrollment:', error);
+    alert('Error updating enrollment');
+  } finally {
+    setUpdateLoading(false);
+  }
+};
 
   // Delete enrollment
   const handleDeleteEnrollment = async (enrollmentId: number) => {
@@ -742,55 +762,124 @@ export default function AdminDashboard() {
       </div>
 
       {/* Edit Modal */}
-      {editingId !== null && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <Card className="w-full max-w-md p-6 border-0 shadow-2xl">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold text-primary">Update Payment Status</h2>
-              <button
-                onClick={() => setEditingId(null)}
-                className="text-gray-400 hover:text-gray-600"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+     {editingId !== null && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <Card className="w-full max-w-md p-6 max-h-96 overflow-y-auto">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-lg font-bold">Edit Enrollment</h3>
+        <button onClick={() => setEditingId(null)} className="text-gray-500 hover:text-gray-700">
+          <X size={20} />
+        </button>
+      </div>
 
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Payment Status
-                </label>
-                <select
-                  value={editingStatus}
-                  onChange={(e) => setEditingStatus(e.target.value as 'pending' | 'confirmed' | 'cancelled')}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  <option value="pending">Pending</option>
-                  <option value="confirmed">Confirmed</option>
-                  <option value="cancelled">Cancelled</option>
-                </select>
-              </div>
-
-              <div className="flex gap-2 pt-4">
-                <Button
-                  onClick={handleUpdatePaymentStatus}
-                  disabled={updateLoading}
-                  className="flex-1 bg-primary hover:bg-blue-900 text-white"
-                >
-                  {updateLoading ? 'Updating...' : 'Update'}
-                </Button>
-                <Button
-                  onClick={() => setEditingId(null)}
-                  variant="outline"
-                  className="flex-1"
-                >
-                  Cancel
-                </Button>
-              </div>
-            </div>
-          </Card>
+      <div className="space-y-4">
+        {/* Instrument/Course */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
+            Instrument/Course
+          </label>
+          <input
+            type="text"
+            value={editingSpecificCourse}
+            onChange={(e) => setEditingSpecificCourse(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            placeholder="e.g., Piano, Guitar, Drums"
+          />
         </div>
-      )}
-    </div>
-  );
-}
+
+        {/* Course Level */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
+            Course Level
+          </label>
+          <select
+            value={editingCourseLevel}
+            onChange={(e) => setEditingCourseLevel(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+          >
+            <option value="">Select Level</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </select>
+        </div>
+
+        {/* Class Day */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
+            Class Day
+          </label>
+          <select
+            value={editingClassDay}
+            onChange={(e) => setEditingClassDay(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+          >
+            <option value="">Select Day</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+          </select>
+        </div>
+
+        {/* Class Time */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
+            Class Time
+          </label>
+          <select
+            value={editingClassTime}
+            onChange={(e) => setEditingClassTime(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+          >
+            <option value="">Select Time</option>
+            <option value="9:00 AM">9:00 AM</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="2:00 PM">2:00 PM</option>
+            <option value="3:00 PM">3:00 PM</option>
+            <option value="4:00 PM">4:00 PM</option>
+            <option value="5:00 PM">5:00 PM</option>
+            <option value="7:00 PM">7:00 PM</option>
+          </select>
+        </div>
+
+        {/* Payment Status */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
+            Payment Status
+          </label>
+          <select
+            value={editingStatus}
+            onChange={(e) => setEditingStatus(e.target.value as 'pending' | 'confirmed' | 'cancelled')}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+          >
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex gap-2 mt-6">
+          <Button
+            onClick={() => setEditingId(null)}
+            variant="outline"
+            className="flex-1"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleUpdatePaymentStatus}
+            disabled={updateLoading}
+            className="flex-1 bg-primary hover:bg-blue-900"
+          >
+            {updateLoading ? 'Saving...' : 'Save Changes'}
+          </Button>
+        </div>
+      </div>
+    </Card>
+  </div>
+)}

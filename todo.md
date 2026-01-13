@@ -54,3 +54,16 @@
 - [x] Create email templates for all notification types
 - [x] Add scheduled job for quarterly email sending
 - [x] Create calendar view for upcoming church bookings
+
+## Current Session - Frontend & Admin Updates
+- [ ] Update course category dropdown - remove "Instrument" group
+- [ ] Add individual options: Piano, Guitar, Drums, Bass Guitar, Vocal
+- [ ] Remove "Audio Engineering" option
+- [ ] Reorganize course selection to show individual instruments
+- [ ] Add "Export CSV" button to admin dashboard
+- [ ] Implement CSV export functionality with all enrollment data
+- [ ] Identify users with missing phone numbers
+- [ ] Add phone numbers to users where missing
+- [ ] Test enrollment form with new course options
+- [ ] Test CSV export functionality
+- [ ] Save checkpoint and deploy to Railway

@@ -345,12 +345,9 @@ export default function Scholarship() {
                       <option value="">Select a course...</option>
                       <option value="Piano">Piano</option>
                       <option value="Guitar">Guitar</option>
-                      <option value="Vocal">Vocal</option>
                       <option value="Drums">Drums</option>
                       <option value="Bass Guitar">Bass Guitar</option>
-                      <option value="Media Production">Media Production</option>
-                      <option value="Audio Engineering">Audio Engineering</option>
-                      <option value="Songwriting">Songwriting & Composition</option>
+                      <option value="Vocal">Vocal</option>
                       <option value="Worship Leadership">Worship Leadership</option>
                     </select>
                   </div>

@@ -862,13 +862,11 @@ export default function Home() {
                     className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white/50"
                   >
                     <option value="">Select a course category...</option>
-                    <option value="Drums">Drums</option>
+                    <option value="Piano">Piano</option>
                     <option value="Guitar">Guitar</option>
+                    <option value="Drums">Drums</option>
                     <option value="Bass Guitar">Bass Guitar</option>
-                    <option value="Keyboard">Keyboard</option>
                     <option value="Vocal">Vocal</option>
-                    <option value="Media Production">Media Production</option>
-                    <option value="Songwriting and Composition">Songwriting and Composition</option>
                     <option value="Worship Leadership">Worship Leadership</option>
                   </select>
                 </div>

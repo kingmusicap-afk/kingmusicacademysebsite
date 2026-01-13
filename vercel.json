@@ -4,11 +4,5 @@
   "installCommand": "pnpm install",
   "env": {
     "NODE_ENV": "production"
-  },
-  "functions": {
-    "server/_core/index.ts": {
-      "memory": 1024,
-      "maxDuration": 60
-    }
   }
 }

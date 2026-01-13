@@ -9,6 +9,8 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import enrollmentsRouter from "../routes/enrollments.js";
 import remindersRouter from "../routes/reminders.js";
+import { getDb } from "../db.js";
+import { enrollments } from "../../drizzle/schema.js";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -37,6 +39,34 @@ async function startServer() {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
+  // Debug endpoint
+  app.get("/api/debug/db", async (req, res) => {
+    try {
+      const dbUrl = process.env.DATABASE_URL || "NOT SET";
+      const masked = dbUrl ? dbUrl.replace(/:[^@]*@/, ":***@") : "NOT SET";
+      const db = await getDb();
+      let enrollmentCount = 0;
+      let queryError = null;
+      if (db) {
+        try {
+          const result = await db.select().from(enrollments);
+          enrollmentCount = result.length;
+        } catch (e: any) {
+          queryError = e.message;
+        }
+      }
+      res.json({
+        database_url: masked,
+        node_env: process.env.NODE_ENV,
+        db_connected: db !== null,
+        enrollment_count: enrollmentCount,
+        query_error: queryError
+      });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+  
   // Enrollments API
   app.use("/api/enrollments", enrollmentsRouter);
   // Reminders API

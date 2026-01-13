@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { LogOut, Users, CheckCircle, Clock, XCircle, Edit2, X, Trash2, RefreshCw, Zap } from 'lucide-react';
+import { LogOut, Users, CheckCircle, Clock, XCircle, Edit2, X, Trash2, RefreshCw, Zap, Plus } from 'lucide-react';
 
 interface Enrollment {
   id: number;
@@ -42,6 +42,21 @@ const [editingCourseLevel, setEditingCourseLevel] = useState<string>('');
   const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null);
   const [lastRefreshTime, setLastRefreshTime] = useState<Date>(new Date());
   const [removingDuplicates, setRemovingDuplicates] = useState(false);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newEnrollment, setNewEnrollment] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    age: '',
+    courseType: 'Instrument & Vocal',
+    location: 'Center - Quatre Bornes',
+    classDay: '',
+    classTime: '',
+    specificCourse: '',
+    courseLevel: 'Beginner',
+  });
+  const [addingEnrollment, setAddingEnrollment] = useState(false);
 
   const handleRemoveDuplicates = async () => {
     if (!window.confirm('This will remove all duplicate enrollments. Continue?')) {
@@ -107,9 +122,10 @@ const [editingCourseLevel, setEditingCourseLevel] = useState<string>('');
       const response = await fetch('/api/enrollments');
       if (response.ok) {
         const data = await response.json();
-        // Use the actual status from database
-        setEnrollments(data);
-        setFilteredEnrollments(data);
+        // Sort by ID descending (latest first)
+        const sorted = data.sort((a: Enrollment, b: Enrollment) => b.id - a.id);
+        setEnrollments(sorted);
+        setFilteredEnrollments(sorted);
         setLastRefreshTime(new Date());
       }
     } catch (error) {
@@ -119,7 +135,60 @@ const [editingCourseLevel, setEditingCourseLevel] = useState<string>('');
     }
   };
 
+  const handleAddEnrollment = async () => {
+    if (!newEnrollment.firstName || !newEnrollment.lastName || !newEnrollment.email || !newEnrollment.phone) {
+      alert('Please fill in all required fields');
+      return;
+    }
 
+    try {
+      setAddingEnrollment(true);
+      const response = await fetch('/api/enrollments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: newEnrollment.firstName,
+          lastName: newEnrollment.lastName,
+          email: newEnrollment.email,
+          phone: newEnrollment.phone,
+          age: newEnrollment.age ? parseInt(newEnrollment.age) : 0,
+          courseType: newEnrollment.courseType,
+          location: newEnrollment.location,
+          classDay: newEnrollment.classDay || null,
+          classTime: newEnrollment.classTime || null,
+          specificCourse: newEnrollment.specificCourse,
+          courseLevel: newEnrollment.courseLevel,
+          status: 'pending',
+        }),
+      });
+
+      if (response.ok) {
+        alert('Enrollment added successfully!');
+        setNewEnrollment({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          age: '',
+          courseType: 'Instrument & Vocal',
+          location: 'Center - Quatre Bornes',
+          classDay: '',
+          classTime: '',
+          specificCourse: '',
+          courseLevel: 'Beginner',
+        });
+        setShowAddForm(false);
+        await fetchEnrollments();
+      } else {
+        alert('Failed to add enrollment');
+      }
+    } catch (error) {
+      console.error('Error adding enrollment:', error);
+      alert('Error adding enrollment');
+    } finally {
+      setAddingEnrollment(false);
+    }
+  };
 
  const handleEditClick = (enrollment: Enrollment) => {
   setEditingId(enrollment.id);
@@ -433,6 +502,17 @@ const [editingCourseLevel, setEditingCourseLevel] = useState<string>('');
         {/* Enrollments Tab */}
         {activeTab === 'enrollments' && (
           <>
+            {/* Add Enrollment Button */}
+            <div className="mb-6">
+              <Button
+                onClick={() => setShowAddForm(true)}
+                className="bg-green-600 hover:bg-green-700 text-white flex items-center gap-2"
+              >
+                <Plus className="w-4 h-4" />
+                Add New Enrollment
+              </Button>
+            </div>
+
             {/* Filters */}
             <Card className="p-6 border-0 shadow-subtle mb-8">
               <h2 className="text-lg font-bold text-primary mb-4">Filters</h2>
@@ -886,6 +966,101 @@ const [editingCourseLevel, setEditingCourseLevel] = useState<string>('');
     </Card>
   </div>
 )}
+
+      {showAddForm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <Card className="w-full max-w-2xl p-6 max-h-96 overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-bold">Add New Enrollment</h3>
+              <button onClick={() => setShowAddForm(false)} className="text-gray-500 hover:text-gray-700">
+                <X size={20} />
+              </button>
+            </div>
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">First Name *</label>
+                  <input type="text" value={newEnrollment.firstName} onChange={(e) => setNewEnrollment({...newEnrollment, firstName: e.target.value})} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="First name" />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Last Name *</label>
+                  <input type="text" value={newEnrollment.lastName} onChange={(e) => setNewEnrollment({...newEnrollment, lastName: e.target.value})} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Last name" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Email *</label>
+                  <input type="email" value={newEnrollment.email} onChange={(e) => setNewEnrollment({...newEnrollment, email: e.target.value})} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="email@example.com" />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Phone *</label>
+                  <input type="text" value={newEnrollment.phone} onChange={(e) => setNewEnrollment({...newEnrollment, phone: e.target.value})} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Phone number" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Age</label>
+                  <input type="number" value={newEnrollment.age} onChange={(e) => setNewEnrollment({...newEnrollment, age: e.target.value})} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Age" />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Course Type</label>
+                  <select value={newEnrollment.courseType} onChange={(e) => setNewEnrollment({...newEnrollment, courseType: e.target.value})} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                    <option value="Instrument & Vocal">Instrument & Vocal</option>
+                    <option value="Instrument">Instrument</option>
+                    <option value="Vocal">Vocal</option>
+                    <option value="Worship Leadership">Worship Leadership</option>
+                    <option value="Audio Engineering">Audio Engineering</option>
+                  </select>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Location</label>
+                  <select value={newEnrollment.location} onChange={(e) => setNewEnrollment({...newEnrollment, location: e.target.value})} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                    <option value="Center - Quatre Bornes">Center - Quatre Bornes</option>
+                    <option value="North - Goodlands">North - Goodlands</option>
+                    <option value="East - Flacq">East - Flacq</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Specific Course</label>
+                  <input type="text" value={newEnrollment.specificCourse} onChange={(e) => setNewEnrollment({...newEnrollment, specificCourse: e.target.value})} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="e.g., Guitar, Piano" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Class Day</label>
+                  <select value={newEnrollment.classDay} onChange={(e) => setNewEnrollment({...newEnrollment, classDay: e.target.value})} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                    <option value="">Select Day</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Class Time</label>
+                  <select value={newEnrollment.classTime} onChange={(e) => setNewEnrollment({...newEnrollment, classTime: e.target.value})} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                    <option value="">Select Time</option>
+                    <option value="9:00 AM">9:00 AM</option>
+                    <option value="10:00 AM">10:00 AM</option>
+                    <option value="2:00 PM">2:00 PM</option>
+                    <option value="3:00 PM">3:00 PM</option>
+                    <option value="4:00 PM">4:00 PM</option>
+                    <option value="5:00 PM">5:00 PM</option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex gap-2 mt-6">
+                <Button onClick={() => setShowAddForm(false)} variant="outline" className="flex-1">Cancel</Button>
+                <Button onClick={handleAddEnrollment} disabled={addingEnrollment} className="flex-1 bg-green-600 hover:bg-green-700">{addingEnrollment ? 'Adding...' : 'Add Enrollment'}</Button>
+              </div>
+            </div>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }

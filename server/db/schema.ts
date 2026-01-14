@@ -17,6 +17,8 @@ export const enrollments = pgTable("enrollments", {
   parentPhone: varchar({ length: 20 }), // For minor students
   previousExperience: text(), // Any previous music experience
   startDate: varchar({ length: 50 }).notNull(), // Preferred start date
+  classDay: varchar({ length: 20 }), // e.g., Monday, Tuesday, Wednesday, etc.
+  classTime: varchar({ length: 20 }), // e.g., 9am, 2pm, 5pm, etc.
   enrollmentDate: timestamp().notNull().defaultNow(),
   status: varchar({ length: 50 }).notNull().default("pending"), // pending, confirmed, cancelled
   notes: text(), // Additional notes from student

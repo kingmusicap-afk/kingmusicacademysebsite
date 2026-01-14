@@ -202,6 +202,9 @@ const [editingCourseLevel, setEditingCourseLevel] = useState<string>('');
  const handleUpdatePaymentStatus = async () => {
   if (editingId === null) return;
 
+  const enrollment = enrollments.find(e => e.id === editingId);
+  if (!enrollment) return;
+
   try {
     setUpdateLoading(true);
     const response = await fetch(`/api/enrollments/${editingId}`, {
@@ -210,6 +213,10 @@ const [editingCourseLevel, setEditingCourseLevel] = useState<string>('');
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        firstName: enrollment.firstName,
+        lastName: enrollment.lastName,
+        age: enrollment.age,
+        location: enrollment.location,
         status: editingStatus,
         classDay: editingClassDay,
         classTime: editingClassTime,
@@ -221,7 +228,11 @@ const [editingCourseLevel, setEditingCourseLevel] = useState<string>('');
     if (response.ok) {
       const updatedEnrollments = enrollments.map(e =>
         e.id === editingId ? { 
-          ...e, 
+          ...e,
+          firstName: enrollment.firstName,
+          lastName: enrollment.lastName,
+          age: enrollment.age,
+          location: enrollment.location,
           status: editingStatus,
           classDay: editingClassDay,
           classTime: editingClassTime,
@@ -341,6 +352,16 @@ const [editingCourseLevel, setEditingCourseLevel] = useState<string>('');
     { day: 'Saturday', location: 'Center - Quatre Bornes', times: ['3:00 PM', '4:00 PM'] },
   ];
 
+  const normalizeTime = (time: string) => {
+    // Normalize time formats: "9am" -> "9:00 AM", "5pm" -> "5:00 PM"
+    if (!time) return '';
+    const normalized = time.toLowerCase()
+      .replace(/([0-9]+)\s*am/i, '$1:00 AM')
+      .replace(/([0-9]+)\s*pm/i, '$1:00 PM')
+      .replace(/([0-9]+):([0-9]{2})\s*(am|pm)/i, '$1:$2 $3'.toUpperCase());
+    return normalized.toUpperCase();
+  };
+
   const getStudentsForSchedule = (day: string, location: string, timeSlot: string) => {
     // Show only students who have selected this specific day and time
     // Include Instrument, Vocal, and Instrument & Vocal course types
@@ -349,7 +370,7 @@ const [editingCourseLevel, setEditingCourseLevel] = useState<string>('');
            (e.courseType === 'Instrument & Vocal' || e.courseType === 'Instrument' || e.courseType === 'Vocal') && 
            e.status === 'confirmed' &&
            (e as any).classDay === day &&
-           (e as any).classTime === timeSlot
+           normalizeTime((e as any).classTime) === normalizeTime(timeSlot)
     );
   };
 
@@ -877,6 +898,97 @@ const [editingCourseLevel, setEditingCourseLevel] = useState<string>('');
       </div>
 
       <div className="space-y-4">
+        {/* Name Fields */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
+              First Name
+            </label>
+            <input
+              type="text"
+              value={enrollments.find(e => e.id === editingId)?.firstName || ''}
+              onChange={(e) => {
+                const enrollment = enrollments.find(e => e.id === editingId);
+                if (enrollment) {
+                  const updated = enrollments.map(en => 
+                    en.id === editingId ? {...en, firstName: e.target.value} : en
+                  );
+                  setEnrollments(updated);
+                }
+              }}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              placeholder="First name"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
+              Last Name
+            </label>
+            <input
+              type="text"
+              value={enrollments.find(e => e.id === editingId)?.lastName || ''}
+              onChange={(e) => {
+                const enrollment = enrollments.find(e => e.id === editingId);
+                if (enrollment) {
+                  const updated = enrollments.map(en => 
+                    en.id === editingId ? {...en, lastName: e.target.value} : en
+                  );
+                  setEnrollments(updated);
+                }
+              }}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              placeholder="Last name"
+            />
+          </div>
+        </div>
+
+        {/* Age */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
+            Age
+          </label>
+          <input
+            type="number"
+            value={enrollments.find(e => e.id === editingId)?.age || ''}
+            onChange={(e) => {
+              const enrollment = enrollments.find(e => e.id === editingId);
+              if (enrollment) {
+                const updated = enrollments.map(en => 
+                  en.id === editingId ? {...en, age: parseInt(e.target.value) || undefined} : en
+                );
+                setEnrollments(updated);
+              }
+            }}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            placeholder="Age"
+          />
+        </div>
+
+        {/* Location */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
+            Location
+          </label>
+          <select
+            value={enrollments.find(e => e.id === editingId)?.location || ''}
+            onChange={(e) => {
+              const enrollment = enrollments.find(e => e.id === editingId);
+              if (enrollment) {
+                const updated = enrollments.map(en => 
+                  en.id === editingId ? {...en, location: e.target.value} : en
+                );
+                setEnrollments(updated);
+              }
+            }}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+          >
+            <option value="">Select Location</option>
+            <option value="North - Goodlands">North - Goodlands</option>
+            <option value="Center - Quatre Bornes">Center - Quatre Bornes</option>
+            <option value="East - Flacq">East - Flacq</option>
+          </select>
+        </div>
+
         {/* Instrument/Course */}
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-1">

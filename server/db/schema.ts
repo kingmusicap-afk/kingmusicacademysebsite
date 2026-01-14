@@ -9,6 +9,7 @@ export const enrollments = pgTable("enrollments", {
   lastName: varchar({ length: 100 }).notNull(),
   email: varchar({ length: 255 }).notNull(),
   phone: varchar({ length: 20 }).notNull(),
+  age: integer(), // Student age
   location: varchar({ length: 100 }).notNull(), // Goodlands, Flacq, or Quatre Bornes
   courseType: varchar({ length: 100 }).notNull(), // Instruments, Media, Audio, Songwriting, Worship
   courseLevel: varchar({ length: 50 }).notNull(), // Beginner or Intermediate

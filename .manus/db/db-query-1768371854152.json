@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE enrollments SET classTime = CASE \n  WHEN classTime = '9am' THEN '9:00 AM'\n  WHEN classTime = '10am' THEN '10:00 AM'\n  WHEN classTime = '2pm' THEN '2:00 PM'\n  WHEN classTime = '3pm' THEN '3:00 PM'\n  WHEN classTime = '4pm' THEN '4:00 PM'\n  WHEN classTime = '5pm' THEN '5:00 PM'\n  WHEN classTime = '12pm' THEN '12:00 PM'\n  WHEN classTime = '1pm' THEN '1:00 PM'\n  ELSE classTime\nEND WHERE classTime IS NOT NULL;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4XsCh7iWuU32dZo.root --database KgrdzpSFaXe4NZwja8oaAC --execute UPDATE enrollments SET classTime = CASE \n  WHEN classTime = '9am' THEN '9:00 AM'\n  WHEN classTime = '10am' THEN '10:00 AM'\n  WHEN classTime = '2pm' THEN '2:00 PM'\n  WHEN classTime = '3pm' THEN '3:00 PM'\n  WHEN classTime = '4pm' THEN '4:00 PM'\n  WHEN classTime = '5pm' THEN '5:00 PM'\n  WHEN classTime = '12pm' THEN '12:00 PM'\n  WHEN classTime = '1pm' THEN '1:00 PM'\n  ELSE classTime\nEND WHERE classTime IS NOT NULL;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 93
+}

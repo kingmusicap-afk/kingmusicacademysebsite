@@ -1,0 +1,62 @@
+{
+  "query": "SELECT DISTINCT classDay, classTime FROM enrollments WHERE classDay IS NOT NULL OR classTime IS NOT NULL LIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4XsCh7iWuU32dZo.root --database KgrdzpSFaXe4NZwja8oaAC --execute SELECT DISTINCT classDay, classTime FROM enrollments WHERE classDay IS NOT NULL OR classTime IS NOT NULL LIMIT 20;",
+  "rows": [
+    {
+      "classDay": "Saturday",
+      "classTime": "1:00 PM"
+    },
+    {
+      "classDay": "Wednesday",
+      "classTime": "3:00 PM"
+    },
+    {
+      "classDay": "Tuesday",
+      "classTime": "2:00 PM"
+    },
+    {
+      "classDay": "Friday",
+      "classTime": "5:00 PM"
+    },
+    {
+      "classDay": "Tuesday",
+      "classTime": "5:00 PM"
+    },
+    {
+      "classDay": "Thursday",
+      "classTime": "5:00 PM"
+    },
+    {
+      "classDay": "Wednesday",
+      "classTime": "1:00 PM"
+    },
+    {
+      "classDay": "Wednesday",
+      "classTime": "5:00 PM"
+    },
+    {
+      "classDay": "Saturday",
+      "classTime": "9:00 AM"
+    },
+    {
+      "classDay": "Saturday",
+      "classTime": "4:00 PM"
+    },
+    {
+      "classDay": "Saturday",
+      "classTime": "3:00 PM"
+    },
+    {
+      "classDay": "Friday",
+      "classTime": "4:00 PM"
+    },
+    {
+      "classDay": "Saturday",
+      "classTime": "10:00 AM"
+    }
+  ],
+  "messages": [],
+  "stdout": "classDay\tclassTime\nSaturday\t1:00 PM\nWednesday\t3:00 PM\nTuesday\t2:00 PM\nFriday\t5:00 PM\nTuesday\t5:00 PM\nThursday\t5:00 PM\nWednesday\t1:00 PM\nWednesday\t5:00 PM\nSaturday\t9:00 AM\nSaturday\t4:00 PM\nSaturday\t3:00 PM\nFriday\t4:00 PM\nSaturday\t10:00 AM\n",
+  "stderr": "",
+  "execution_time_ms": 221
+}

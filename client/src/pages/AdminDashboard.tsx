@@ -891,7 +891,7 @@ const [editingCourseLevel, setEditingCourseLevel] = useState<string>('');
   <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <Card className="w-full max-w-md p-6 max-h-96 overflow-y-auto">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-bold">Edit Enrollment</h3>
+        <h3 className="text-lg font-bold">Edit Student Information</h3>
         <button onClick={() => setEditingId(null)} className="text-gray-500 hover:text-gray-700">
           <X size={20} />
         </button>

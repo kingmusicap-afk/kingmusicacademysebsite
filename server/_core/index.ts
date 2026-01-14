@@ -39,6 +39,10 @@ async function startServer() {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
+  // Version endpoint to check deployment
+  app.get("/api/version", (req, res) => {
+    res.json({ version: "1.0.1-enhanced-modal-d6b9c16", timestamp: new Date().toISOString() });
+  });
   // Debug endpoint
   app.get("/api/debug/db", async (req, res) => {
     try {
